@@ -1,6 +1,5 @@
 #ifndef ACTOR_H
 #define ACTOR_H
-
 enum actorType {ZOMBIE,PEASHOOTER,WALLNUT,SUNFLOWER,ALL};
 
 class Actor{
@@ -11,7 +10,6 @@ protected:
     int counter;
     int speed;
 public:
-
     void setHP(int n);
     actorType getType();
     //int state(){return counter%speed;}

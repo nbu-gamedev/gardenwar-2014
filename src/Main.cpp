@@ -1,15 +1,15 @@
-#include "World.h"
+#include "world.h"
 // screen dimension constants
 
 
 int main( int argc, char* args[] ){
 
 
+
     World level = World();
 	level.createWorld();
 	SDL_Event event;
     bool quit = false;
-
     level.grid[0][1]= new Wallnut();
 	level.grid[0][0]= new Peashooter();
 	level.grid[1][5]= new Zombie();
@@ -25,11 +25,13 @@ int main( int argc, char* args[] ){
         //Handle events on queue
 
         while( SDL_PollEvent( &event ) != 0 ){
-            if( (event.type == SDL_QUIT) ||  (event.key.keysym.sym)== SDLK_ESCAPE){
+            if( (event.type == SDL_QUIT) || (event.key.keysym.sym) == SDLK_ESCAPE){
                         quit = true;
             }
         }
-         level.draw();
+
+
+        level.draw();
         SDL_Delay(1000);
     }
 

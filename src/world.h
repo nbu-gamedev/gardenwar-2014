@@ -1,7 +1,8 @@
-#include <SDL.h>
-#include "Actor.h"
 #ifndef WORLD_H
 #define WORLD_H
+#include <SDL.h>
+#include "actor.h"
+#include "sun.h"
 #define SCREEN_WIDTH 1400
 #define SCREEN_HEIGHT 600
 #define N 5
@@ -39,5 +40,7 @@ class World
         SDL_Surface* background;
         SDL_Window* screen;
 };
+
+
 
 #endif // WORLD_H

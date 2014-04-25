@@ -675,19 +675,20 @@
 	<iostream>
 	<cstdio>
 
-1398081331 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\actor.cpp
+1398427557 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\actor.cpp
 	"actor.h"
 
-1398081331 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\actor.h
+1398430268 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\actor.h
 
-1398081331 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\world.cpp
-	"World.h"
+1398430324 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\world.cpp
+	"world.h"
 	<iostream>
 	<cstdio>
 
-1398081331 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\world.h
+1398430324 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\world.h
 	<SDL.h>
-	"Actor.h"
+	"actor.h"
+	"sun.h"
 
 1394940796 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sdl\include\sdl2\sdl.h
 	"SDL_main.h"
@@ -1005,4 +1006,12 @@
 	"SDL_stdinc.h"
 	"begin_code.h"
 	"close_code.h"
+
+1398429580 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\main.cpp
+	"World.h"
+
+1398430277 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sun.h
+
+1398430283 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sun.cpp
+	"sun.h"
 
