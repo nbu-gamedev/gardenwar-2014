@@ -2,10 +2,7 @@
 #include <cstdio>
 const int SCREEN_WIDTH = 1380;
 const int SCREEN_HEIGHT = 600;
-const int base_x = 256;
-const int base_y = 85;
-const int offset_x = 80;
-const int offset_y = 98;
+
 
 World::World(){
     game_over = NULL;
