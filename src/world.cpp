@@ -32,6 +32,7 @@ void World::createWorld(){
     Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     ScreenSurface = SDL_GetWindowSurface(Window);
     Background = SDL_LoadBMP("../bin/media/background.bmp");
+    game_over = SDL_LoadBMP("../bin/media/gameOver.bmp");
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
