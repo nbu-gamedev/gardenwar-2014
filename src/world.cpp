@@ -179,7 +179,9 @@ void World::update(){
 }
 
 void World::gameOver(){
-    apply_surface(0, 0, game_over, ScreenSurface);
+    apply_surface(380, 190, game_over, ScreenSurface);
+    SDL_UpdateWindowSurface(Window);
+    SDL_Delay(1500);
     quit=true;
 }
 
