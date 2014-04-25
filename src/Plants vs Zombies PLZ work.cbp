@@ -40,6 +40,8 @@
 		<Unit filename="Main.cpp" />
 		<Unit filename="actor.cpp" />
 		<Unit filename="actor.h" />
+		<Unit filename="sun.cpp" />
+		<Unit filename="sun.h" />
 		<Unit filename="world.cpp" />
 		<Unit filename="world.h" />
 		<Extensions>

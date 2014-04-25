@@ -2,8 +2,8 @@
 
 Sun::Sun()
 {
-    x;
-    y = ;
+    x = 0;
+    y = 0;
     timeLeft = 15;
     sunValue = 20;
     collected = false;

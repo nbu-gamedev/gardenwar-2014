@@ -675,17 +675,16 @@
 	<iostream>
 	<cstdio>
 
-1398427557 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\actor.cpp
+1398434826 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\actor.cpp
 	"actor.h"
 
-1398430268 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\actor.h
+1398434826 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\actor.h
 
-1398430324 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\world.cpp
+1398435075 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\world.cpp
 	"world.h"
-	<iostream>
 	<cstdio>
 
-1398430324 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\world.h
+1398434826 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\world.h
 	<SDL.h>
 	"actor.h"
 	"sun.h"
@@ -1007,11 +1006,12 @@
 	"begin_code.h"
 	"close_code.h"
 
-1398429580 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\main.cpp
-	"World.h"
+1398435075 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\main.cpp
+	"world.h"
+	<ctime>
 
-1398430277 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sun.h
+1398434287 c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sun.h
 
-1398430283 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sun.cpp
+1398435938 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sun.cpp
 	"sun.h"
 
