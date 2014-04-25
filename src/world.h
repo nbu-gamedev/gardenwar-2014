@@ -11,6 +11,7 @@
 class World
 {
     public:
+        static bool quit;
         Actor* grid[N][M]; // temp posle 6te e privet ( v momenta setvame zombita v main)
 
         World();
@@ -18,27 +19,17 @@ class World
         void createWorld();
         void destroyWorld();
         void draw();
-
-
-            /*void update(){
-    	for(int i=0; i<N; i++){
-    		for(int j=0; j<M; j++){
-    			if(grid[i][j] != NULL){
-    				grid[i][j]->action(i, j, grid[i][j--]);
-    			}
-    		}
-    	}
-
-    }*/
-
-
-    protected:
+        void update();
+        
+        void gameOver();
 
     private:
         SDL_Surface* gScreenSurface;
         SDL_Surface* images[ALL];
         SDL_Surface* background;
         SDL_Window* screen;
+        SDL_Surface* game_over;
+
 };
 
 

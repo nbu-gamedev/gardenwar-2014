@@ -1,13 +1,14 @@
 #include "world.h"
-#include <iostream>
 #include <cstdio>
+
 World::World(){
-    background= NULL;
+    background = NULL;
     screen = NULL;
     images[ZOMBIE] = NULL;
     images[PEASHOOTER] = NULL;
     images[WALLNUT] = NULL;
     gScreenSurface = NULL;
+    game_over = NULL;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
@@ -18,25 +19,20 @@ World::World(){
 World::~World(){
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
-            if(grid[i][j] != NULL){
                 delete grid[i][j];
-                    std::cout<<"DESTRUCTED!!!!\n";
-                }
-            }
         }
+    }
 }
 
-
 void World::createWorld(){
-       if( SDL_Init( SDL_INIT_EVERYTHING )<0) {
+       if( SDL_Init( SDL_INIT_EVERYTHING )<0){
             printf("Error: %s\n", SDL_GetError());
        }
-        //bool success = true;
-        //Set up screen
-        screen = SDL_CreateWindow( "Plants vs Zombies", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
-        if (screen==NULL)
-            printf("Error: %s\n", SDL_GetError());
 
+        screen = SDL_CreateWindow( "Plants vs Zombies", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
+        if (screen==NULL){
+            printf("Error: %s\n", SDL_GetError());
+        }
         gScreenSurface = SDL_GetWindowSurface(screen);
          if (gScreenSurface==NULL) {
                 printf("Error: %s\n", SDL_GetError());
@@ -69,16 +65,17 @@ void World::createWorld(){
         }
         SDL_SetColorKey(images[SUNFLOWER], SDL_TRUE, SDL_MapRGB(images[SUNFLOWER]->format, 255, 255, 255));
 
-
-        //Apply image to screen
         if( SDL_BlitSurface( background, NULL, gScreenSurface, NULL )<0) {
                 printf("Error: %s\n", SDL_GetError());
         }
         //Update Screen
-        if (SDL_UpdateWindowSurface( screen )<0)printf("Error: %s\n", SDL_GetError()) ;
-
-
-
+        if (SDL_UpdateWindowSurface( screen )<0){
+             printf("Error: %s\n", SDL_GetError()) ;
+        }
+         game_over = SDL_LoadBMP( "../bin/media/gameOver.bmp" );
+         if (game_over==NULL) {
+                printf("Error: %s\n", SDL_GetError());
+         }
 }
 
 void World::destroyWorld(){
@@ -87,6 +84,7 @@ void World::destroyWorld(){
     SDL_FreeSurface( images[ZOMBIE] );
     SDL_FreeSurface( images[PEASHOOTER] );
     SDL_FreeSurface( images[WALLNUT] );
+    SDL_FreeSurface( game_over );
     SDL_DestroyWindow( screen );
 }
 
@@ -101,11 +99,20 @@ void World::draw(){
                     printf("Error: %s\n", SDL_GetError());
                 }
                 if(SDL_UpdateWindowSurface( screen )<0) {
-                    printf("Error: %s\n", SDL_GetError());
+                    printf("Error: %s\n",SDL_GetError());
                 }
-                //SDL_Delay(250);
+                grid[i][j]->incCounter();
+                SDL_Delay(250);
             }
+
         }
     }
+}
+
+void World::update(){}
+
+void World::gameOver(){
+    // print gameover picture
+    quit=true;
 }
 
