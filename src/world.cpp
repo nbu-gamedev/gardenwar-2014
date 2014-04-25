@@ -1,14 +1,17 @@
 #include "world.h"
 #include <cstdio>
+const int SCREEN_WIDTH = 1380;
+const int SCREEN_HEIGHT = 600;
+const int base_x = 256;
+const int base_y = 85;
+const int offset_x = 80;
+const int offset_y = 98;
 
 World::World(){
-    background = NULL;
-    screen = NULL;
-    images[ZOMBIE] = NULL;
-    images[PEASHOOTER] = NULL;
-    images[WALLNUT] = NULL;
-    gScreenSurface = NULL;
     game_over = NULL;
+    Window = NULL;
+    Background = NULL;
+    ScreenSurface = NULL;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
@@ -25,94 +28,78 @@ World::~World(){
 }
 
 void World::createWorld(){
-       if( SDL_Init( SDL_INIT_EVERYTHING )<0){
-            printf("Error: %s\n", SDL_GetError());
-       }
-
-        screen = SDL_CreateWindow( "Plants vs Zombies", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, 0);
-        if (screen==NULL){
-            printf("Error: %s\n", SDL_GetError());
-        }
-        gScreenSurface = SDL_GetWindowSurface(screen);
-         if (gScreenSurface==NULL) {
-                printf("Error: %s\n", SDL_GetError());
-         }
-        background = SDL_LoadBMP( "../bin/media/background.bmp" );
-         if (background==NULL) {
-                printf("Error: %s\n", SDL_GetError());
-         }
-        images[ZOMBIE] = SDL_LoadBMP("../bin/media/zombie.bmp");
-         if (images[ZOMBIE]==NULL) {
-                printf("Error: %s\n", SDL_GetError());
-         }
-        SDL_SetColorKey(images[ZOMBIE], SDL_TRUE, SDL_MapRGB(images[ZOMBIE]->format, 255, 255, 255));
-
-        images[PEASHOOTER] = SDL_LoadBMP("../bin/media/peashooter.bmp");
-         if (images[PEASHOOTER]==NULL) {
-                printf("Error: %s\n", SDL_GetError());
-         }
-        SDL_SetColorKey(images[PEASHOOTER], SDL_TRUE, SDL_MapRGB(images[PEASHOOTER]->format, 255, 255, 255));
-
-        images[WALLNUT] = SDL_LoadBMP("../bin/media/Wallnut.bmp");
-        if (images[WALLNUT]==NULL) {
-               printf("Error: %s\n", SDL_GetError());
-        }
-        SDL_SetColorKey(images[WALLNUT], SDL_TRUE, SDL_MapRGB(images[WALLNUT]->format, 255, 255, 255));
-
-        images[SUNFLOWER] = SDL_LoadBMP("../bin/media/Sunflower.bmp");
-        if (images[SUNFLOWER]==NULL) {
-              printf("Error: %s\n", SDL_GetError());
-        }
-        SDL_SetColorKey(images[SUNFLOWER], SDL_TRUE, SDL_MapRGB(images[SUNFLOWER]->format, 255, 255, 255));
-
-        if( SDL_BlitSurface( background, NULL, gScreenSurface, NULL )<0) {
-                printf("Error: %s\n", SDL_GetError());
-        }
-        //Update Screen
-        if (SDL_UpdateWindowSurface( screen )<0){
-             printf("Error: %s\n", SDL_GetError()) ;
-        }
-         game_over = SDL_LoadBMP( "../bin/media/gameOver.bmp" );
-         if (game_over==NULL) {
-                printf("Error: %s\n", SDL_GetError());
-         }
+    SDL_Init(SDL_INIT_EVERYTHING);
+    Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    ScreenSurface = SDL_GetWindowSurface(Window);
+    Background = SDL_LoadBMP("../bin/media/background.bmp");
+    SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
+    SDL_UpdateWindowSurface(Window);
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
+    SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_01.bmp"));
+    SDL_SetColorKey(Images[0][1], SDL_TRUE, SDL_MapRGB(Images[0][1]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_02.bmp"));
+    SDL_SetColorKey(Images[0][2], SDL_TRUE, SDL_MapRGB(Images[0][2]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_03.bmp"));
+    SDL_SetColorKey(Images[0][3], SDL_TRUE, SDL_MapRGB(Images[0][3]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_04.bmp"));
+    SDL_SetColorKey(Images[0][4], SDL_TRUE, SDL_MapRGB(Images[0][4]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_05.bmp"));
+    SDL_SetColorKey(Images[0][5], SDL_TRUE, SDL_MapRGB(Images[0][5]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_06.bmp"));
+    SDL_SetColorKey(Images[0][6], SDL_TRUE, SDL_MapRGB(Images[0][6]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_07.bmp"));
+    SDL_SetColorKey(Images[0][7], SDL_TRUE, SDL_MapRGB(Images[0][7]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_08.bmp"));
+    SDL_SetColorKey(Images[0][8], SDL_TRUE, SDL_MapRGB(Images[0][8]->format, 255, 255, 255));
+    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_09.bmp"));
+    SDL_SetColorKey(Images[0][9], SDL_TRUE, SDL_MapRGB(Images[0][9]->format, 255, 255, 255));
 }
 
 void World::destroyWorld(){
-
-    SDL_FreeSurface( background );
-    SDL_FreeSurface( images[ZOMBIE] );
-    SDL_FreeSurface( images[PEASHOOTER] );
-    SDL_FreeSurface( images[WALLNUT] );
+    SDL_DestroyWindow(Window);
     SDL_FreeSurface( game_over );
-    SDL_DestroyWindow( screen );
+    SDL_FreeSurface(Background);
 }
 
-void World::draw(){
-
-    for(int i=0; i<N; i++){
-        for(int j=0; j<M; j++){
-            if(grid[i][j] != NULL){
-                actorType type = grid[i][j]->getType();
-                SDL_Rect temp = {(short int)(256+j*80),(short int)(80+i*100),100,62};
-                if(SDL_BlitSurface(images[type],NULL,gScreenSurface,&temp)<0){
-                    printf("Error: %s\n", SDL_GetError());
+void World::draw()
+{
+    SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
+    for(int i=0; i<N; i++)
+    {
+        for(int j=0; j<M; j++)
+        {
+            if(grid[i][j] != NULL)
+            {
+                switch(grid[i][j]->getType())
+                case(SUNFLOWER):
+                {
+                    apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[0][grid[i][j]->return_counter()], ScreenSurface);
+                    grid[i][j]->fill_counter(grid[i][j]->return_mover());
+                    if(grid[i][j]->return_counter() == 9)
+                        grid[i][j]->fill_mover(-1);
+                    if(grid[i][j]->return_counter() == 1)
+                        grid[i][j]->fill_mover(1);
+                    break;
                 }
-                if(SDL_UpdateWindowSurface( screen )<0) {
-                    printf("Error: %s\n",SDL_GetError());
-                }
-                grid[i][j]->incCounter();
-                SDL_Delay(250);
             }
-
         }
     }
+    SDL_UpdateWindowSurface(Window);
 }
 
 void World::update(){}
 
 void World::gameOver(){
-    // print gameover picture
+    apply_surface(0, 0, game_over, ScreenSurface);
     quit=true;
+}
+
+void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination)
+{
+    SDL_Rect offset;
+    offset.x = x;
+    offset.y = y;
+    SDL_BlitSurface( source, NULL, destination, &offset );
 }
 

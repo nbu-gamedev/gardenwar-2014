@@ -40,6 +40,8 @@ Zombie::Zombie(){
     health = 100;
     counter = 0;
     damage = 25;
+    counter_test = 0;
+    mover = 1;
 }
 
 Peashooter::Peashooter(){
@@ -50,6 +52,8 @@ Peashooter::Peashooter(){
     health = 55;
     counter=0;
     damage = 20;
+    counter_test = 0;
+    mover = 1;
 }
 
 Wallnut::Wallnut(){
@@ -60,6 +64,8 @@ Wallnut::Wallnut(){
     counter = 0;
     speed = 10;
     damage = 0;
+    counter_test = 0;
+    mover = 1;
 }
 Sunflower::Sunflower(){
 
@@ -69,6 +75,28 @@ Sunflower::Sunflower(){
     counter = 0;
     speed = 12;
     damage = 0;
+    counter_test = 0;
+    mover = 1;
+}
+
+int Actor::return_counter()
+{
+    return counter_test;
+}
+
+void Actor::fill_counter(int mover)
+{
+    counter_test += mover;
+}
+
+int Actor::return_mover()
+{
+    return mover;
+}
+
+void Actor::fill_mover(int change)
+{
+    mover = change;
 }
 
 

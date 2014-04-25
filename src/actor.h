@@ -10,6 +10,8 @@ protected:
     int health;
     int counter;
     int speed;
+    int counter_test;
+    int mover;
     actorAct act;
     int damage;
 public:
@@ -21,6 +23,10 @@ public:
     int getDamage();
     int getCounter();
     void incCounter();
+    int return_counter();
+    void fill_counter(int mover);
+    int return_mover();
+    void fill_mover(int change);
     //virtual void upadte(int i,int j);
     //int state(){return counter%speed;}
 

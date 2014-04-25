@@ -32,6 +32,7 @@
 			<Add option="-std=c++0x" />
 			<Add option="-Wall" />
 			<Add directory="sdl/include/SDL2" />
+			<Add directory="C:/Users/yavor/Desktop/Mingw_dev_libraries/include/SDL2" />
 		</Compiler>
 		<Linker>
 			<Add option="-lmingw32 -lSDL2main -lSDL2" />
