@@ -13,10 +13,10 @@ int main( int argc, char* args[] ){
     time(&curr);
 	last=time(&curr);
 
-    level.grid[0][2] = new Sunflower();
+    level.grid[3][2] = new Sunflower();
+    level.grid[1][1] = new Peashooter();
 
 	while( !World::quit ){
-		level.apply_surface(300,300,level.Images[0][0], level.ScreenSurface);
 		while( SDL_PollEvent( &event ) != 0 ){
 			if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
 				World::quit = true;

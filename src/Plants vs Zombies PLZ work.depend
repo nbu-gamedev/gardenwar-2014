@@ -1015,16 +1015,16 @@
 1398435938 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sun.cpp
 	"sun.h"
 
-1398454312 source:c:\users\yavor\documents\github\gardenwar-2014\src\actor.cpp
+1398455189 source:c:\users\yavor\documents\github\gardenwar-2014\src\actor.cpp
 	"actor.h"
 
-1398454312 c:\users\yavor\documents\github\gardenwar-2014\src\actor.h
+1398457832 c:\users\yavor\documents\github\gardenwar-2014\src\actor.h
 
-1398454415 source:c:\users\yavor\documents\github\gardenwar-2014\src\main.cpp
+1398460718 source:c:\users\yavor\documents\github\gardenwar-2014\src\main.cpp
 	"world.h"
 	<ctime>
 
-1398453274 c:\users\yavor\documents\github\gardenwar-2014\src\world.h
+1398455189 c:\users\yavor\documents\github\gardenwar-2014\src\world.h
 	<SDL.h>
 	"actor.h"
 	"sun.h"
@@ -1349,7 +1349,10 @@
 
 1398451876 c:\users\yavor\documents\github\gardenwar-2014\src\sun.h
 
-1398454319 source:c:\users\yavor\documents\github\gardenwar-2014\src\world.cpp
+1398455189 source:c:\users\yavor\documents\github\gardenwar-2014\src\world.cpp
 	"world.h"
 	<cstdio>
+
+1398455186 source:c:\users\yavor\documents\github\gardenwar-2014\src\sun.cpp
+	"sun.h"
 

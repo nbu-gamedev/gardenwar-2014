@@ -55,6 +55,30 @@ void World::createWorld(){
     SDL_SetColorKey(Images[0][8], SDL_TRUE, SDL_MapRGB(Images[0][8]->format, 255, 255, 255));
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_09.bmp"));
     SDL_SetColorKey(Images[0][9], SDL_TRUE, SDL_MapRGB(Images[0][9]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_00.bmp"));
+    SDL_SetColorKey(Images[1][0], SDL_TRUE, SDL_MapRGB(Images[1][0]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_01.bmp"));
+    SDL_SetColorKey(Images[1][1], SDL_TRUE, SDL_MapRGB(Images[1][1]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_02.bmp"));
+    SDL_SetColorKey(Images[1][2], SDL_TRUE, SDL_MapRGB(Images[1][2]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_03.bmp"));
+    SDL_SetColorKey(Images[1][3], SDL_TRUE, SDL_MapRGB(Images[1][3]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_04.bmp"));
+    SDL_SetColorKey(Images[1][4], SDL_TRUE, SDL_MapRGB(Images[1][4]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_05.bmp"));
+    SDL_SetColorKey(Images[1][5], SDL_TRUE, SDL_MapRGB(Images[1][5]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_06.bmp"));
+    SDL_SetColorKey(Images[1][6], SDL_TRUE, SDL_MapRGB(Images[1][6]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_07.bmp"));
+    SDL_SetColorKey(Images[1][7], SDL_TRUE, SDL_MapRGB(Images[1][7]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_08.bmp"));
+    SDL_SetColorKey(Images[1][8], SDL_TRUE, SDL_MapRGB(Images[1][8]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_09.bmp"));
+    SDL_SetColorKey(Images[1][9], SDL_TRUE, SDL_MapRGB(Images[1][9]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_10.bmp"));
+    SDL_SetColorKey(Images[1][10], SDL_TRUE, SDL_MapRGB(Images[1][10]->format, 255, 255, 255));
+    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_11.bmp"));
+    SDL_SetColorKey(Images[1][11], SDL_TRUE, SDL_MapRGB(Images[1][11]->format, 255, 255, 255));
 }
 
 void World::destroyWorld(){
@@ -72,16 +96,28 @@ void World::draw()
         {
             if(grid[i][j] != NULL)
             {
-                switch(grid[i][j]->getType())
-                case(SUNFLOWER):
+                switch (grid[i][j]->getType())
                 {
-                    apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[0][grid[i][j]->return_counter()], ScreenSurface);
-                    grid[i][j]->fill_counter(grid[i][j]->return_mover());
-                    if(grid[i][j]->return_counter() == 9)
-                        grid[i][j]->fill_mover(-1);
-                    if(grid[i][j]->return_counter() == 1)
-                        grid[i][j]->fill_mover(1);
-                    break;
+                    case(SUNFLOWER):
+                    {
+                        apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[0][grid[i][j]->return_counter()], ScreenSurface);
+                        grid[i][j]->fill_counter(grid[i][j]->return_mover());
+                        if(grid[i][j]->return_counter() == 9)
+                            grid[i][j]->fill_mover(-1);
+                        if(grid[i][j]->return_counter() == 1)
+                            grid[i][j]->fill_mover(1);
+                        break;
+                    }
+                    case(PEASHOOTER):
+                    {
+                        apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[1][grid[i][j]->return_counter()], ScreenSurface);
+                        grid[i][j]->fill_counter(grid[i][j]->return_mover());
+                        if(grid[i][j]->return_counter() == 11)
+                            grid[i][j]->fill_mover(-1);
+                        if(grid[i][j]->return_counter() == 1)
+                            grid[i][j]->fill_mover(1);
+                        break;
+                    }
                 }
             }
         }

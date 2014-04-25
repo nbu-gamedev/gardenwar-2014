@@ -5,7 +5,6 @@ enum actorAct {MOVE,ATTACK,STAY,DIE};
 
 class Actor{
 protected:
-
     actorType type;
     int health;
     int counter;
