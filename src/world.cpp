@@ -89,7 +89,58 @@ void World::draw()
     SDL_UpdateWindowSurface(Window);
 }
 
-void World::update(){}
+void World::update(){
+     for(int i=0; i<N; i++){
+        for(int j=0; j<M; j++){
+            if(grid[i][j] != NULL){
+                // vreme za umirane:
+                if((grid[i][j]->getHP())<=0){
+                  //  if(grid[i][j]->getAct()!=DIE) {grid[i][j]->setAct(DIE);}
+                    //else {//if(grid[i][j]->getCounter()==10){ // ... && grid[i][j]->getAct()==DIE
+                        delete grid[i][j];
+                        grid[i][j]=NULL;
+                        continue;
+                 //   }
+                }
+                // ako e zombie:
+                if (grid[i][j]->getType()==ZOMBIE){
+                    if(j==0) gameOver(); //  1. stignalo e do kraq
+                    else if (grid[i][j-1]==NULL) { //  2. mesti se
+                        grid[i][j-1]=grid[i][j];
+                        grid[i][j]=NULL;
+                        grid[i][j-1]->setAct(MOVE);
+                    }
+                    else if (grid[i][j-1]->getType()!=ZOMBIE){// 3. ima cvete otpred
+                            grid[i][j-1]->setHP(-(grid[i][j]->getDamage()));
+                            if(grid[i][j]->getAct()!=ATTACK){
+                                grid[i][j]->setAct(ATTACK);
+                            }
+                    }
+                }
+                // ako e cvete:
+                else {
+                   if (grid[i][j]->getType()==PEASHOOTER){
+                        for(int k=j+1;k<M;k++){
+                            if(grid[i][k]!=NULL){
+                                if (grid[i][k]->getType()==ZOMBIE && (grid[i][k]->getAct()!=DIE)){
+                                    grid[i][k]->setHP(-(grid[i][j]->getDamage()));
+                                    if(grid[i][j]->getAct()!=ATTACK) { grid[i][j]->setAct(ATTACK);}
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    /*else if (grid[i][j]->getType()==SUNFLOWER){
+                            //puska Sun...
+
+                    }
+
+                    */
+                }
+            }
+        }
+    }
+}
 
 void World::gameOver(){
     apply_surface(0, 0, game_over, ScreenSurface);
