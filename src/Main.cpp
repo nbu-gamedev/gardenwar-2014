@@ -1,7 +1,7 @@
 #include "world.h"
-
+#include <iostream>
 #include <ctime>
-
+using namespace std;
 bool World::quit=false;
 int main( int argc, char* args[] ){
 
@@ -12,6 +12,12 @@ int main( int argc, char* args[] ){
 	time_t curr=0,last=0;
     time(&curr);
 	last=time(&curr);
+    int row = 0;
+    int column = 0;
+    int gridStartX = base_x;
+    int gridEndX = base_x + M*offset_x;
+    int gridStartY = base_y;
+    int gridEndY = base_y + N*offset_y;
 
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
@@ -21,12 +27,18 @@ int main( int argc, char* args[] ){
 			if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
 				World::quit = true;
 			}
-			// puts Peashooter at [0][0] if clicked there
-			// will be in a loop for each location
-			if ( event.type == SDL_MOUSEBUTTONDOWN){
-                if (event.button.x > base_x && event.button.x < base_x + offset_x && event.button.y > base_y && event.button.y < base_y + offset_y )
-                    level.grid[0][0] = new Peashooter();
-			}
+			// if player clicks inside the grid
+            else if ( (event.type == SDL_MOUSEBUTTONUP) && (event.button.x > gridStartX) &&
+                 (event.button.x < gridEndX) && (event.button.y >gridStartY) && (event.button.y < gridEndY) ) {
+                // Place Peashooter at clicked grid location
+                column = (event.button.x - base_x)/offset_x;
+                row = (event.button.y - base_y)/offset_y;
+                cout << "column:" << column << " row:" << row << " address:" << level.grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
+                if (level.grid[row][column] == NULL) {
+                    level.grid[row][column] = new Peashooter();
+                    cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
+                }
+            }
 		}
 		time(&curr);
 		if(curr-last>=1){
