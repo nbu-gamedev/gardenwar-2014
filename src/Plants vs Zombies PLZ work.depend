@@ -1022,11 +1022,12 @@
 
 1398461249 c:\users\yavor\documents\github\gardenwar-2014\src\actor.h
 
-1398495519 source:c:\users\yavor\documents\github\gardenwar-2014\src\main.cpp
+1398545153 source:c:\users\yavor\documents\github\gardenwar-2014\src\main.cpp
 	"world.h"
+	<iostream>
 	<ctime>
 
-1398455189 c:\users\yavor\documents\github\gardenwar-2014\src\world.h
+1398526502 c:\users\yavor\documents\github\gardenwar-2014\src\world.h
 	<SDL.h>
 	"actor.h"
 	"sun.h"
@@ -1349,9 +1350,9 @@
 	"begin_code.h"
 	"close_code.h"
 
-1398451876 c:\users\yavor\documents\github\gardenwar-2014\src\sun.h
+1398540094 c:\users\yavor\documents\github\gardenwar-2014\src\sun.h
 
-1398495577 source:c:\users\yavor\documents\github\gardenwar-2014\src\world.cpp
+1398545104 source:c:\users\yavor\documents\github\gardenwar-2014\src\world.cpp
 	"world.h"
 	<cstdio>
 

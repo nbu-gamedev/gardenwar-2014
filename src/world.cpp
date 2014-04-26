@@ -90,6 +90,86 @@ void World::createWorld(){
     SDL_SetColorKey(Images[2][5], SDL_TRUE, SDL_MapRGB(Images[2][5]->format, 255, 255, 255));
     Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_06.bmp"));
     SDL_SetColorKey(Images[2][6], SDL_TRUE, SDL_MapRGB(Images[2][6]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_00.bmp"));
+    SDL_SetColorKey(Images[3][0], SDL_TRUE, SDL_MapRGB(Images[3][0]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_01.bmp"));
+    SDL_SetColorKey(Images[3][1], SDL_TRUE, SDL_MapRGB(Images[3][1]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_02.bmp"));
+    SDL_SetColorKey(Images[3][2], SDL_TRUE, SDL_MapRGB(Images[3][2]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_03.bmp"));
+    SDL_SetColorKey(Images[3][3], SDL_TRUE, SDL_MapRGB(Images[3][3]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_04.bmp"));
+    SDL_SetColorKey(Images[3][4], SDL_TRUE, SDL_MapRGB(Images[3][4]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_05.bmp"));
+    SDL_SetColorKey(Images[3][5], SDL_TRUE, SDL_MapRGB(Images[3][5]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_06.bmp"));
+    SDL_SetColorKey(Images[3][6], SDL_TRUE, SDL_MapRGB(Images[3][6]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_07.bmp"));
+    SDL_SetColorKey(Images[3][7], SDL_TRUE, SDL_MapRGB(Images[3][7]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_08.bmp"));
+    SDL_SetColorKey(Images[3][8], SDL_TRUE, SDL_MapRGB(Images[3][8]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_09.bmp"));
+    SDL_SetColorKey(Images[3][9], SDL_TRUE, SDL_MapRGB(Images[3][9]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_10.bmp"));
+    SDL_SetColorKey(Images[3][10], SDL_TRUE, SDL_MapRGB(Images[3][10]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_11.bmp"));
+    SDL_SetColorKey(Images[3][11], SDL_TRUE, SDL_MapRGB(Images[3][11]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_12.bmp"));
+    SDL_SetColorKey(Images[3][12], SDL_TRUE, SDL_MapRGB(Images[3][12]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_13.bmp"));
+    SDL_SetColorKey(Images[3][13], SDL_TRUE, SDL_MapRGB(Images[3][13]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_14.bmp"));
+    SDL_SetColorKey(Images[3][14], SDL_TRUE, SDL_MapRGB(Images[3][14]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_15.bmp"));
+    SDL_SetColorKey(Images[3][15], SDL_TRUE, SDL_MapRGB(Images[3][15]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_16.bmp"));
+    SDL_SetColorKey(Images[3][16], SDL_TRUE, SDL_MapRGB(Images[3][16]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_17.bmp"));
+    SDL_SetColorKey(Images[3][17], SDL_TRUE, SDL_MapRGB(Images[3][17]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_18.bmp"));
+    SDL_SetColorKey(Images[3][18], SDL_TRUE, SDL_MapRGB(Images[3][18]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_19.bmp"));
+    SDL_SetColorKey(Images[3][19], SDL_TRUE, SDL_MapRGB(Images[3][19]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_20.bmp"));
+    SDL_SetColorKey(Images[3][20], SDL_TRUE, SDL_MapRGB(Images[3][20]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_21.bmp"));
+    SDL_SetColorKey(Images[3][21], SDL_TRUE, SDL_MapRGB(Images[3][21]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_22.bmp"));
+    SDL_SetColorKey(Images[3][22], SDL_TRUE, SDL_MapRGB(Images[3][22]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_23.bmp"));
+    SDL_SetColorKey(Images[3][23], SDL_TRUE, SDL_MapRGB(Images[3][23]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_24.bmp"));
+    SDL_SetColorKey(Images[3][24], SDL_TRUE, SDL_MapRGB(Images[3][24]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_25.bmp"));
+    SDL_SetColorKey(Images[3][25], SDL_TRUE, SDL_MapRGB(Images[3][25]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_26.bmp"));
+    SDL_SetColorKey(Images[3][26], SDL_TRUE, SDL_MapRGB(Images[3][26]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_27.bmp"));
+    SDL_SetColorKey(Images[3][27], SDL_TRUE, SDL_MapRGB(Images[3][27]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_28.bmp"));
+    SDL_SetColorKey(Images[3][28], SDL_TRUE, SDL_MapRGB(Images[3][28]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_29.bmp"));
+    SDL_SetColorKey(Images[3][29], SDL_TRUE, SDL_MapRGB(Images[3][29]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_30.bmp"));
+    SDL_SetColorKey(Images[3][30], SDL_TRUE, SDL_MapRGB(Images[3][30]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_31.bmp"));
+    SDL_SetColorKey(Images[3][31], SDL_TRUE, SDL_MapRGB(Images[3][31]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_32.bmp"));
+    SDL_SetColorKey(Images[3][32], SDL_TRUE, SDL_MapRGB(Images[3][32]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_33.bmp"));
+    SDL_SetColorKey(Images[3][33], SDL_TRUE, SDL_MapRGB(Images[3][33]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_34.bmp"));
+    SDL_SetColorKey(Images[3][34], SDL_TRUE, SDL_MapRGB(Images[3][34]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_35.bmp"));
+    SDL_SetColorKey(Images[3][35], SDL_TRUE, SDL_MapRGB(Images[3][35]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_36.bmp"));
+    SDL_SetColorKey(Images[3][36], SDL_TRUE, SDL_MapRGB(Images[3][36]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_37.bmp"));
+    SDL_SetColorKey(Images[3][37], SDL_TRUE, SDL_MapRGB(Images[3][37]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_38.bmp"));
+    SDL_SetColorKey(Images[3][38], SDL_TRUE, SDL_MapRGB(Images[3][38]->format, 255, 255, 255));
+    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_39.bmp"));
+    SDL_SetColorKey(Images[3][39], SDL_TRUE, SDL_MapRGB(Images[3][39]->format, 255, 255, 255));
 }
 
 void World::destroyWorld(){
@@ -145,6 +225,13 @@ void World::draw()
                         if(grid[i][j]->return_counter() == 1)
                             grid[i][j]->fill_mover(1);
                         break;
+                    }
+                    case(ZOMBIE):
+                    {
+                        apply_surface((base_x + j*offset_x + 40), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                        grid[i][j]->fill_counter(1);
+                        if(grid[i][j]->return_counter() == 40)
+                            grid[i][j]->fill_counter(-40);
                     }
                 }
             }
