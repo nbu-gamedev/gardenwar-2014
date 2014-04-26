@@ -6,7 +6,7 @@ class Sun
 {
     public:
         Sun();
-        virtual ~Sun();
+        ~Sun();
          int Getx() { return x; }
         void Setx( int val) { x = val; }
          int Gety() { return y; }
