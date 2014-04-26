@@ -1017,12 +1017,12 @@
 1398435938 source:c:\users\samir\documents\github\gardenwar-2014\.git\gardenwar-2014\src\sun.cpp
 	"sun.h"
 
-1398455189 source:c:\users\yavor\documents\github\gardenwar-2014\src\actor.cpp
+1398545665 source:c:\users\yavor\documents\github\gardenwar-2014\src\actor.cpp
 	"actor.h"
 
-1398461249 c:\users\yavor\documents\github\gardenwar-2014\src\actor.h
+1398552171 c:\users\yavor\documents\github\gardenwar-2014\src\actor.h
 
-1398545153 source:c:\users\yavor\documents\github\gardenwar-2014\src\main.cpp
+1398552520 source:c:\users\yavor\documents\github\gardenwar-2014\src\main.cpp
 	"world.h"
 	<iostream>
 	<ctime>
@@ -1352,7 +1352,7 @@
 
 1398540094 c:\users\yavor\documents\github\gardenwar-2014\src\sun.h
 
-1398545104 source:c:\users\yavor\documents\github\gardenwar-2014\src\world.cpp
+1398552377 source:c:\users\yavor\documents\github\gardenwar-2014\src\world.cpp
 	"world.h"
 	<cstdio>
 

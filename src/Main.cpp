@@ -23,6 +23,7 @@ int main( int argc, char* args[] ){
     level.grid[1][1] = new Peashooter();
     level.grid[2][2] = new Wallnut();
     level.grid[0][8] = new Zombie();
+    level.grid[0][7] = new Zombie();
 
 	while( !World::quit ){
 		while( SDL_PollEvent( &event ) != 0 ){
@@ -32,7 +33,7 @@ int main( int argc, char* args[] ){
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
                     createPeashooter(&level,event);
                 }
-                else if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
+                if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
                     World::quit = true;
                 }
             }

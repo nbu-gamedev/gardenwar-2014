@@ -20,6 +20,8 @@ public:
     actorAct getAct();
     void setAct(actorAct act);
     int getDamage();
+    void fill_move_counter(){counter++;}
+    int return_move_counter(){return counter;}
     int getCounter();
     void incCounter();
     int return_counter();

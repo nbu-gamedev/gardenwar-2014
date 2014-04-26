@@ -228,7 +228,7 @@ void World::draw()
                     }
                     case(ZOMBIE):
                     {
-                        apply_surface((base_x + j*offset_x + 40), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                        apply_surface((base_x + j*offset_x - 80), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
                         grid[i][j]->fill_counter(1);
                         if(grid[i][j]->return_counter() == 40)
                             grid[i][j]->fill_counter(-40);
@@ -255,6 +255,9 @@ void World::update(){
                 }
                 // ako e zombie:
                 if (grid[i][j]->getType()==ZOMBIE){
+                    grid[i][j]->fill_move_counter();
+                    if(grid[i][j]->return_move_counter() % 8 == 0)
+                    {
                     if(j==0) gameOver(); //  1. stignalo e do kraq
                     else if (grid[i][j-1]==NULL) { //  2. mesti se
                         grid[i][j-1]=grid[i][j];
@@ -266,6 +269,7 @@ void World::update(){
                             if(grid[i][j]->getAct()!=ATTACK){
                                 grid[i][j]->setAct(ATTACK);
                             }
+                    }
                     }
                 }
                 // ako e cvete:
