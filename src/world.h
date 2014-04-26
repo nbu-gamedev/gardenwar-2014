@@ -6,6 +6,10 @@
 #include <vector>
 #define N 5
 #define M 9
+const int base_x = 256;
+const int base_y = 85;
+const int offset_x = 80;
+const int offset_y = 98;
 
 using namespace std;
 

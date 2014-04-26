@@ -2,10 +2,7 @@
 #include <cstdio>
 const int SCREEN_WIDTH = 1380;
 const int SCREEN_HEIGHT = 600;
-const int base_x = 256;
-const int base_y = 85;
-const int offset_x = 80;
-const int offset_y = 98;
+
 
 World::World(){
     game_over = NULL;
@@ -79,12 +76,33 @@ void World::createWorld(){
     SDL_SetColorKey(Images[1][10], SDL_TRUE, SDL_MapRGB(Images[1][10]->format, 255, 255, 255));
     Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_11.bmp"));
     SDL_SetColorKey(Images[1][11], SDL_TRUE, SDL_MapRGB(Images[1][11]->format, 255, 255, 255));
+    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_00.bmp"));
+    SDL_SetColorKey(Images[2][0], SDL_TRUE, SDL_MapRGB(Images[2][0]->format, 255, 255, 255));
+    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_01.bmp"));
+    SDL_SetColorKey(Images[2][1], SDL_TRUE, SDL_MapRGB(Images[2][1]->format, 255, 255, 255));
+    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_02.bmp"));
+    SDL_SetColorKey(Images[2][2], SDL_TRUE, SDL_MapRGB(Images[2][2]->format, 255, 255, 255));
+    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_03.bmp"));
+    SDL_SetColorKey(Images[2][3], SDL_TRUE, SDL_MapRGB(Images[2][3]->format, 255, 255, 255));
+    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_04.bmp"));
+    SDL_SetColorKey(Images[2][4], SDL_TRUE, SDL_MapRGB(Images[2][4]->format, 255, 255, 255));
+    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_05.bmp"));
+    SDL_SetColorKey(Images[2][5], SDL_TRUE, SDL_MapRGB(Images[2][5]->format, 255, 255, 255));
+    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_06.bmp"));
+    SDL_SetColorKey(Images[2][6], SDL_TRUE, SDL_MapRGB(Images[2][6]->format, 255, 255, 255));
 }
 
 void World::destroyWorld(){
     SDL_DestroyWindow(Window);
     SDL_FreeSurface( game_over );
     SDL_FreeSurface(Background);
+    for(int i=0; i<4; i++)
+    {
+        for(unsigned int j=0; j<Images[i].size(); j++)
+        {
+            SDL_FreeSurface(Images[i][j]);
+        }
+    }
 }
 
 void World::draw()
@@ -113,6 +131,16 @@ void World::draw()
                         apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[1][grid[i][j]->return_counter()], ScreenSurface);
                         grid[i][j]->fill_counter(grid[i][j]->return_mover());
                         if(grid[i][j]->return_counter() == 11)
+                            grid[i][j]->fill_mover(-1);
+                        if(grid[i][j]->return_counter() == 1)
+                            grid[i][j]->fill_mover(1);
+                        break;
+                    }
+                    case(WALLNUT):
+                    {
+                        apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[2][grid[i][j]->return_counter()], ScreenSurface);
+                        grid[i][j]->fill_counter(grid[i][j]->return_mover());
+                        if(grid[i][j]->return_counter() == 6)
                             grid[i][j]->fill_mover(-1);
                         if(grid[i][j]->return_counter() == 1)
                             grid[i][j]->fill_mover(1);
@@ -179,7 +207,9 @@ void World::update(){
 }
 
 void World::gameOver(){
-    apply_surface(0, 0, game_over, ScreenSurface);
+    apply_surface(380, 190, game_over, ScreenSurface);
+    SDL_UpdateWindowSurface(Window);
+    SDL_Delay(1500);
     quit=true;
 }
 
