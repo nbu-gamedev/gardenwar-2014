@@ -278,7 +278,6 @@ void World::update(){
                                 grid[i][j]->setAct(ATTACK);
                             }
                     }
-                    }
                 }
                 // ako e cvete:
                 else {
