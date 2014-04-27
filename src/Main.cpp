@@ -15,19 +15,19 @@ int main( int argc, char* args[] ){
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
     level.grid[2][2] = new Wallnut();
-    level.grid[0][8] = new Zombie();
-    level.grid[0][7] = new Zombie();
+    //level.grid[0][8] = new Zombie();
+    //level.grid[0][7] = new Zombie();
     level.grid[0][6] = new Wallnut();
 
 	while( !World::quit ){
 		while( SDL_PollEvent( &event ) != 0 ) {
 		    if (event.type == SDL_MOUSEBUTTONUP){
-                // if player clicks on sun -> collect it
-             //   for (int i=0 ; i < level.suns.size(); i++) {
-              //      if ( level.suns[i]->Getx() > 0 ) {
-               //         cout << "sun # " << i << " is located at x:" << level.suns[i]->Getx() << endl;
-              //      }
-            //    }
+             // if player clicks on sun -> collect it
+                for (int i=0 ; i < level.suns.size(); i++) {
+                    if ( level.suns[i]->Getx() > 0 ) {
+                        cout << "sun # " << i << " is located at x:" << level.suns[i]->Getx() << endl;
+                    }
+                }
                 if ( (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
                     level.createPeashooter(event);
