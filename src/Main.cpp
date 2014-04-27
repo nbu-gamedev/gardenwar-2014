@@ -11,6 +11,7 @@ int main( int argc, char* args[] ){
 	SDL_Event event;
 	int counter = 0;
     bool allow = false;
+    int timeToSun = level.sunSpawnTime;
 
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
@@ -28,7 +29,6 @@ int main( int argc, char* args[] ){
                         cout << "sun # " << i << " is located at x:" << level.suns[i]->Getx() << endl;
                     }
                 }
-
                 if ( (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
                     level.createPeashooter(event);
@@ -50,6 +50,11 @@ int main( int argc, char* args[] ){
 			level.update();
 			allow = false;
 			cout<<" E "<<endl;
+			timeToSun--;
+			if (timeToSun<=0){
+                level.createSun();
+                timeToSun = level.sunSpawnTime;
+			}
 		}
 	}
 	level.destroyWorld();
