@@ -28,6 +28,7 @@ public:
     void fill_counter(int mover);
     int return_mover();
     void fill_mover(int change);
+    bool timeToAct();
     //virtual void upadte(int i,int j);
     //int state(){return counter%speed;}
 
