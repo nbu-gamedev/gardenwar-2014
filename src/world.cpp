@@ -282,7 +282,7 @@ void World::update(){
                     else if (grid[i][j-1]->getType()!=ZOMBIE){// 3. ima cvete otpred
                         grid[i][j-1]->setHP(-(grid[i][j]->getDamage()));
                         if(grid[i][j]->getAct()!=ATTACK){
-                          //  grid[i][j]->setAct(ATTACK);
+                            grid[i][j]->setAct(ATTACK);
                         }
                     }
                 }
