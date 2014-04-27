@@ -1,7 +1,9 @@
 #include "world.h"
+#include <iostream>
 #include <ctime>
 using namespace std;
 bool World::quit=false;
+void createPeashooter(World* world,SDL_Event event);
 
 int main( int argc, char* args[] ){
 
@@ -9,7 +11,6 @@ int main( int argc, char* args[] ){
 	level.createWorld();
 	SDL_Event event;
 	int counter = 0;
-    int turnsToSun = level.sunSpawnTime;
     bool allow = false;
 
     level.grid[3][2] = new Sunflower();
@@ -28,9 +29,10 @@ int main( int argc, char* args[] ){
                         cout << "sun # " << i << " is located at x:" << level.suns[i]->Getx() << endl;
                     }
                 }
+
                 if ( (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
-                    level.createPeashooter(event);
+                    createPeashooter(&level,event);
                 }
             }
             if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
@@ -54,6 +56,22 @@ int main( int argc, char* args[] ){
 	level.destroyWorld();
 	SDL_Quit();
 	return 0;
+}
+
+void createPeashooter(World* world,SDL_Event event){
+    int row = 0;
+    int column = 0;
+
+    // Place Peashooter at clicked grid location
+    column = (event.button.x - base_x)/offset_x;
+    row = (event.button.y - base_y)/offset_y;
+    cout << "column:" << column << " row:" << row << " address:"
+    << world->grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
+
+    if (world->grid[row][column] == NULL) {
+        world->grid[row][column] = new Peashooter();
+        cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
+    }
 }
 
 
