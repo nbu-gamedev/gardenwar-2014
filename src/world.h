@@ -12,6 +12,13 @@ const int base_x = 256;
 const int base_y = 85;
 const int offset_x = 80;
 const int offset_y = 98;
+const int gridStartX = base_x;
+const int gridEndX = base_x + M*offset_x;
+const int gridStartY = base_y;
+const int gridEndY = base_y + N*offset_y;
+const int gridSizeX = gridEndX - gridStartX;
+const int gridSizeY = gridEndY - gridStartY;
+
 
 using namespace std;
 
