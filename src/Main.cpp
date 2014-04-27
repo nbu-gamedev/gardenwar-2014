@@ -16,6 +16,7 @@ int main( int argc, char* args[] ){
 	last=time(&curr);
 	int counter = 0;
     int turnsToSun = 15;
+    bool allow;
 
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
@@ -35,7 +36,6 @@ int main( int argc, char* args[] ){
                 World::quit = true;
                 }
             }
-		bool allow;
 		time(&curr);
         if(SDL_GetTicks() % 100  == 0)
         {
@@ -53,7 +53,7 @@ int main( int argc, char* args[] ){
             if (turnsToSun <=0){
                 level.createSun(&level);
                 turnsToSun = level.sunSpawnTime;
-            }
+           }
         }
 	}
 	level.destroyWorld();
