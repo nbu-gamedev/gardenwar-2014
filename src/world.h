@@ -4,6 +4,7 @@
 #include "actor.h"
 #include "sun.h"
 #include <vector>
+#include <cstdlib>
 #define N 5
 #define M 9
 const int base_x = 256;
@@ -32,6 +33,11 @@ public:
     void draw();
     void update();
     void gameOver();
+    //sun
+    void createSun();
+    void createPeashooter(SDL_Event event);
+    vector<Sun*> suns;
+    int sunSpawnTime;
     void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
 private:
     vector<SDL_Surface*> Images[5];
