@@ -38,7 +38,7 @@ bool Actor::timeToAct(){
 Zombie::Zombie(){
 
     type = ZOMBIE;
-    act = STAY;
+    act = MOVE;
     speed = 7;
     health = 100;
     counter = 0;
