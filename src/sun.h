@@ -1,7 +1,5 @@
 #ifndef SUN_H
 #define SUN_H
-
-
 class Sun
 {
     public:
@@ -18,6 +16,7 @@ class Sun
         void SetsunValue( int val) { sunValue = val; }
          bool Getcollected() { return collected; }
         void Setcollected( bool val) { collected = val; }
+        void init();
     protected:
     private:
          int x;

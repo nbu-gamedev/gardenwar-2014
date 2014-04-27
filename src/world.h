@@ -1,10 +1,11 @@
 #ifndef WORLD_H
 #define WORLD_H
-#include <SDL.h>
 #include "actor.h"
 #include "sun.h"
 #include <vector>
 #include <cstdlib>
+#include <iostream>
+#include <SDL.h>
 #define N 5
 #define M 9
 const int base_x = 256;
@@ -43,6 +44,7 @@ public:
     vector<SDL_Surface*> Images[4];
     SDL_Surface* ScreenSurface;
 private:
+    SDL_Surface* sunImagePH;//temp
     SDL_Window* Window;
     SDL_Surface* Background;
     SDL_Surface* game_over;

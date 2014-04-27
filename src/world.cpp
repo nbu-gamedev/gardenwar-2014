@@ -2,7 +2,6 @@
 #include <cstdio>
 const int SCREEN_WIDTH = 1380;
 const int SCREEN_HEIGHT = 600;
-#include <iostream>
 using namespace std;
 
 World::World(){
@@ -10,7 +9,7 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
-    sunSpawnTime = 15;
+    sunSpawnTime = 5;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
@@ -34,6 +33,8 @@ void World::createWorld(){
     game_over = SDL_LoadBMP("../bin/media/gameOver.bmp");
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
+    sunImagePH = SDL_LoadBMP("../bin/media/sun.bmp");
+    if (sunImagePH == NULL){ std::cout << " Loading sun.bmp Failed "; }
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
     SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_01.bmp"));
@@ -190,6 +191,12 @@ void World::destroyWorld(){
 void World::draw()
 {
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
+
+    for (int currentSun; currentSun < suns.size() ; currentSun++) {
+        apply_surface(suns[currentSun]->Getx(),suns[currentSun]->Gety(),sunImagePH,ScreenSurface);
+    }
+        apply_surface(500,400,sunImagePH,ScreenSurface);
+
     for(int i=0; i<N; i++)
     {
         for(int j=0; j<M; j++)
