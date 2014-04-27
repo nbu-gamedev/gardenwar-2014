@@ -266,9 +266,6 @@ void World::update(){
                 }
                 // ako e zombie:
                 if (grid[i][j]->getType()==ZOMBIE){
-                    grid[i][j]->fill_move_counter();
-                    if(grid[i][j]->return_move_counter() % 8 == 0)
-                    {
                     if(j==0) gameOver(); //  1. stignalo e do kraq
                     else if (grid[i][j-1]==NULL) { //  2. mesti se
                         grid[i][j-1]=grid[i][j];
