@@ -231,14 +231,14 @@ void World::draw()
                     {
                         if(grid[i][j]->return_move_counter() % 8 < 4)
                         {
-                            apply_surface((base_x + j*offset_x - 40), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                            apply_surface((base_x + j*offset_x - 40 + 0.45*grid[i][j]->return_counter() ), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
                             grid[i][j]->fill_counter(1);
                             if(grid[i][j]->return_counter() == 40)
                                 grid[i][j]->fill_counter(-40);
                         }
                         else
                         {
-                            apply_surface((base_x + j*offset_x - 80), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                            apply_surface((base_x + j*offset_x - 80 + 0.45*grid[i][j]->return_counter()), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
                             grid[i][j]->fill_counter(1);
                             if(grid[i][j]->return_counter() == 40)
                                 grid[i][j]->fill_counter(-40);
