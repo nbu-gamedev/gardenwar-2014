@@ -31,12 +31,15 @@ void Actor::incCounter(){
 int Actor::getDamage(){
     return damage;
 }
+bool Actor::timeToAct(){
+    return counter>=speed;
+}
 
 Zombie::Zombie(){
 
     type = ZOMBIE;
     act = STAY;
-    speed = 4;
+    speed = 7;
     health = 100;
     counter = 0;
     damage = 25;
