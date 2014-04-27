@@ -268,7 +268,7 @@ void World::update(){
                 // ako e zombie:
                 if (grid[i][j]->getType()==ZOMBIE){
                     if(j==0){  //  1. stignalo e do kraq
-                        if (grid[i][j]->timeToAct()){ 
+                        if (grid[i][j]->timeToAct()){
                             gameOver();
                         }
                     }
@@ -331,4 +331,20 @@ void World::createSun(World* world) {
     //placing new sun in the vector "suns" in world.
     world->suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
     cout << "Puting sun in vector. Total suns: " << world->suns.size() <<  endl;
+}
+
+void World::createPeashooter(World* world,SDL_Event event){
+    int row = 0;
+    int column = 0;
+
+    // Place Peashooter at clicked grid location
+    column = (event.button.x - base_x)/offset_x;
+    row = (event.button.y - base_y)/offset_y;
+    cout << "column:" << column << " row:" << row << " address:"
+    << world->grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
+
+    if (world->grid[row][column] == NULL) {
+        world->grid[row][column] = new Peashooter();
+        cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
+    }
 }

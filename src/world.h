@@ -38,7 +38,8 @@ public:
     int sunSpawnTime;
     vector<Sun*> suns;
     void createSun(World* world );
-
+    //Peashooter
+    void createPeashooter(World* world,SDL_Event event);
     vector<SDL_Surface*> Images[4];
     SDL_Surface* ScreenSurface;
 private:
