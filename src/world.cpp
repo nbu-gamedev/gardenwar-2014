@@ -9,7 +9,7 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
-    sunSpawnTime = 15;
+    sunSpawnTime = 5;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
