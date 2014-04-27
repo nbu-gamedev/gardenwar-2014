@@ -18,6 +18,7 @@ class Sun
         void SetsunValue( int val) { sunValue = val; }
          bool Getcollected() { return collected; }
         void Setcollected( bool val) { collected = val; }
+
     protected:
     private:
          int x;

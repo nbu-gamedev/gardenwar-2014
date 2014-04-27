@@ -40,6 +40,7 @@ public:
     int sunSpawnTime;
     void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
 private:
+    SDL_Surface* sunImagePH;
     vector<SDL_Surface*> Images[5];
     SDL_Surface* ScreenSurface;
     SDL_Window* Window;

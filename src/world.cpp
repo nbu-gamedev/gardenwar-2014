@@ -10,7 +10,7 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
-    sunSpawnTime = 15;
+    sunSpawnTime = 5; //5 for testing will be 15
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
@@ -34,6 +34,8 @@ void World::createWorld(){
     game_over = SDL_LoadBMP("../bin/media/gameOver.bmp");
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
+    sunImagePH = SDL_LoadBMP("../bin/media/sun.bmp");
+    if ( sunImagePH == NULL){ cout<<"Loading sun failed!!!"<< endl; }
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
     SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_01.bmp"));
@@ -214,6 +216,11 @@ void World::destroyWorld(){
 void World::draw()
 {
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
+
+    for (int currentSun = 0; currentSun < suns.size(); currentSun++){
+        apply_surface(suns[currentSun]->Getx(),suns[currentSun]->Gety(),sunImagePH,ScreenSurface);
+    }
+
     for(int i=0; i<N; i++)
     {
         for(int j=0; j<M; j++)
@@ -362,7 +369,7 @@ void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
 void World::createSun() {
     //placing new sun in the vector "suns" in world.
     suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
-    cout << "Puting sun in vector. Total suns: " << suns.size() <<  endl;
+    cout << "Total suns: " << suns.size() <<  endl;
 }
 
 void World::createPeashooter(SDL_Event event){

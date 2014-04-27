@@ -1,5 +1,6 @@
 #include "sun.h"
-
+#include <iostream>
+using namespace std;
 Sun::Sun(int inX,int inY)
 {
     x = inX;
@@ -7,6 +8,8 @@ Sun::Sun(int inX,int inY)
     timeLeft = 15;
     sunValue = 20;
     collected = false;
+    cout << endl << x << endl;
+    cout << endl << y << endl;
 }
 Sun::Sun()
 {
