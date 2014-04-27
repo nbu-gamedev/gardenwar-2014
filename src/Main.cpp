@@ -15,8 +15,8 @@ int main( int argc, char* args[] ){
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
     level.grid[2][2] = new Wallnut();
-    //level.grid[0][8] = new Zombie();
-    //level.grid[0][7] = new Zombie();
+    level.grid[0][8] = new Zombie();
+    level.grid[0][7] = new Zombie();
     level.grid[0][6] = new Wallnut();
 
 	while( !World::quit ){

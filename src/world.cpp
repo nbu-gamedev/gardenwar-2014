@@ -254,8 +254,8 @@ void World::draw()
                     }
                     case(ZOMBIE):
                     {
-                        if(grid[i][j]->getAct() == MOVE)
-                        {
+                       // if(grid[i][j]->getAct() == MOVE)
+                       // {
                             if(grid[i][j]->return_move_counter() % 8 < 4)
                             {
                                 apply_surface((base_x + j*offset_x - 40 + 0.45*grid[i][j]->return_counter() ), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
@@ -270,12 +270,12 @@ void World::draw()
                                 if(grid[i][j]->return_counter() == 40)
                                     grid[i][j]->fill_counter(-40);
                             }
-                        }
-                        if(grid[i][j]->getAct() == ATTACK)
+                       // }
+                     /*   if(grid[i][j]->getAct() == ATTACK)
                         {
                             apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[4][grid[i][j]->return_counter()], ScreenSurface);
                             grid[i][j]->fill_counter(1);
-                        }
+                        }*/
                     }
                 }
             }
