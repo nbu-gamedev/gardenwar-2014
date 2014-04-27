@@ -27,6 +27,15 @@ int main( int argc, char* args[] ){
 	while( !World::quit ){
 		while( SDL_PollEvent( &event ) != 0 ) {
 		    if (event.type == SDL_MOUSEBUTTONUP){
+<<<<<<< HEAD
+=======
+                // if player clicks on sun -> collect it
+             //   for (int i=0 ; i < level.suns.size(); i++) {
+              //      if ( level.suns[i]->Getx() > 0 ) {
+               //         cout << "sun # " << i << " is located at x:" << level.suns[i]->Getx() << endl;
+              //      }
+            //    }
+>>>>>>> 973b3eab182f4717c47417855245ed9548e61162
                 if ( (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
                     createPeashooter(&level,event);
