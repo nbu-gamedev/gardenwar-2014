@@ -2,7 +2,8 @@
 #include <cstdio>
 const int SCREEN_WIDTH = 1380;
 const int SCREEN_HEIGHT = 600;
-
+#include <iostream>
+using namespace std;
 
 World::World(){
     game_over = NULL;
@@ -228,10 +229,20 @@ void World::draw()
                     }
                     case(ZOMBIE):
                     {
-                        apply_surface((base_x + j*offset_x - 80), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
-                        grid[i][j]->fill_counter(1);
-                        if(grid[i][j]->return_counter() == 40)
-                            grid[i][j]->fill_counter(-40);
+                        if(grid[i][j]->return_move_counter() % 8 < 4)
+                        {
+                            apply_surface((base_x + j*offset_x - 40), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                            grid[i][j]->fill_counter(1);
+                            if(grid[i][j]->return_counter() == 40)
+                                grid[i][j]->fill_counter(-40);
+                        }
+                        else
+                        {
+                            apply_surface((base_x + j*offset_x - 80), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                            grid[i][j]->fill_counter(1);
+                            if(grid[i][j]->return_counter() == 40)
+                                grid[i][j]->fill_counter(-40);
+                        }
                     }
                 }
             }

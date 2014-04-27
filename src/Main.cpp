@@ -11,19 +11,18 @@ void createPeashooter(World* world,SDL_Event event);
 
 int main( int argc, char* args[] ){
 
-
     World level = World();
 	level.createWorld();
 	SDL_Event event;
 	time_t curr=0,last=0;
     time(&curr);
 	last=time(&curr);
+	int counter = 0;
 
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
     level.grid[2][2] = new Wallnut();
     level.grid[0][8] = new Zombie();
-    level.grid[0][7] = new Zombie();
 
 	while( !World::quit ){
 		while( SDL_PollEvent( &event ) != 0 ){
@@ -38,14 +37,20 @@ int main( int argc, char* args[] ){
                 }
             }
 		}
+		bool allow;
 		time(&curr);
-		if(curr-last>=1){
-			last=time(&curr);
+        if(SDL_GetTicks() % 100  == 0)
+        {
+            level.draw();
+            counter++;
+            if (counter % 10 == 0)
+                allow = true;
+        }
+        if(allow)
+        {
 			level.update();
+			allow = false;
 		}
-		level.draw();
-		SDL_Delay(100);
-
 	}
 	level.destroyWorld();
 	SDL_Quit();
