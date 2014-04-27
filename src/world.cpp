@@ -258,7 +258,7 @@ void World::update(){
                 // vreme za umirane:
                 if((grid[i][j]->getHP())<=0){
                   //  if(grid[i][j]->getAct()!=DIE) {grid[i][j]->setAct(DIE);}
-                    //else {//if(grid[i][j]->getCounter()==10){ // ... && grid[i][j]->getAct()==DIE
+                    //else {//if(grid[i][j]->timeToAct()){ // ... && grid[i][j]->getAct()==DIE
                         delete grid[i][j];
                         grid[i][j]=NULL;
                         continue;
@@ -266,17 +266,23 @@ void World::update(){
                 }
                 // ako e zombie:
                 if (grid[i][j]->getType()==ZOMBIE){
-                    if(j==0) gameOver(); //  1. stignalo e do kraq
+                    if(j==0){  //  1. stignalo e do kraq
+                        if (grid[i][j]->timeToAct()){ 
+                            gameOver();
+                        }
+                    }
                     else if (grid[i][j-1]==NULL) { //  2. mesti se
-                        grid[i][j-1]=grid[i][j];
-                        grid[i][j]=NULL;
-                        grid[i][j-1]->setAct(MOVE);
+                        if(grid[i][j]->timeToAct()) {
+                            grid[i][j-1]=grid[i][j];
+                            grid[i][j]=NULL;
+                            grid[i][j-1]->setAct(MOVE);
+                        }
                     }
                     else if (grid[i][j-1]->getType()!=ZOMBIE){// 3. ima cvete otpred
-                            grid[i][j-1]->setHP(-(grid[i][j]->getDamage()));
-                            if(grid[i][j]->getAct()!=ATTACK){
-                                grid[i][j]->setAct(ATTACK);
-                            }
+                        grid[i][j-1]->setHP(-(grid[i][j]->getDamage()));
+                        if(grid[i][j]->getAct()!=ATTACK){
+                          //  grid[i][j]->setAct(ATTACK);
+                        }
                     }
                 }
                 // ako e cvete:
@@ -286,7 +292,7 @@ void World::update(){
                             if(grid[i][k]!=NULL){
                                 if (grid[i][k]->getType()==ZOMBIE && (grid[i][k]->getAct()!=DIE)){
                                     grid[i][k]->setHP(-(grid[i][j]->getDamage()));
-                                    if(grid[i][j]->getAct()!=ATTACK) { grid[i][j]->setAct(ATTACK);}
+                                  //  if(grid[i][j]->getAct()!=ATTACK) { grid[i][j]->setAct(ATTACK);}
                                     break;
                                 }
                             }
@@ -299,6 +305,7 @@ void World::update(){
 
                     */
                 }
+                if (grid[i][j]!=NULL) grid[i][j]->incCounter();
             }
         }
     }
