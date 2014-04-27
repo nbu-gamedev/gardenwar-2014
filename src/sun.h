@@ -5,6 +5,7 @@
 class Sun
 {
     public:
+        Sun(int inX,int inY);
         Sun();
         ~Sun();
          int Getx() { return x; }

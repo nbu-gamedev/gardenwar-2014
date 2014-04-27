@@ -10,6 +10,7 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
+    sunSpawnTime = 15;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
@@ -313,7 +314,7 @@ void World::update(){
                     else if (grid[i][j-1]->getType()!=ZOMBIE){// 3. ima cvete otpred
                         grid[i][j-1]->setHP(-(grid[i][j]->getDamage()));
                         if(grid[i][j]->getAct()!=ATTACK){
-                          //  grid[i][j]->setAct(ATTACK);
+                            grid[i][j]->setAct(ATTACK);
                         }
                     }
                 }
@@ -358,3 +359,24 @@ void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
     SDL_BlitSurface( source, NULL, destination, &offset );
 }
 
+void World::createSun() {
+    //placing new sun in the vector "suns" in world.
+    suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
+    cout << "Puting sun in vector. Total suns: " << suns.size() <<  endl;
+}
+
+void World::createPeashooter(SDL_Event event){
+    int row = 0;
+    int column = 0;
+
+    // Place Peashooter at clicked grid location
+    column = (event.button.x - base_x)/offset_x;
+    row = (event.button.y - base_y)/offset_y;
+    cout << "column:" << column << " row:" << row << " address:"
+    << grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
+
+    if (grid[row][column] == NULL) {
+        grid[row][column] = new Peashooter();
+        cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
+    }
+}
