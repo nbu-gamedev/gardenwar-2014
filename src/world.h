@@ -26,9 +26,9 @@ public:
     void update();
     void gameOver();
     void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
-    vector<SDL_Surface*> Images[4];
-    SDL_Surface* ScreenSurface;
 private:
+    vector<SDL_Surface*> Images[5];
+    SDL_Surface* ScreenSurface;
     SDL_Window* Window;
     SDL_Surface* Background;
     SDL_Surface* game_over;

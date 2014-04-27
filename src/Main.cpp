@@ -14,20 +14,19 @@ int main( int argc, char* args[] ){
     World level = World();
 	level.createWorld();
 	SDL_Event event;
-	time_t curr=0,last=0;
-    time(&curr);
-	last=time(&curr);
 	int counter = 0;
+    bool allow = false;
 
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
     level.grid[2][2] = new Wallnut();
     level.grid[0][8] = new Zombie();
+    level.grid[0][7] = new Zombie();
+    level.grid[0][6] = new Wallnut();
 
 	while( !World::quit ){
 		while( SDL_PollEvent( &event ) != 0 ) {
 		    if (event.type == SDL_MOUSEBUTTONUP){
-                // if player clicks inside the grid
                 if ( (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
                     createPeashooter(&level,event);
@@ -35,10 +34,8 @@ int main( int argc, char* args[] ){
             }
             if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
                 World::quit = true;
-                }
             }
-		bool allow;
-		time(&curr);
+        }
         if(SDL_GetTicks() % 100  == 0)
         {
             level.draw();
@@ -50,6 +47,7 @@ int main( int argc, char* args[] ){
         {
 			level.update();
 			allow = false;
+			cout<<" E "<<endl;
 		}
 	}
 	level.destroyWorld();

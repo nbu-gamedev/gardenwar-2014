@@ -171,6 +171,30 @@ void World::createWorld(){
     SDL_SetColorKey(Images[3][38], SDL_TRUE, SDL_MapRGB(Images[3][38]->format, 255, 255, 255));
     Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_39.bmp"));
     SDL_SetColorKey(Images[3][39], SDL_TRUE, SDL_MapRGB(Images[3][39]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_000.bmp"));
+    SDL_SetColorKey(Images[4][0], SDL_TRUE, SDL_MapRGB(Images[4][0]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_001.bmp"));
+    SDL_SetColorKey(Images[4][1], SDL_TRUE, SDL_MapRGB(Images[4][1]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_002.bmp"));
+    SDL_SetColorKey(Images[4][2], SDL_TRUE, SDL_MapRGB(Images[4][2]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_003.bmp"));
+    SDL_SetColorKey(Images[4][3], SDL_TRUE, SDL_MapRGB(Images[4][3]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_004.bmp"));
+    SDL_SetColorKey(Images[4][4], SDL_TRUE, SDL_MapRGB(Images[4][4]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_005.bmp"));
+    SDL_SetColorKey(Images[4][5], SDL_TRUE, SDL_MapRGB(Images[4][5]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_006.bmp"));
+    SDL_SetColorKey(Images[4][6], SDL_TRUE, SDL_MapRGB(Images[4][6]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_007.bmp"));
+    SDL_SetColorKey(Images[4][7], SDL_TRUE, SDL_MapRGB(Images[4][7]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_008.bmp"));
+    SDL_SetColorKey(Images[4][8], SDL_TRUE, SDL_MapRGB(Images[4][8]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_009.bmp"));
+    SDL_SetColorKey(Images[4][9], SDL_TRUE, SDL_MapRGB(Images[4][9]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_010.bmp"));
+    SDL_SetColorKey(Images[4][10], SDL_TRUE, SDL_MapRGB(Images[4][10]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_011.bmp"));
+    SDL_SetColorKey(Images[4][11], SDL_TRUE, SDL_MapRGB(Images[4][11]->format, 255, 255, 255));
 }
 
 void World::destroyWorld(){
@@ -229,19 +253,27 @@ void World::draw()
                     }
                     case(ZOMBIE):
                     {
-                        if(grid[i][j]->return_move_counter() % 8 < 4)
+                        if(grid[i][j]->getAct() == MOVE)
                         {
-                            apply_surface((base_x + j*offset_x - 40 + 0.45*grid[i][j]->return_counter() ), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
-                            grid[i][j]->fill_counter(1);
-                            if(grid[i][j]->return_counter() == 40)
-                                grid[i][j]->fill_counter(-40);
+                            if(grid[i][j]->return_move_counter() % 8 < 4)
+                            {
+                                apply_surface((base_x + j*offset_x - 40 + 0.45*grid[i][j]->return_counter() ), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                                grid[i][j]->fill_counter(1);
+                                if(grid[i][j]->return_counter() == 40)
+                                    grid[i][j]->fill_counter(-40);
+                            }
+                            else
+                            {
+                                apply_surface((base_x + j*offset_x - 80 + 0.45*grid[i][j]->return_counter()), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                                grid[i][j]->fill_counter(1);
+                                if(grid[i][j]->return_counter() == 40)
+                                    grid[i][j]->fill_counter(-40);
+                            }
                         }
-                        else
+                        if(grid[i][j]->getAct() == ATTACK)
                         {
-                            apply_surface((base_x + j*offset_x - 80 + 0.45*grid[i][j]->return_counter()), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                            apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[4][grid[i][j]->return_counter()], ScreenSurface);
                             grid[i][j]->fill_counter(1);
-                            if(grid[i][j]->return_counter() == 40)
-                                grid[i][j]->fill_counter(-40);
                         }
                     }
                 }
@@ -267,7 +299,7 @@ void World::update(){
                 // ako e zombie:
                 if (grid[i][j]->getType()==ZOMBIE){
                     if(j==0){  //  1. stignalo e do kraq
-                        if (grid[i][j]->timeToAct()){ 
+                        if (grid[i][j]->timeToAct()){
                             gameOver();
                         }
                     }
