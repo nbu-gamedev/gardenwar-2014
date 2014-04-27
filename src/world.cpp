@@ -2,7 +2,6 @@
 #include <cstdio>
 const int SCREEN_WIDTH = 1380;
 const int SCREEN_HEIGHT = 600;
-#include <iostream>
 using namespace std;
 
 World::World(){
@@ -34,6 +33,8 @@ void World::createWorld(){
     game_over = SDL_LoadBMP("../bin/media/gameOver.bmp");
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
+    sunImagePH = SDL_LoadBMP("../bin/media/sun.bmp");
+    if (sunImagePH == NULL){ std::cout << " Loading sun.bmp Failed "; }
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
     SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_01.bmp"));
@@ -172,6 +173,30 @@ void World::createWorld(){
     SDL_SetColorKey(Images[3][38], SDL_TRUE, SDL_MapRGB(Images[3][38]->format, 255, 255, 255));
     Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_39.bmp"));
     SDL_SetColorKey(Images[3][39], SDL_TRUE, SDL_MapRGB(Images[3][39]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_000.bmp"));
+    SDL_SetColorKey(Images[4][0], SDL_TRUE, SDL_MapRGB(Images[4][0]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_001.bmp"));
+    SDL_SetColorKey(Images[4][1], SDL_TRUE, SDL_MapRGB(Images[4][1]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_002.bmp"));
+    SDL_SetColorKey(Images[4][2], SDL_TRUE, SDL_MapRGB(Images[4][2]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_003.bmp"));
+    SDL_SetColorKey(Images[4][3], SDL_TRUE, SDL_MapRGB(Images[4][3]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_004.bmp"));
+    SDL_SetColorKey(Images[4][4], SDL_TRUE, SDL_MapRGB(Images[4][4]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_005.bmp"));
+    SDL_SetColorKey(Images[4][5], SDL_TRUE, SDL_MapRGB(Images[4][5]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_006.bmp"));
+    SDL_SetColorKey(Images[4][6], SDL_TRUE, SDL_MapRGB(Images[4][6]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_007.bmp"));
+    SDL_SetColorKey(Images[4][7], SDL_TRUE, SDL_MapRGB(Images[4][7]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_008.bmp"));
+    SDL_SetColorKey(Images[4][8], SDL_TRUE, SDL_MapRGB(Images[4][8]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_009.bmp"));
+    SDL_SetColorKey(Images[4][9], SDL_TRUE, SDL_MapRGB(Images[4][9]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_010.bmp"));
+    SDL_SetColorKey(Images[4][10], SDL_TRUE, SDL_MapRGB(Images[4][10]->format, 255, 255, 255));
+    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_011.bmp"));
+    SDL_SetColorKey(Images[4][11], SDL_TRUE, SDL_MapRGB(Images[4][11]->format, 255, 255, 255));
 }
 
 void World::destroyWorld(){
@@ -190,6 +215,12 @@ void World::destroyWorld(){
 void World::draw()
 {
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
+
+    for (int currentSun; currentSun < suns.size() ; currentSun++) {
+        apply_surface(suns[currentSun]->Getx(),suns[currentSun]->Gety(),sunImagePH,ScreenSurface);
+    }
+        apply_surface(500,400,sunImagePH,ScreenSurface);
+
     for(int i=0; i<N; i++)
     {
         for(int j=0; j<M; j++)
@@ -230,19 +261,27 @@ void World::draw()
                     }
                     case(ZOMBIE):
                     {
-                        if(grid[i][j]->return_move_counter() % 8 < 4)
+                        if(grid[i][j]->getAct() == MOVE)
                         {
-                            apply_surface((base_x + j*offset_x - 40 + 0.45*grid[i][j]->return_counter() ), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
-                            grid[i][j]->fill_counter(1);
-                            if(grid[i][j]->return_counter() == 40)
-                                grid[i][j]->fill_counter(-40);
+                            if(grid[i][j]->return_move_counter() % 8 < 4)
+                            {
+                                apply_surface((base_x + j*offset_x - 40 + 0.45*grid[i][j]->return_counter() ), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                                grid[i][j]->fill_counter(1);
+                                if(grid[i][j]->return_counter() == 40)
+                                    grid[i][j]->fill_counter(-40);
+                            }
+                            else
+                            {
+                                apply_surface((base_x + j*offset_x - 80 + 0.45*grid[i][j]->return_counter()), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                                grid[i][j]->fill_counter(1);
+                                if(grid[i][j]->return_counter() == 40)
+                                    grid[i][j]->fill_counter(-40);
+                            }
                         }
-                        else
+                        if(grid[i][j]->getAct() == ATTACK)
                         {
-                            apply_surface((base_x + j*offset_x - 80 + 0.45*grid[i][j]->return_counter()), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
+                            apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[4][grid[i][j]->return_counter()], ScreenSurface);
                             grid[i][j]->fill_counter(1);
-                            if(grid[i][j]->return_counter() == 40)
-                                grid[i][j]->fill_counter(-40);
                         }
                     }
                 }
@@ -268,7 +307,7 @@ void World::update(){
                 // ako e zombie:
                 if (grid[i][j]->getType()==ZOMBIE){
                     if(j==0){  //  1. stignalo e do kraq
-                        if (grid[i][j]->timeToAct()){ 
+                        if (grid[i][j]->timeToAct()){
                             gameOver();
                         }
                     }
@@ -282,7 +321,7 @@ void World::update(){
                     else if (grid[i][j-1]->getType()!=ZOMBIE){// 3. ima cvete otpred
                         grid[i][j-1]->setHP(-(grid[i][j]->getDamage()));
                         if(grid[i][j]->getAct()!=ATTACK){
-                          //  grid[i][j]->setAct(ATTACK);
+                            grid[i][j]->setAct(ATTACK);
                         }
                     }
                 }
@@ -327,8 +366,24 @@ void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
     SDL_BlitSurface( source, NULL, destination, &offset );
 }
 
-void World::createSun(World* world) {
+void World::createSun() {
     //placing new sun in the vector "suns" in world.
-    world->suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
-    cout << "Puting sun in vector. Total suns: " << world->suns.size() <<  endl;
+    suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
+    cout << "Puting sun in vector. Total suns: " << suns.size() <<  endl;
+}
+
+void World::createPeashooter(SDL_Event event){
+    int row = 0;
+    int column = 0;
+
+    // Place Peashooter at clicked grid location
+    column = (event.button.x - base_x)/offset_x;
+    row = (event.button.y - base_y)/offset_y;
+    cout << "column:" << column << " row:" << row << " address:"
+    << grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
+
+    if (grid[row][column] == NULL) {
+        grid[row][column] = new Peashooter();
+        cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
+    }
 }
