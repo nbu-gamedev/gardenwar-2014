@@ -25,18 +25,18 @@ int main( int argc, char* args[] ){
     level.grid[0][8] = new Zombie();
 
 	while( !World::quit ){
-		while( SDL_PollEvent( &event ) != 0 ){
+		while( SDL_PollEvent( &event ) != 0 ) {
 		    if (event.type == SDL_MOUSEBUTTONUP){
                 // if player clicks inside the grid
                 if ( (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
                     createPeashooter(&level,event);
                 }
-                if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
-                    World::quit = true;
+            }
+            if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
+                World::quit = true;
                 }
             }
-		}
 		bool allow;
 		time(&curr);
         if(SDL_GetTicks() % 100  == 0)
