@@ -327,13 +327,13 @@ void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
     SDL_BlitSurface( source, NULL, destination, &offset );
 }
 
-void World::createSun(World* world) {
+void World::createSun() {
     //placing new sun in the vector "suns" in world.
-    world->suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
-    cout << "Puting sun in vector. Total suns: " << world->suns.size() <<  endl;
+    suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
+    cout << "Puting sun in vector. Total suns: " << suns.size() <<  endl;
 }
 
-void World::createPeashooter(World* world,SDL_Event event){
+void World::createPeashooter(SDL_Event event){
     int row = 0;
     int column = 0;
 
@@ -341,10 +341,10 @@ void World::createPeashooter(World* world,SDL_Event event){
     column = (event.button.x - base_x)/offset_x;
     row = (event.button.y - base_y)/offset_y;
     cout << "column:" << column << " row:" << row << " address:"
-    << world->grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
+    << grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
 
-    if (world->grid[row][column] == NULL) {
-        world->grid[row][column] = new Peashooter();
+    if (grid[row][column] == NULL) {
+        grid[row][column] = new Peashooter();
         cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
     }
 }

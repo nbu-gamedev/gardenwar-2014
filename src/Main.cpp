@@ -28,7 +28,7 @@ int main( int argc, char* args[] ){
                 // if player clicks inside the grid
                 if ( (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
-                    level.createPeashooter(&level,event);
+                    level.createPeashooter(event);
                 }
             }
             if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
@@ -49,7 +49,7 @@ int main( int argc, char* args[] ){
 			allow = false;
 			turnsToSun--;
             if (turnsToSun <=0){
-                level.createSun(&level);
+                level.createSun();
                 turnsToSun = level.sunSpawnTime;
            }
         }
