@@ -35,3 +35,5 @@ src/sdl/*
 bin/*.exe
 bin/*.dll
 !.gitignore
+src/Plants vs Zombies PLZ work.depend
+src/Plants vs Zombies PLZ work.layout
