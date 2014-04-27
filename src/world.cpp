@@ -10,6 +10,7 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
+    sunSpawnTime = 15;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
@@ -326,3 +327,8 @@ void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
     SDL_BlitSurface( source, NULL, destination, &offset );
 }
 
+void World::createSun(World* world) {
+    //placing new sun in the vector "suns" in world.
+    world->suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
+    cout << "Puting sun in vector. Total suns: " << world->suns.size() <<  endl;
+}

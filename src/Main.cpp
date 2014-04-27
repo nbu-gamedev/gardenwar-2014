@@ -3,10 +3,7 @@
 #include <ctime>
 using namespace std;
 bool World::quit=false;
-const int gridStartX = base_x;
-const int gridEndX = base_x + M*offset_x;
-const int gridStartY = base_y;
-const int gridEndY = base_y + N*offset_y;
+
 void createPeashooter(World* world,SDL_Event event);
 
 int main( int argc, char* args[] ){
@@ -18,6 +15,7 @@ int main( int argc, char* args[] ){
     time(&curr);
 	last=time(&curr);
 	int counter = 0;
+    int turnsToSun = 15;
 
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
@@ -50,7 +48,13 @@ int main( int argc, char* args[] ){
         {
 			level.update();
 			allow = false;
-		}
+			turnsToSun--;
+			cout << "turns to sun" << turnsToSun << endl;
+            if (turnsToSun <=0){
+                level.createSun(&level);
+                turnsToSun = level.sunSpawnTime;
+            }
+        }
 	}
 	level.destroyWorld();
 	SDL_Quit();

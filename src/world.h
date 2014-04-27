@@ -4,12 +4,20 @@
 #include "actor.h"
 #include "sun.h"
 #include <vector>
+#include <cstdlib>
 #define N 5
 #define M 9
 const int base_x = 256;
 const int base_y = 85;
 const int offset_x = 80;
 const int offset_y = 98;
+
+const int gridStartX = base_x;
+const int gridEndX = base_x + M*offset_x;
+const int gridStartY = base_y;
+const int gridEndY = base_y + N*offset_y;
+const int gridSizeX = gridEndX - gridStartX;
+const int gridSizeY = gridEndY - gridStartY;
 
 using namespace std;
 
@@ -26,6 +34,11 @@ public:
     void update();
     void gameOver();
     void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
+    //sun
+    int sunSpawnTime;
+    vector<Sun*> suns;
+    void createSun(World* world );
+
     vector<SDL_Surface*> Images[4];
     SDL_Surface* ScreenSurface;
 private:
