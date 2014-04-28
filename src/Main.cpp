@@ -20,14 +20,13 @@ int main( int argc, char* args[] ){
     level.grid[0][3] = new Wallnut();
     level.grid[0][4] = new Wallnut();
     level.grid[0][5] = new Wallnut();
-    level.grid[0][6] = new Wallnut();
     level.grid[0][8] = new Zombie();
 
 	while( !World::quit ){
 		while( SDL_PollEvent( &event ) != 0 ) {
 		    if (event.type == SDL_MOUSEBUTTONUP){
              // if player clicks on sun -> collect it
-                for (int i=0 ; i < level.suns.size(); i++) {
+                for (unsigned int i=0 ; i < level.suns.size(); i++) {
                     if ( level.suns[i]->Getx() > 0 ) {
                         cout << "sun # " << i << " is located at x:" << level.suns[i]->Getx() << endl;
                     }

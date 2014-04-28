@@ -1,5 +1,10 @@
 #include "actor.h"
 
+const int base_x = 256;
+const int base_y = 85;
+const int offset_x = 80;
+const int offset_y = 98;
+
 actorType Actor::getType(){
     return type;
 }
@@ -103,6 +108,53 @@ void Actor::fill_mover(int change)
     mover = change;
 }
 
+void Sunflower::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
+{
+    counter_test += mover;
+    (*apply_surface_pointer)((base_x + j*offset_x), (base_y + i*offset_y), picture, Screen);
+    if(counter_test == 9)
+        mover = -1;
+    if(counter_test == 0)
+        mover = 1;
+}
+
+void Wallnut::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
+{
+    counter_test += mover;
+    (*apply_surface_pointer)((base_x + j*offset_x), (base_y + i*offset_y), picture, Screen);
+    if(counter_test == 6)
+        mover = -1;
+    if(counter_test == 0)
+        mover = 1;
+}
+
+void Peashooter::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
+{
+    counter_test += mover;
+    (*apply_surface_pointer)((base_x + j*offset_x), (base_y + i*offset_y), picture, Screen);
+    if(counter_test == 11)
+        mover = -1;
+    if(counter_test == 0)
+        mover = 1;
+}
+
+void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
+{
+    if(counter % 8 < 4)
+    {
+        (*apply_surface_pointer)((base_x + j*offset_x - 40 + 0.45*counter_test), (base_y + i*offset_y - 50), picture, Screen);
+        counter_test += 1;
+        if(counter_test == 40)
+            counter_test += -40;
+    }
+    else
+    {
+        (*apply_surface_pointer)((base_x + j*offset_x - 80 + 0.45*counter_test), (base_y + i*offset_y - 50), picture, Screen);
+        counter_test += 1;
+        if(counter_test == 40)
+            counter_test += -40;
+    }
+}
 
 
 

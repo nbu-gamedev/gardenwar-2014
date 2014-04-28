@@ -16,6 +16,7 @@ World::World(){
             grid[i][j] = NULL;
         }
     }
+    apply_surface_pointer = &World::apply_surface;
 }
 
 World::~World(){
@@ -223,70 +224,15 @@ void World::draw()
         {
             if(grid[i][j] != NULL)
             {
-                switch (grid[i][j]->getType())
-                {
-                    case(SUNFLOWER):
-                    {
-                        apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[0][grid[i][j]->return_counter()], ScreenSurface);
-                        grid[i][j]->fill_counter(grid[i][j]->return_mover());
-                        if(grid[i][j]->return_counter() == 9)
-                            grid[i][j]->fill_mover(-1);
-                        if(grid[i][j]->return_counter() == 1)
-                            grid[i][j]->fill_mover(1);
-                        break;
-                    }
-                    case(PEASHOOTER):
-                    {
-                        apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[1][grid[i][j]->return_counter()], ScreenSurface);
-                        grid[i][j]->fill_counter(grid[i][j]->return_mover());
-                        if(grid[i][j]->return_counter() == 11)
-                            grid[i][j]->fill_mover(-1);
-                        if(grid[i][j]->return_counter() == 1)
-                            grid[i][j]->fill_mover(1);
-                        break;
-                    }
-                    case(WALLNUT):
-                    {
-                        apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[2][grid[i][j]->return_counter()], ScreenSurface);
-                        grid[i][j]->fill_counter(grid[i][j]->return_mover());
-                        if(grid[i][j]->return_counter() == 6)
-                            grid[i][j]->fill_mover(-1);
-                        if(grid[i][j]->return_counter() == 1)
-                            grid[i][j]->fill_mover(1);
-                        break;
-                    }
-                    case(ZOMBIE):
-                    {
-                        if(grid[i][j]->getAct() == MOVE)
-                        {
-                            if(grid[i][j]->return_move_counter() % 8 < 4)
-                            {
-                                apply_surface((base_x + j*offset_x - 40 + 0.45*grid[i][j]->return_counter() ), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
-                                grid[i][j]->fill_counter(1);
-                                if(grid[i][j]->return_counter() == 40)
-                                    grid[i][j]->fill_counter(-40);
-                            }
-                            else
-                            {
-                                apply_surface((base_x + j*offset_x - 80 + 0.45*grid[i][j]->return_counter()), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
-                                grid[i][j]->fill_counter(1);
-                                if(grid[i][j]->return_counter() == 40)
-                                    grid[i][j]->fill_counter(-40);
-                            }
-                        }
-                        if(grid[i][j]->getAct() == ATTACK)
-                        {
-                            apply_surface((base_x + j*offset_x), (base_y + i*offset_y- 50), Images[4][grid[i][j]->return_counter()], ScreenSurface);
-                            grid[i][j]->fill_counter(1);
-                            if(grid[i][j]->return_counter() == 12)
-                                grid[i][j]->fill_counter(-12);
-                        }
-                    }
-                }
+                grid[i][j]->draw_self(j, i, Images[grid[i][j]->getType()][grid[i][j]->return_counter()], ScreenSurface, *apply_surface_pointer);
+                /*apply_surface((base_x + j*offset_x), (base_y + i*offset_y- 50), Images[4][grid[i][j]->return_counter()], ScreenSurface);
+                grid[i][j]->fill_counter(1);
+                if(grid[i][j]->return_counter() == 12)
+                    grid[i][j]->fill_counter(-12);*/
             }
         }
     }
-    for (int currentSun = 0; currentSun < suns.size(); currentSun++)
+    for (unsigned int currentSun = 0; currentSun < suns.size(); currentSun++)
     {
         apply_surface(suns[currentSun]->Getx(),suns[currentSun]->Gety(),sunImagePH,ScreenSurface);
     }

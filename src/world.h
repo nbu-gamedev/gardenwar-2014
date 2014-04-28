@@ -33,12 +33,11 @@ public:
     void draw();
     void update();
     void gameOver();
-    //sun
     void createSun();
     void createPeashooter(SDL_Event event);
     vector<Sun*> suns;
     int sunSpawnTime;
-    void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
+    static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
 private:
     SDL_Surface* sunImagePH;
     vector<SDL_Surface*> Images[5];
@@ -46,6 +45,7 @@ private:
     SDL_Window* Window;
     SDL_Surface* Background;
     SDL_Surface* game_over;
+    void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*);
 };
 
 #endif // WORLD_H
