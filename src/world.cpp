@@ -225,11 +225,17 @@ void World::draw()
         {
             if(grid[i][j] != NULL)
             {
-                grid[i][j]->draw_self(j, i, Images[grid[i][j]->getType()][grid[i][j]->return_counter()], ScreenSurface, *apply_surface_pointer);
-                /*apply_surface((base_x + j*offset_x), (base_y + i*offset_y- 50), Images[4][grid[i][j]->return_counter()], ScreenSurface);
-                grid[i][j]->fill_counter(1);
-                if(grid[i][j]->return_counter() == 12)
-                    grid[i][j]->fill_counter(-12);*/
+                if(grid[i][j]->getAct() != ATTACK)
+                {
+                    grid[i][j]->draw_self(j, i, Images[grid[i][j]->getType()][grid[i][j]->return_counter()], ScreenSurface, *apply_surface_pointer);
+                }
+                else
+                {
+                    apply_surface((base_x + j*offset_x), (base_y + i*offset_y- 50), Images[4][grid[i][j]->return_counter()], ScreenSurface);
+                    grid[i][j]->fill_counter(1);
+                    if(grid[i][j]->return_counter() == 12)
+                        grid[i][j]->fill_counter(-12);
+                }
             }
         }
     }
