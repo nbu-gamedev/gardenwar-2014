@@ -28,7 +28,7 @@ int main( int argc, char* args[] ){
 		    if (event.type == SDL_MOUSEBUTTONUP){
              // if player clicks on sun -> collect it
                 clickedOnSun = false;
-                for (unsigned int i=0 ; i < level.suns.size(); i++) {
+                for (int i=0 ; i < level.suns.size(); i++) {
                     if ( (event.button.x > level.suns[i]->getX()) && (event.button.x < level.suns[i]->getRightX() ) &&
                          (event.button.y > level.suns[i]->getY()) && (event.button.y < level.suns[i]->getBottomY()) ) {
                         level.setSunCurrency(level.suns[i]->getSunValue());
