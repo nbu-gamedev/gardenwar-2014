@@ -267,11 +267,17 @@ void World::update(){
                         }
                     }
                     else if (grid[i][j-1]==NULL) { //  2. mesti se
-                        if(grid[i][j]->timeToAct()) {
+                        if((grid[i][j]->getAct()!=MOVE) || grid[i][j]->timeToAct()) {
                             grid[i][j-1]=grid[i][j];
                             grid[i][j]=NULL;
                             grid[i][j-1]->setAct(MOVE);
                         }
+                      /*  //ako e atakuvalo do sega (vmesto gornata 4ast)
+                        else if (grid[i][j]->getAct()!=MOVE){
+                            grid[i][j]->setAct(MOVE);
+                            grid[i][j]->incCounter();
+                        }
+                    */
                     }
                     else if (grid[i][j-1]->getType()!=ZOMBIE){// 3. ima cvete otpred
                         grid[i][j-1]->setHP(-(grid[i][j]->getDamage()));
