@@ -11,6 +11,7 @@ World::World(){
     Background = NULL;
     ScreenSurface = NULL;
     sunSpawnTime = 5; //5 for testing will be 15
+    sunCurrency = 50;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
@@ -35,6 +36,7 @@ void World::createWorld(){
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
     sunImagePH = SDL_LoadBMP("../bin/media/sun.bmp");
+    SDL_SetColorKey(sunImagePH, SDL_TRUE, SDL_MapRGB(sunImagePH->format, 255, 255, 255));
     if ( sunImagePH == NULL){ cout<<"Loading sun failed!!!"<< endl; }
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
     SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
@@ -216,11 +218,6 @@ void World::destroyWorld(){
 void World::draw()
 {
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
-
-    for (int currentSun = 0; currentSun < suns.size(); currentSun++){
-        apply_surface(suns[currentSun]->Getx(),suns[currentSun]->Gety(),sunImagePH,ScreenSurface);
-    }
-
     for(int i=0; i<N; i++)
     {
         for(int j=0; j<M; j++)
@@ -261,8 +258,8 @@ void World::draw()
                     }
                     case(ZOMBIE):
                     {
-                       // if(grid[i][j]->getAct() == MOVE)
-                       // {
+                        if(grid[i][j]->getAct() == MOVE)
+                        {
                             if(grid[i][j]->return_move_counter() % 8 < 4)
                             {
                                 apply_surface((base_x + j*offset_x - 40 + 0.45*grid[i][j]->return_counter() ), (base_y + i*offset_y - 50), Images[3][grid[i][j]->return_counter()], ScreenSurface);
@@ -277,16 +274,22 @@ void World::draw()
                                 if(grid[i][j]->return_counter() == 40)
                                     grid[i][j]->fill_counter(-40);
                             }
-                       // }
-                     /*   if(grid[i][j]->getAct() == ATTACK)
+                        }
+                        if(grid[i][j]->getAct() == ATTACK)
                         {
-                            apply_surface((base_x + j*offset_x), (base_y + i*offset_y), Images[4][grid[i][j]->return_counter()], ScreenSurface);
+                            apply_surface((base_x + j*offset_x), (base_y + i*offset_y- 50), Images[4][grid[i][j]->return_counter()], ScreenSurface);
                             grid[i][j]->fill_counter(1);
-                        }*/
+                            if(grid[i][j]->return_counter() == 12)
+                                grid[i][j]->fill_counter(-12);
+                        }
                     }
                 }
             }
         }
+    }
+    for (int currentSun = 0; currentSun < suns.size(); currentSun++)
+    {
+        apply_surface(suns[currentSun]->getX(),suns[currentSun]->getY(),sunImagePH,ScreenSurface);
     }
     SDL_UpdateWindowSurface(Window);
 }

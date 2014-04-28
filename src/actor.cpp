@@ -18,6 +18,7 @@ actorAct Actor::getAct(){
 void Actor::setAct(actorAct act){
     this->act=act;
     counter = 0;
+    counter_test = 0;
 }
 
 int Actor::getCounter(){
@@ -38,7 +39,7 @@ bool Actor::timeToAct(){
 Zombie::Zombie(){
 
     type = ZOMBIE;
-    act = ATTACK;
+    act = MOVE;
     speed = 7;
     health = 100;
     counter = 0;
