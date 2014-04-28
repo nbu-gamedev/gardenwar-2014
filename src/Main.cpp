@@ -16,6 +16,9 @@ int main( int argc, char* args[] ){
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
     level.grid[2][2] = new Wallnut();
+    level.grid[0][3] = new Wallnut();
+    level.grid[0][4] = new Wallnut();
+    level.grid[0][5] = new Wallnut();
     level.grid[0][6] = new Wallnut();
     level.grid[0][8] = new Zombie();
 

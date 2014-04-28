@@ -35,6 +35,7 @@ void World::createWorld(){
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
     sunImagePH = SDL_LoadBMP("../bin/media/sun.bmp");
+    SDL_SetColorKey(sunImagePH, SDL_TRUE, SDL_MapRGB(sunImagePH->format, 255, 255, 255));
     if ( sunImagePH == NULL){ cout<<"Loading sun failed!!!"<< endl; }
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
     SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
@@ -216,11 +217,6 @@ void World::destroyWorld(){
 void World::draw()
 {
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
-
-    for (int currentSun = 0; currentSun < suns.size(); currentSun++){
-        apply_surface(suns[currentSun]->Getx(),suns[currentSun]->Gety(),sunImagePH,ScreenSurface);
-    }
-
     for(int i=0; i<N; i++)
     {
         for(int j=0; j<M; j++)
@@ -289,6 +285,10 @@ void World::draw()
                 }
             }
         }
+    }
+    for (int currentSun = 0; currentSun < suns.size(); currentSun++)
+    {
+        apply_surface(suns[currentSun]->Getx(),suns[currentSun]->Gety(),sunImagePH,ScreenSurface);
     }
     SDL_UpdateWindowSurface(Window);
 }
