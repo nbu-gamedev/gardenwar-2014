@@ -22,7 +22,8 @@ actorAct Actor::getAct(){
 }
 void Actor::setAct(actorAct act){
     this->act=act;
-    counter = 0;
+    if (act==MOVE) counter = 0;
+    else counter = -1;
     counter_test = 0;
 }
 
