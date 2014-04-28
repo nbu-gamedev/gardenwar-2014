@@ -12,6 +12,7 @@ int main( int argc, char* args[] ){
 	int counter = 0;
     bool allow = false;
     bool clickedOnSun = false;
+    srand (time(NULL));
     int timeToSun = level.sunSpawnTime;
 
     level.grid[3][2] = new Sunflower();
