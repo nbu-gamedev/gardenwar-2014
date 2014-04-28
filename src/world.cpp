@@ -10,7 +10,7 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
-    sunSpawnTime = 5; //5 for testing will be 15
+    sunSpawnTime = 15;
     sunCurrency = 50;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
