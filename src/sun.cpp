@@ -5,11 +5,11 @@ Sun::Sun(int inX,int inY)
 {
     x = inX;
     y = inY;
+    rightX = x+SUN_SIZE;
+    bottomY = y+SUN_SIZE;
     timeLeft = 15;
     sunValue = 20;
     collected = false;
-    cout << endl << x << endl;
-    cout << endl << y << endl;
 }
 Sun::Sun()
 {

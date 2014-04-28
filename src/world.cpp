@@ -11,6 +11,7 @@ World::World(){
     Background = NULL;
     ScreenSurface = NULL;
     sunSpawnTime = 5; //5 for testing will be 15
+    sunCurrency = 50;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
             grid[i][j] = NULL;
@@ -234,7 +235,7 @@ void World::draw()
     }
     for (unsigned int currentSun = 0; currentSun < suns.size(); currentSun++)
     {
-        apply_surface(suns[currentSun]->Getx(),suns[currentSun]->Gety(),sunImagePH,ScreenSurface);
+        apply_surface(suns[currentSun]->getX(),suns[currentSun]->getY(),sunImagePH,ScreenSurface);
     }
     SDL_UpdateWindowSurface(Window);
 }
