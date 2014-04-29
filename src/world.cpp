@@ -10,7 +10,7 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
-    sunSpawnTime = 15;
+    sunSpawnTime = 5; // it saves time whale testing, should be 15 change it if its bothering you.
     sunCurrency = 50;
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
@@ -39,6 +39,8 @@ void World::createWorld(){
     sunImagePH = SDL_LoadBMP("../bin/media/sun.bmp");
     SDL_SetColorKey(sunImagePH, SDL_TRUE, SDL_MapRGB(sunImagePH->format, 255, 255, 255));
     if ( sunImagePH == NULL){ cout<<"Loading sun failed!!!"<< endl; }
+    numbersSpite= SDL_LoadBMP("../bin/media/numberSpite.bmp");
+    if ( numbersSpite == NULL){ cout<<"Loading numberSpite failed!!!"<< endl; }
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
     SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_01.bmp"));
@@ -240,10 +242,36 @@ void World::draw()
             }
         }
     }
-    for (unsigned int currentSun = 0; currentSun < suns.size(); currentSun++)
-    {
+    // Samir's part:
+    for (unsigned int currentSun = 0; currentSun < suns.size(); currentSun++){
+
         apply_surface(suns[currentSun]->getX(),suns[currentSun]->getY(),sunImagePH,ScreenSurface);
     }
+    //using sprite sheet for the numbers 0-9
+    SDL_Rect destination;
+    destination.y = 10;
+    destination.w = 35;
+    destination.h = 44;
+    SDL_Rect source;
+    source.y = 0;
+    source.w = 18;
+    source.h = 20;
+    int number;
+    int digitNumber=0; // used to know witch digit we are getting from right to left.
+    int sunCurrencyTMP = sunCurrency;
+    //do loop extracts the right digit and prints it on the screen,
+    //uses the remaining numbers to extra the right digit and to print it
+    //left of the first digit extracted;
+    do{
+        number = sunCurrencyTMP % 10;
+        source.x = 2+(16*number);
+        destination.x = 1100-(18*digitNumber); // digits printed from right to left.
+        digitNumber++;
+        sunCurrencyTMP = sunCurrencyTMP / 10;
+
+    SDL_BlitSurface(numbersSpite, &source, ScreenSurface, &destination);
+    } while (sunCurrencyTMP>0);
+
     SDL_UpdateWindowSurface(Window);
 }
 
@@ -349,3 +377,8 @@ void World::createPeashooter(SDL_Event event){
         cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
     }
 }
+
+
+
+
+

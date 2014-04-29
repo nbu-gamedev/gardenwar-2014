@@ -8,7 +8,7 @@ Sun::Sun(int inX,int inY)
     rightX = x+SUN_SIZE;
     bottomY = y+SUN_SIZE;
     timeLeft = 15;
-    sunValue = 20;
+    sunValue = 25;
     collected = false;
 }
 Sun::Sun()

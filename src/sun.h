@@ -1,7 +1,7 @@
 #ifndef SUN_H
 #define SUN_H
 
-#define SUN_SIZE 62;
+#define SUN_SIZE 62
 
 class Sun
 {

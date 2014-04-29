@@ -44,6 +44,7 @@ public:
     int getSunCurrency() {return sunCurrency;}
 private:
     SDL_Surface* sunImagePH;
+    SDL_Surface* numbersSpite;
     vector<SDL_Surface*> Images[5];
     SDL_Surface* ScreenSurface;
     SDL_Window* Window;
