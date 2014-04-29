@@ -58,7 +58,6 @@ int main( int argc, char* args[] ){
             lastTimeDraw = currentTime;
             level.draw();
             counter++;
-             cout<<"i"<<endl;
         }
         if (currentTime >= lastTime + 1000)
         {
