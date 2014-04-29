@@ -14,7 +14,8 @@ int main( int argc, char* args[] ){
     bool clickedOnSun = false;
     srand (time(NULL));
     int timeToSun = level.sunSpawnTime;
-
+    unsigned int lastTime = 0, lastTimeDraw = 0, currentTime;
+    currentTime = 0;
     level.grid[3][2] = new Sunflower();
     level.grid[1][1] = new Peashooter();
     level.grid[2][2] = new Wallnut();
@@ -23,7 +24,10 @@ int main( int argc, char* args[] ){
     level.grid[0][7] = new Wallnut();
     level.grid[0][8] = new Zombie();
 
+    //currentTime = SDL_GetTicks();
 	while( !World::quit ){
+
+        currentTime = SDL_GetTicks();
 		while( SDL_PollEvent( &event ) != 0 ) {
 		    if (event.type == SDL_MOUSEBUTTONUP){
              // if player clicks on sun -> collect it
@@ -49,17 +53,17 @@ int main( int argc, char* args[] ){
                 World::quit = true;
             }
         }
-        if(SDL_GetTicks() % 100  == 0)
+        if (currentTime >= lastTimeDraw + 100)
         {
+            lastTimeDraw = currentTime;
             level.draw();
             counter++;
-            if (counter % 10 == 0)
-                allow = true;
+             cout<<"i"<<endl;
         }
-        if(allow)
+        if (currentTime >= lastTime + 1000)
         {
+            lastTime = currentTime;
 			level.update();
-			allow = false;
 			timeToSun--;
 			if (timeToSun<=0){
                 level.createSun();

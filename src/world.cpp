@@ -218,6 +218,7 @@ void World::destroyWorld(){
 
 void World::draw()
 {
+
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     for(int i=0; i<N; i++)
     {
