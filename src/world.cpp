@@ -408,8 +408,9 @@ void World::update(){
 			delete (*pea);
 			peas.erase(pea);
 			pea--;
+			continue;
 		}
-		if((*pea)->enemyIsDead()) {(*pea)->aim=NULL;}
+		if ((*pea)->enemyIsDead()) {(*pea)->aim=NULL;}
     }
 }
 
