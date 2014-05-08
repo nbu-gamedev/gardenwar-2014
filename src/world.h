@@ -1,9 +1,9 @@
 #ifndef WORLD_H
 #define WORLD_H
-#include <SDL.h>
 #include "actor.h"
 #include "sun.h"
 #include <vector>
+#include <list>
 #include <cstdlib>
 #define N 5
 #define M 9
@@ -25,7 +25,7 @@ class World
 {
 public:
     static bool quit;
-    Actor* grid[N][M];
+    list<Actor*> grid[N][M];
     World();
     ~World();
     void createWorld();
@@ -43,6 +43,7 @@ public:
     void setSunCurrency(int val){sunCurrency+=val;}
     int getSunCurrency() {return sunCurrency;}
 private:
+	SDL_Surface* peaImagePH;
     SDL_Surface* sunImagePH;
     SDL_Surface* numbersSpite;
     vector<SDL_Surface*> Images[5];
@@ -52,6 +53,7 @@ private:
     SDL_Surface* game_over;
     void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*);
     int sunCurrency;
+    list<Pea*> peas;
 };
 
 #endif // WORLD_H
