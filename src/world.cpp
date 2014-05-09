@@ -6,7 +6,7 @@ using namespace std;
 
 list<Actor*>::iterator it;
 list<Actor*>::iterator it2;
-list<Pea*>::iterator pea;
+list<Pea*>::iterator itPea;
 
 World::World(){
 	peaImagePH = NULL;
@@ -29,8 +29,8 @@ World::~World(){
         }
     }
 
-    for(pea=peas.begin();pea!=peas.end();pea++) {
-		delete (*pea);
+    for(itPea=peas.begin();itPea!=peas.end();itPea++) {
+		delete (*itPea);
     }
 }
 
@@ -235,9 +235,9 @@ void World::draw()
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
 
 	 //Kari:
-	for(pea=peas.begin();pea!=peas.end();pea++) {
-		apply_surface(((*pea)->x + (*pea)->br), offset_y*((*pea)->y)+gridStartY, peaImagePH, ScreenSurface);
-		(*pea)->br+=5;
+	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
+		apply_surface(((*itPea)->x + (*itPea)->br), offset_y*((*itPea)->y)+gridStartY, peaImagePH, ScreenSurface);
+		(*itPea)->br+=5;
     }
 	// ----------
 
@@ -297,25 +297,29 @@ void World::draw()
 }
 
 void World::update(){
-	for(pea=peas.begin();pea!=peas.end();pea++) {
-		(*pea)->move();
+	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
+		(*itPea)->move();
     }
 	for(int i=0; i<N; i++){
 		for(int j=0; j<M; j++){
-			for(it=grid[i][j].begin(); it!=grid[i][j].end(); it++){
+		    it=grid[i][j].begin();
+            while(it!=grid[i][j].end()){
+
 		// --- vreme za umirane:
 				if( (*it)->getHP() <=0){
 					if((*it)->getAct()!=DIE) {(*it)->setAct(DIE);}
 					else if( (*it)->timeToAct() ){ // ... && (*it)->getAct()==DIE
 						delete (*it);
-						grid[i][j].erase(it);
-						it--; // za da se vyrne na sy6tata poziciq na sledva6ta iteraciq
+						it=grid[i][j].erase(it);
 					}
-					else { (*it)->incCounter(); }
+					else { (*it)->incCounter(); it++;}
 					continue;
 				}
-				if ( (*it)->getType()==ZOMBIE){
+		//---------------------
+
 		// I. ako e zombie:
+				if ( (*it)->getType()==ZOMBIE){
+
 					bool flowerExists = false;
 					Actor* enemy=grid[i][j].front();
            // 1. atakuva (enemy na sy6toto kvadrat4e)
@@ -341,13 +345,13 @@ void World::update(){
 							if( (*it)->timeToAct()) {
 								(*it)->setAct(MOVE);
 								grid[i][j-1].push_back((*it));
-								grid[i][j].erase(it);
-								it--;
-								continue; //za da ne increase-ne counter na *it-- (moje da ne sy6testvuva)
+								it=grid[i][j].erase(it);
+								continue; //za da prodylji s novata stoinost na it..
 							}
 						//3.2 dosega e atakuvalo
 							else if ((*it)->getAct()!=MOVE){
 								(*it)->setAct(MOVE);
+								it++;
 								continue; //za da ne increase-ne counter na (*it), ot 0 na 1 i da propusne stypka
 							}
 							else{}
@@ -359,14 +363,14 @@ void World::update(){
 					if ((*it)->getType()==PEASHOOTER){
                         bool zombieExists = false;
             // 1. ako ima pred nego v sy6toto kvadrat4e, no ne strelq :
-                        for((it2=it)++; it2!=grid[i][j].end(); it2++){ //it2 =it+1 za da po4ne sled nego da gleda (cveteto vinagi e na pyrvo mqsto i e !)
+                        for((it2=it)++; it2!=grid[i][j].end(); it2++){ //it2 =it+1 za da po4ne da gleda sled nego (cveteto vinagi e na pyrvo mqsto i e !)
                             if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ) {
                                 zombieExists = true;
                                 if((*it)->getAct()==STAY || (*it)->timeToAct()){
                                     (*it2)->addHP(-((*it)->getDamage()) );
                                     if((*it)->getAct()!=ATTACK) {(*it)->setAct(ATTACK);}
                                 }
-                                break;
+                                break; // namerilo e enemy, spira da tyrsi
                             }
                         }
                         if(!zombieExists){
@@ -382,10 +386,10 @@ void World::update(){
                                             (*it2)->addHP(-((*it)->getDamage()) );
                                             if((*it)->getAct()!=ATTACK) {(*it)->setAct(ATTACK);}
                                         }
-                                        break;
+                                        break; // break na obhojdaneto na teku6toto kvadrat4e
                                     }
                                 }
-                                if(zombieExists) break;
+                                if(zombieExists) break; // namerilo e enemy, spira da tyrsi
                             }
                         }
                         // ako ve4e ne napada:
@@ -399,18 +403,21 @@ void World::update(){
 					else{}
 				}
 				(*it)->incCounter();
+				it++;
 			}
 		}
 	}
-	for(pea=peas.begin();pea!=peas.end();pea++) {
+	itPea=peas.begin();
+	while(itPea!=peas.end()) {
+
+		if ((*itPea)->enemyIsDead()) {(*itPea)->aim=NULL;}
+
 		// ako: 1) grah4eto e stignalo zombito 2) grah4eto e stignalo do kraq na grida
-		if ( (*pea)->reachedAim() || ((*pea)->getPlace() > M) ) {
-			delete (*pea);
-			peas.erase(pea);
-			pea--;
-			continue;
+		if ( (*itPea)->reachedAim() || ((*itPea)->getPlace() > M) ) {
+			delete (*itPea);
+			itPea=peas.erase(itPea);
 		}
-		if ((*pea)->enemyIsDead()) {(*pea)->aim=NULL;}
+		else itPea++;
     }
 }
 
@@ -451,4 +458,5 @@ void World::createPeashooter(SDL_Event event){
         cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
     }
 }
+
 
