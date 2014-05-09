@@ -1,11 +1,6 @@
 #ifndef ACTOR_H
 #define ACTOR_H
-#ifdef __linux__
-#include <SDL2/SDL.h>
-#else
 #include <SDL.h>
-#endif
-
 enum actorType {SUNFLOWER,PEASHOOTER,WALLNUT,ZOMBIE,ALL};
 enum actorAct {MOVE,ATTACK,STAY,DIE};
 
