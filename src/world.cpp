@@ -327,31 +327,7 @@ void World::update(){
                                 }
                             }
                         }
-/*<<<<<<< HEAD
-                        // ako ve4e ne napada:
-                        if(!zombieExists && (*it)->getAct()==ATTACK) {(*it)->setAct(STAY);}
-					}
-					else if ((*it)->getType()==SUNFLOWER){
-						if((*it)->timeToAct()) {
-							suns.push_back(new Sun( (gridStartX+((j+1)*offset_x)-20),(gridStartY+((i+1)*offset_y)-SUN_SIZE) ));
-						}
-					}
-					else{}
-				}
-				(*it)->incCounter();
-			}
-		}
-	}
-	for(pea=peas.begin();pea!=peas.end();pea++) {
-		// ako: 1) grah4eto e stignalo zombito 2) grah4eto e stignalo do kraq na grida
-		if ( (*pea)->reachedAim() || ((*pea)->getPlace() > M) ) {
-			delete (*pea);
-			peas.erase(pea);
-			pea--;
-			continue;
-		}
-		if ((*pea)->enemyIsDead()) {(*pea)->aim=NULL;}
-=======*/
+
                     }
                     /*else if (grid[i][j]->getType()==SUNFLOWER){
                             //puska Sun...
@@ -363,7 +339,6 @@ void World::update(){
                 if (grid[i][j]!=NULL) grid[i][j]->incCounter();
             }
         }
-//>>>>>>> parent of 54d4a6c... made the grid array of lists, updated the update()
     }
 }
 
