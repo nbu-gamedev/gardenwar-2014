@@ -9,7 +9,7 @@ actorType Actor::getType(){
     return type;
 }
 
-void Actor::addHP(int n){
+void Actor::setHP(int n){
     health = health + n;
 }
 
@@ -22,7 +22,7 @@ actorAct Actor::getAct(){
 }
 void Actor::setAct(actorAct act){
     this->act=act;
-    if ((act==DIE) || (act==MOVE)) counter = 0;
+    if (act==MOVE) counter = 0;
     else counter = -1;
     counter_test = 0;
 }
@@ -35,26 +35,10 @@ void Actor::incCounter(){
     counter++;
 }
 
-int Actor::getPosX(){
-    return posX;
-}
-
 int Actor::getDamage(){
     return damage;
 }
 bool Actor::timeToAct(){
-    if(act==DIE) {return counter>=3;} //za sega 3, za da umirat po-byrzo...
-    return counter%speed==0;
-}
-
-void Zombie::incCounter(){
-    counter++;
-    // za promqna na koordinati - primerno:
-    if(act == MOVE) posX-=10; // minava edno kvadrat4e za 8 sec => za 1 sec - kvadrat4e(80px) / 8
-}
-
-bool Zombie::timeToAct(){
-	if(act==DIE) {return counter>=3;}
     return counter>=speed;
 }
 
@@ -68,23 +52,21 @@ Zombie::Zombie(){
     damage = 25;
     counter_test = 0;
     mover = 1;
-    posX = 915; // (endGrid - zombie) gore dolu.... !trqbva da byde promeneno
 }
 
-Peashooter::Peashooter(int x){
+Peashooter::Peashooter(){
 
     type = PEASHOOTER;
-    act = ATTACK;
+    act = STAY;
     speed = 4;
     health = 55;
     counter=0;
     damage = 20;
     counter_test = 0;
     mover = 1;
-    posX = base_x + x*offset_x;
 }
 
-Wallnut::Wallnut(int x){
+Wallnut::Wallnut(){
 
     type = WALLNUT;
     act = STAY;
@@ -94,9 +76,8 @@ Wallnut::Wallnut(int x){
     damage = 0;
     counter_test = 0;
     mover = 1;
-    posX = base_x + x*offset_x;
 }
-Sunflower::Sunflower(int x){
+Sunflower::Sunflower(){
 
     type = SUNFLOWER;
     act = STAY;
@@ -106,7 +87,6 @@ Sunflower::Sunflower(int x){
     damage = 0;
     counter_test = 0;
     mover = 1;
-    posX = base_x + x*offset_x;
 }
 
 int Actor::return_counter()
@@ -177,21 +157,5 @@ void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, 
     }
 }
 
-void Pea::move(){
-	x=x+50;
-	br=0; // broq4 za draw (?)
-}
 
-int Pea::getPlace(){ // current position j on grid
-	return (x-base_x)/offset_x;
-}
-bool Pea::reachedAim(){
-	if(aim!=NULL){
-		return (x >= aim->getPosX()); //sledva da byde doobraboteno....
-	}
-	return false;
-}
-bool Pea::enemyIsDead(){
-  return  (aim!=NULL && aim->getAct()==DIE && aim->getCounter()==2);
-}
 

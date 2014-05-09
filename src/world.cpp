@@ -1,36 +1,30 @@
 #include "world.h"
+#include <cstdio>
+const int SCREEN_WIDTH = 1380;
+const int SCREEN_HEIGHT = 600;
 #include <iostream>
-#define SCREEN_WIDTH 1380
-#define SCREEN_HEIGHT 600
 using namespace std;
 
-list<Actor*>::iterator it;
-list<Actor*>::iterator it2;
-list<Pea*>::iterator pea;
-
 World::World(){
-	peaImagePH = NULL;
-	sunImagePH = NULL;
     game_over = NULL;
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
     sunSpawnTime = 5; // it saves time whale testing, should be 15 change it if its bothering you.
     sunCurrency = 50;
+    for(int i=0; i<N; i++){
+        for(int j=0; j<M; j++){
+            grid[i][j] = NULL;
+        }
+    }
     apply_surface_pointer = &World::apply_surface;
 }
 
 World::~World(){
     for(int i=0; i<N; i++){
         for(int j=0; j<M; j++){
-            for(it=grid[i][j].begin();it!=grid[i][j].end();it++) {
-                delete (*it);
-            }
+                delete grid[i][j];
         }
-    }
-
-    for(pea=peas.begin();pea!=peas.end();pea++) {
-		delete (*pea);
     }
 }
 
@@ -47,9 +41,6 @@ void World::createWorld(){
     if ( sunImagePH == NULL){ cout<<"Loading sun failed!!!"<< endl; }
     numbersSpite= SDL_LoadBMP("../bin/media/numberSpite.bmp");
     if ( numbersSpite == NULL){ cout<<"Loading numberSpite failed!!!"<< endl; }
-    peaImagePH = SDL_LoadBMP("../bin/media/pea.bmp");
-    SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
-    if ( peaImagePH == NULL){ cout<<"Error!/.../"<< endl; }
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
     SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
     Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_01.bmp"));
@@ -218,8 +209,6 @@ void World::destroyWorld(){
     SDL_DestroyWindow(Window);
     SDL_FreeSurface( game_over );
     SDL_FreeSurface(Background);
-    SDL_FreeSurface(peaImagePH);
-    SDL_FreeSurface(sunImagePH);
     for(int i=0; i<4; i++)
     {
         for(unsigned int j=0; j<Images[i].size(); j++)
@@ -233,31 +222,22 @@ void World::draw()
 {
 
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
-
-	 //Kari:
-	for(pea=peas.begin();pea!=peas.end();pea++) {
-		apply_surface(((*pea)->x + (*pea)->br), offset_y*((*pea)->y)+gridStartY, peaImagePH, ScreenSurface);
-		(*pea)->br+=5;
-    }
-	// ----------
-
-   for(int i=0; i<N; i++)
+    for(int i=0; i<N; i++)
     {
         for(int j=0; j<M; j++)
         {
-            for(it=grid[i][j].begin();it!=grid[i][j].end();it++)
+            if(grid[i][j] != NULL)
             {
-				   if((*it)->getAct() != ATTACK)// || (*it)->getType() == PEASHOOTER)
-//                if((*it)->getAct() != ATTACK)
+                if(grid[i][j]->getAct() != ATTACK)
                 {
-                    (*it)->draw_self(j, i, Images[(*it)->getType()][(*it)->return_counter()], ScreenSurface, *apply_surface_pointer);
+                    grid[i][j]->draw_self(j, i, Images[grid[i][j]->getType()][grid[i][j]->return_counter()], ScreenSurface, *apply_surface_pointer);
                 }
                 else
                 {
-                    apply_surface((base_x + j*offset_x), (base_y + i*offset_y- 50), Images[4][(*it)->return_counter()], ScreenSurface);
-                    (*it)->fill_counter(1);
-                    if ((*it)->return_counter() == 12)
-                        (*it)->fill_counter(-12);
+                    apply_surface((base_x + j*offset_x), (base_y + i*offset_y- 50), Images[4][grid[i][j]->return_counter()], ScreenSurface);
+                    grid[i][j]->fill_counter(1);
+                    if(grid[i][j]->return_counter() == 12)
+                        grid[i][j]->fill_counter(-12);
                 }
             }
         }
@@ -292,102 +272,62 @@ void World::draw()
     SDL_BlitSurface(numbersSpite, &source, ScreenSurface, &destination);
     } while (sunCurrencyTMP>0);
 
-
     SDL_UpdateWindowSurface(Window);
 }
 
 void World::update(){
-	for(pea=peas.begin();pea!=peas.end();pea++) {
-		(*pea)->move();
-    }
-	for(int i=0; i<N; i++){
-		for(int j=0; j<M; j++){
-			for(it=grid[i][j].begin(); it!=grid[i][j].end(); it++){
-		// --- vreme za umirane:
-				if( (*it)->getHP() <=0){
-					if((*it)->getAct()!=DIE) {(*it)->setAct(DIE);}
-					else if( (*it)->timeToAct() ){ // ... && (*it)->getAct()==DIE
-						delete (*it);
-						grid[i][j].erase(it);
-						it--; // za da se vyrne na sy6tata poziciq na sledva6ta iteraciq
-					}
-					else { (*it)->incCounter(); }
-					continue;
-				}
-				if ( (*it)->getType()==ZOMBIE){
-		// I. ako e zombie:
-					bool flowerExists = false;
-					Actor* enemy=grid[i][j].front();
-           // 1. atakuva (enemy na sy6toto kvadrat4e)
-					if( ((enemy->getType())!=ZOMBIE) && (enemy->getAct()!=DIE) ) {
-						flowerExists = true;
-						enemy->addHP( -((*it)->getDamage()) );
-						if( (*it)->getAct()!=ATTACK){
-							(*it)->setAct(ATTACK);
-						}
-					}
-					if(!flowerExists){
-			//  2. stignalo e do kraq
-						if(j==0){
-							if ((*it)->timeToAct()){
-								gameOver();
-                                break;
-							}
-						}
-			//  3. mesti se
-						else {  //  j!=0
-
-						// 3.1. dosega se e dvijelo; prodyljava dvijenie
-							if( (*it)->timeToAct()) {
-								(*it)->setAct(MOVE);
-								grid[i][j-1].push_back((*it));
-								grid[i][j].erase(it);
-								it--;
-								continue; //za da ne increase-ne counter na *it-- (moje da ne sy6testvuva)
-							}
-						//3.2 dosega e atakuvalo
-							else if ((*it)->getAct()!=MOVE){
-								(*it)->setAct(MOVE);
-								continue; //za da ne increase-ne counter na (*it), ot 0 na 1 i da propusne stypka
-							}
-							else{}
-						}
-					}
-				}
-	// II. ako e cvete:
-				else {
-					if ((*it)->getType()==PEASHOOTER){
-                        bool zombieExists = false;
-            // 1. ako ima pred nego v sy6toto kvadrat4e, no ne strelq :
-                        for((it2=it)++; it2!=grid[i][j].end(); it2++){ //it2 =it+1 za da po4ne sled nego da gleda (cveteto vinagi e na pyrvo mqsto i e !)
-                            if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ) {
-                                zombieExists = true;
-                                if((*it)->getAct()==STAY || (*it)->timeToAct()){
-                                    (*it2)->addHP(-((*it)->getDamage()) );
-                                    if((*it)->getAct()!=ATTACK) {(*it)->setAct(ATTACK);}
+     for(int i=0; i<N; i++){
+        for(int j=0; j<M; j++){
+            if(grid[i][j] != NULL){
+                // vreme za umirane:
+                if((grid[i][j]->getHP())<=0){
+                  //  if(grid[i][j]->getAct()!=DIE) {grid[i][j]->setAct(DIE);}
+                    //else {//if(grid[i][j]->timeToAct()){ // ... && grid[i][j]->getAct()==DIE
+                        delete grid[i][j];
+                        grid[i][j]=NULL;
+                        continue;
+                 //   }
+                }
+                // ako e zombie:
+                if (grid[i][j]->getType()==ZOMBIE){
+                    if(j==0){  //  1. stignalo e do kraq
+                        if (grid[i][j]->timeToAct()){
+                            gameOver();
+                        }
+                    }
+                    else if (grid[i][j-1]==NULL) { //  2. mesti se
+                        if((grid[i][j]->getAct()!=MOVE) || grid[i][j]->timeToAct()) {
+                            grid[i][j-1]=grid[i][j];
+                            grid[i][j]=NULL;
+                            grid[i][j-1]->setAct(MOVE);
+                        }
+                      /*  //ako e atakuvalo do sega (vmesto gornata 4ast)
+                        else if (grid[i][j]->getAct()!=MOVE){
+                            grid[i][j]->setAct(MOVE);
+                            grid[i][j]->incCounter();
+                        }
+                    */
+                    }
+                    else if (grid[i][j-1]->getType()!=ZOMBIE){// 3. ima cvete otpred
+                        grid[i][j-1]->setHP(-(grid[i][j]->getDamage()));
+                        if(grid[i][j]->getAct()!=ATTACK){
+                            grid[i][j]->setAct(ATTACK);
+                        }
+                    }
+                }
+                // ako e cvete:
+                else {
+                   if (grid[i][j]->getType()==PEASHOOTER){
+                        for(int k=j+1;k<M;k++){
+                            if(grid[i][k]!=NULL){
+                                if (grid[i][k]->getType()==ZOMBIE && (grid[i][k]->getAct()!=DIE)){
+                                    grid[i][k]->setHP(-(grid[i][j]->getDamage()));
+                                  //  if(grid[i][j]->getAct()!=ATTACK) { grid[i][j]->setAct(ATTACK);}
+                                    break;
                                 }
-                                break;
                             }
                         }
-                        if(!zombieExists){
-        // 2. tyrsi v predni kvadrat4eta i strelq
-                            for(int k=j+1;(k<M);k++){
-                                for(it2=grid[i][k].begin(); it2!=grid[i][k].end(); it2++){
-                                    if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ){
-                                        zombieExists =true;
-                                        if((*it)->getAct()==STAY || (*it)->timeToAct()){
-                                    // grah4eta
-                                            peas.push_back(new Pea( (*it)->getPosX(), i, *it2 ));
-                                    // --------
-                                            (*it2)->addHP(-((*it)->getDamage()) );
-                                            if((*it)->getAct()!=ATTACK) {(*it)->setAct(ATTACK);}
-                                        }
-                                        break;
-                                    }
-                                }
-                                if(zombieExists) break;
-                            }
-                        }
+/*<<<<<<< HEAD
                         // ako ve4e ne napada:
                         if(!zombieExists && (*it)->getAct()==ATTACK) {(*it)->setAct(STAY);}
 					}
@@ -411,9 +351,21 @@ void World::update(){
 			continue;
 		}
 		if ((*pea)->enemyIsDead()) {(*pea)->aim=NULL;}
+=======*/
+                    }
+                    /*else if (grid[i][j]->getType()==SUNFLOWER){
+                            //puska Sun...
+
+                    }
+
+                    */
+                }
+                if (grid[i][j]!=NULL) grid[i][j]->incCounter();
+            }
+        }
+//>>>>>>> parent of 54d4a6c... made the grid array of lists, updated the update()
     }
 }
-
 
 void World::gameOver(){
     apply_surface(380, 190, game_over, ScreenSurface);
@@ -443,12 +395,16 @@ void World::createPeashooter(SDL_Event event){
     // Place Peashooter at clicked grid location
     column = (event.button.x - base_x)/offset_x;
     row = (event.button.y - base_y)/offset_y;
- //   cout << "column:" << column << " row:" << row << " address:"
- //   << grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
+    cout << "column:" << column << " row:" << row << " address:"
+    << grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
 
-    if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
-            grid[row][column].push_front (new Peashooter(column));
+    if (grid[row][column] == NULL) {
+        grid[row][column] = new Peashooter();
         cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
     }
 }
+
+
+
+
 

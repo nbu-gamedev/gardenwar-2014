@@ -19,35 +19,32 @@ protected:
     int mover;
     actorAct act;
     int damage;
-    int posX;
 public:
     virtual ~Actor(){};
-    void addHP(int n);
+    void setHP(int n);
     int getHP();
     actorType getType();
     actorAct getAct();
     void setAct(actorAct act);
     int getDamage();
-    int getPosX();
     void fill_move_counter(){counter++;}
     int return_move_counter(){return counter;}
     int getCounter();
-    virtual void incCounter();
+    void incCounter();
     int return_counter();
     void fill_counter(int mover);
     int return_mover();
     void fill_mover(int change);
-    virtual bool timeToAct();
+    bool timeToAct();
     virtual void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*)){};
     //virtual void upadte(int i,int j);
+    //int state(){return counter%speed;}
 
 };
 
 class Zombie:public Actor{
 public:
     Zombie();
-    void incCounter();
-    bool timeToAct();
     void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*));
 };
 
@@ -56,32 +53,20 @@ public:
 };
 class Peashooter:public Flower{
 public:
-    Peashooter(int x);
+    Peashooter();
     void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*));
 };
 class Wallnut:public Flower{
 public:
-    Wallnut(int x);
+    Wallnut();
     void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*));
 };
 
 class Sunflower:public Flower
 {
 public:
-    Sunflower(int x);
+    Sunflower();
     void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*));
-};
-
-struct Pea{
-	int x;
-	int y; // = i ot grid-a
-	int br; // broq4 za draw (?)
-	Actor* aim;
-	Pea(int psPos, int i, Actor* enemy):x(psPos+80),y(i),br(0),aim(enemy){}; //psPos -> peashooter position
-	int getPlace(); //vry6ta teku6toto j ot grida
-	void move();
-	bool reachedAim();
-	bool enemyIsDead();
 };
 
 #endif

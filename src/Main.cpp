@@ -15,15 +15,13 @@ int main( int argc, char* args[] ){
     int timeToSun = level.sunSpawnTime;
     unsigned int lastTime = 0, lastTimeDraw = 0, currentTime;
     currentTime = 0;
-
-    level.grid[3][2].push_back(new Sunflower(2));
-    //level.grid[3][2].push_front(new Sunflower());
-    //level.grid[1][1].push_front(new Peashooter());
-    //level.grid[2][2].push_front(new Wallnut());
-    //level.grid[0][7].push_front(new Wallnut());
-    level.grid[0][8].push_back(new Zombie());
-    level.grid[3][8].push_back(new Zombie());
-    level.grid[1][8].push_back(new Zombie());
+    level.grid[3][2] = new Sunflower();
+    level.grid[1][1] = new Peashooter();
+    level.grid[2][2] = new Wallnut();
+    level.grid[0][3] = new Wallnut();
+    level.grid[0][4] = new Wallnut();
+    level.grid[0][7] = new Wallnut();
+    level.grid[0][8] = new Zombie();
 
     //currentTime = SDL_GetTicks();
 	while( !World::quit ){
