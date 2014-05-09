@@ -37,6 +37,3 @@ bin/*.dll
 !.gitignore
 src/Plants vs Zombies PLZ work.depend
 src/Plants vs Zombies PLZ work.layout
-src/Plants vs Zombies PLZ work.cbp
-src/bin
-src/obj
