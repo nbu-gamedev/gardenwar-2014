@@ -31,7 +31,7 @@ public:
     void createWorld();
     void destroyWorld();
     void draw();
-    void update();
+    void update(int);
     void gameOver();
     //sun
 
@@ -54,6 +54,8 @@ private:
     void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*);
     int sunCurrency;
     list<Pea*> peas;
+    vector<int> zombieWaves[300];
+    void readData();
 };
 
 #endif // WORLD_H

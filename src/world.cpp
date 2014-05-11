@@ -1,5 +1,8 @@
 #include "world.h"
 #include <iostream>
+#include <fstream>
+#include <string>
+#include <sstream>
 #define SCREEN_WIDTH 1380
 #define SCREEN_HEIGHT 600
 using namespace std;
@@ -33,9 +36,27 @@ World::~World(){
 		delete (*itPea);
     }
 }
+void World::readData(){
+    ifstream zombiesFile("../bin/data/zombieWave.txt");
+    if (!zombiesFile.fail()){
+        string s;
+        while(getline(zombiesFile,s)){
+            istringstream ss(s);
+            int sec,pos;
+            ss>>sec;
+            char buf;
+            ss>>buf; // ':' (??)
+            while(ss>>pos){
+                zombieWaves[sec].push_back(pos);
+            }
+        }
+    }
+    zombiesFile.close();
+}
 
 void World::createWorld(){
     SDL_Init(SDL_INIT_EVERYTHING);
+    readData();
     Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     ScreenSurface = SDL_GetWindowSurface(Window);
     Background = SDL_LoadBMP("../bin/media/background.bmp");
@@ -234,12 +255,6 @@ void World::draw()
 
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
 
-	 //Kari:
-	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
-		apply_surface(((*itPea)->x + (*itPea)->br), offset_y*((*itPea)->y)+gridStartY, peaImagePH, ScreenSurface);
-		(*itPea)->br+=5;
-    }
-	// ----------
 
    for(int i=0; i<N; i++)
     {
@@ -247,8 +262,7 @@ void World::draw()
         {
             for(it=grid[i][j].begin();it!=grid[i][j].end();it++)
             {
-				   if((*it)->getAct() != ATTACK)// || (*it)->getType() == PEASHOOTER)
-//                if((*it)->getAct() != ATTACK)
+				if((*it)->getAct() != ATTACK)// || (*it)->getType() == PEASHOOTER)
                 {
                     (*it)->draw_self(j, i, Images[(*it)->getType()][(*it)->return_counter()], ScreenSurface, *apply_surface_pointer);
                 }
@@ -292,11 +306,18 @@ void World::draw()
     SDL_BlitSurface(numbersSpite, &source, ScreenSurface, &destination);
     } while (sunCurrencyTMP>0);
 
+	 //Kari:
+	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
+		apply_surface(((*itPea)->x + (*itPea)->br), offset_y*((*itPea)->y)+gridStartY, peaImagePH, ScreenSurface);
+		(*itPea)->br+=5;
+    }
+	// ----------
 
     SDL_UpdateWindowSurface(Window);
 }
 
-void World::update(){
+void World::update(int clock){
+
 	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
 		(*itPea)->move();
     }
@@ -419,6 +440,14 @@ void World::update(){
 		}
 		else itPea++;
     }
+
+    clock = (clock/1000)%300;
+    if(!zombieWaves[clock].empty()){
+        for(int i=0; i<zombieWaves[clock].size(); i++){
+            grid[(zombieWaves[clock][i])][M-1].push_back(new Zombie());
+        }
+    }
+
 }
 
 

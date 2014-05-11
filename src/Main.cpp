@@ -18,15 +18,10 @@ int main( int argc, char* args[] ){
 
     level.grid[3][2].push_back(new Sunflower(2));
     level.grid[0][7].push_front(new Wallnut(7));
-    level.grid[0][8].push_back(new Zombie());
-    level.grid[3][8].push_back(new Zombie());
-    level.grid[1][8].push_back(new Zombie());
-
 
 	while( !World::quit ){
 
         currentTime = SDL_GetTicks();
-        
 		while( SDL_PollEvent( &event ) != 0 ) {
 		    if (event.type == SDL_MOUSEBUTTONUP){
              // if player clicks on sun -> collect it
@@ -61,7 +56,7 @@ int main( int argc, char* args[] ){
         if (currentTime >= lastTime + 1000)
         {
             lastTime = currentTime;
-			level.update();
+			level.update(currentTime);
 			timeToSun--;
 			if (timeToSun<=0){
                 level.createSun();
