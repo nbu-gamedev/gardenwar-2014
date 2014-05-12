@@ -5,8 +5,8 @@
 #else
 #include <SDL.h>
 #endif
-
-enum actorType {SUNFLOWER,PEASHOOTER,WALLNUT,ZOMBIE,ALL};
+#define ALL_SHOP_ITEMS ZOMBIE
+enum actorType {PEASHOOTER,SUNFLOWER,WALLNUT,ZOMBIE,ALL};
 enum actorAct {MOVE,ATTACK,STAY,DIE};
 
 class Actor{

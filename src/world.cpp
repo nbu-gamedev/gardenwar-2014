@@ -14,6 +14,8 @@ list<Pea*>::iterator itPea;
 World::World(){
 	peaImagePH = NULL;
 	sunImagePH = NULL;
+	shopSprite = NULL;
+	numbersSpite = NULL;
     game_over = NULL;
     Window = NULL;
     Background = NULL;
@@ -21,6 +23,23 @@ World::World(){
     sunSpawnTime = 5; // it saves time whale testing, should be 15 change it if its bothering you.
     sunCurrency = 50;
     apply_surface_pointer = &World::apply_surface;
+    //init the shop struct
+    ShopItem[PEASHOOTER].cost = 100;
+    ShopItem[SUNFLOWER].cost = 50;
+    ShopItem[WALLNUT].cost = 50;
+    for (int i = 0; i<ALL_SHOP_ITEMS; i++){
+        ShopItem[i].x = 15+(70*i);
+        ShopItem[i].y = 15;
+        ShopItem[i].width = 65;
+        ShopItem[i].height = 90;
+        ShopItem[i].mouseOver = false;
+        ShopItem[i].clicked = false;
+        if (ShopItem[i].cost > sunCurrency){
+            ShopItem[i].canAfford = false;
+        } else {
+            ShopItem[i].canAfford = true;
+        }
+    }
 }
 
 World::~World(){
@@ -68,6 +87,8 @@ void World::createWorld(){
     if ( sunImagePH == NULL){ cout<<"Loading sun failed!!!"<< endl; }
     numbersSpite= SDL_LoadBMP("../bin/media/numberSpite.bmp");
     if ( numbersSpite == NULL){ cout<<"Loading numberSpite failed!!!"<< endl; }
+    shopSprite= SDL_LoadBMP("../bin/media/shopSprite.bmp");
+    if ( shopSprite == NULL){ cout<<"Loading shopSprite failed!!!"<< endl; }
     peaImagePH = SDL_LoadBMP("../bin/media/pea.bmp");
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
     if ( peaImagePH == NULL){ cout<<"Error!/.../"<< endl; }
@@ -282,14 +303,12 @@ void World::draw()
         apply_surface(suns[currentSun]->getX(),suns[currentSun]->getY(),sunImagePH,ScreenSurface);
     }
     //using sprite sheet for the numbers 0-9
-    SDL_Rect destination;
-    destination.y = 10;
-    destination.w = 35;
-    destination.h = 44;
     SDL_Rect source;
+    SDL_Rect destination;
     source.y = 0;
     source.w = 18;
     source.h = 20;
+    destination.y = 20;
     int number;
     int digitNumber=0; // used to know witch digit we are getting from right to left.
     int sunCurrencyTMP = sunCurrency;
@@ -305,6 +324,18 @@ void World::draw()
 
     SDL_BlitSurface(numbersSpite, &source, ScreenSurface, &destination);
     } while (sunCurrencyTMP>0);
+
+    source.y = 130;
+    source.w = 65;
+    source.h = 90;
+    destination.y = 15;
+
+    for (int i = 0; i < ALL_SHOP_ITEMS; i++){
+        destination.x = ShopItem[i].x;
+        source.x = 35+(70*i);
+        SDL_BlitSurface(shopSprite, &source, ScreenSurface, &destination);
+    }
+
 
 	 //Kari:
 	for(itPea=peas.begin();itPea!=peas.end();itPea++) {

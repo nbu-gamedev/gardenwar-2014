@@ -17,6 +17,15 @@ const int gridStartY = base_y;
 const int gridEndY = base_y + N*offset_y;
 const int gridSizeX = gridEndX - gridStartX;
 const int gridSizeY = gridEndY - gridStartY;
+//shopitems
+struct ItemsInShop{
+    int x,y,height,width;
+    int cost;
+    bool mouseOver,clicked,canAfford;
+};
+
+
+
 
 
 using namespace std;
@@ -33,8 +42,9 @@ public:
     void draw();
     void update(int);
     void gameOver();
-    //sun
-
+    // Shop
+    ItemsInShop ShopItem[ALL_SHOP_ITEMS];
+    // Sun
     void createSun();
     void createPeashooter(SDL_Event event);
     vector<Sun*> suns;
@@ -46,6 +56,7 @@ private:
 	SDL_Surface* peaImagePH;
     SDL_Surface* sunImagePH;
     SDL_Surface* numbersSpite;
+    SDL_Surface* shopSprite;
     vector<SDL_Surface*> Images[5];
     SDL_Surface* ScreenSurface;
     SDL_Window* Window;
