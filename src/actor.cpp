@@ -124,48 +124,98 @@ void Actor::fill_mover(int change)
     mover = change;
 }
 
-void Sunflower::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
+void Sunflower::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
 {
     counter_test += mover;
-    (*apply_surface_pointer)((base_x + j*offset_x), (base_y + i*offset_y), picture, Screen);
+    SDL_Rect destination;
+    SDL_Rect image;
+    destination.x = base_x + j*offset_x;
+    destination.y = base_y + i*offset_y;
+    destination.h = 0;
+    destination.w = 0;
+    image.h = 97;
+    image.w = 80;
+    image.x = 0;
+    image.y = 97 * counter_test;
+    SDL_BlitSurface(picture, &image, Screen, &destination);
     if(counter_test == 9)
         mover = -1;
     if(counter_test == 0)
         mover = 1;
 }
 
-void Wallnut::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
+void Wallnut::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
 {
     counter_test += mover;
-    (*apply_surface_pointer)((base_x + j*offset_x), (base_y + i*offset_y), picture, Screen);
+    SDL_Rect destination;
+    SDL_Rect image;
+    destination.x = base_x + j*offset_x;
+    destination.y = base_y + i*offset_y;
+    destination.h = 0;
+    destination.w = 0;
+    image.h = 98;
+    image.w = 80;
+    image.x = 0;
+    image.y = 98 * counter_test;
+    SDL_BlitSurface(picture, &image, Screen, &destination);
     if(counter_test == 6)
         mover = -1;
     if(counter_test == 0)
         mover = 1;
 }
 
-void Peashooter::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
+void Peashooter::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
 {
     counter_test += mover;
- //   (*apply_surface_pointer)((base_x + j*offset_x), (base_y + i*offset_y), picture, Screen);
+    SDL_Rect destination;
+    SDL_Rect image;
+    destination.x = base_x + j*offset_x;
+    destination.y = base_y + i*offset_y;
+    destination.h = 0;
+    destination.w = 0;
+    image.h = 98;
+    image.w = 80;
+    image.x = 0;
+    image.y = 98* counter_test;
+    SDL_BlitSurface(picture, &image, Screen, &destination);
     if(counter_test == 11)
         mover = -1;
     if(counter_test == 0)
         mover = 1;
 }
 
-void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
+void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
 {
     if(counter % 8 < 4)
     {
-        (*apply_surface_pointer)((base_x + j*offset_x - 40 + 0.45*counter_test), (base_y + i*offset_y - 50), picture, Screen);
+        SDL_Rect destination;
+        SDL_Rect image;
+        destination.x = base_x + j*offset_x - 30 + 0.5 * counter_test;
+        destination.y = base_y + i*offset_y - 50;
+        destination.h = 0;
+        destination.w = 0;
+        image.h = 148;
+        image.w = 160;
+        image.x = 0;
+        image.y = 148 * counter_test;
+        SDL_BlitSurface(picture, &image, Screen, &destination);
         counter_test += 1;
         if(counter_test == 40)
             counter_test += -40;
     }
     else
     {
-        (*apply_surface_pointer)((base_x + j*offset_x - 80 + 0.45*counter_test), (base_y + i*offset_y - 50), picture, Screen);
+        SDL_Rect destination;
+        SDL_Rect image;
+        destination.x = base_x + j*offset_x - 80 + 0.5 * counter_test;
+        destination.y = base_y + i*offset_y - 50;
+        destination.h = 0;
+        destination.w = 0;
+        image.h = 148;
+        image.w = 160;
+        image.x = 0;
+        image.y = 148 * counter_test;
+        SDL_BlitSurface(picture, &image, Screen, &destination);
         counter_test += 1;
         if(counter_test == 40)
             counter_test += -40;

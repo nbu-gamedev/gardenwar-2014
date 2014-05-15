@@ -54,7 +54,7 @@ private:
     SDL_Surface* sunImagePH;
     SDL_Surface* numbersSpite;
     SDL_Surface* shopSprite;
-    vector<SDL_Surface*> Images[5];
+    vector<SDL_Surface*> Images;
     SDL_Surface* ScreenSurface;
     SDL_Window* Window;
     SDL_Surface* Background;
