@@ -186,28 +186,48 @@ void Peashooter::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Scre
 
 void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
 {
-    if(counter % 8 < 4)
+    if(act == MOVE)
     {
-        SDL_Rect destination;
-        SDL_Rect image;
-        destination.x = base_x + j*offset_x - 30 + 0.5 * counter_test;
-        destination.y = base_y + i*offset_y - 50;
-        destination.h = 0;
-        destination.w = 0;
-        image.h = 148;
-        image.w = 160;
-        image.x = 0;
-        image.y = 148 * counter_test;
-        SDL_BlitSurface(picture, &image, Screen, &destination);
-        counter_test += 1;
-        if(counter_test == 40)
-            counter_test += -40;
+        if(counter % 8 < 4)
+        {
+            SDL_Rect destination;
+            SDL_Rect image;
+            destination.x = base_x + j*offset_x - 30 + 0.4 * counter_test;
+            destination.y = base_y + i*offset_y - 50;
+            destination.h = 0;
+            destination.w = 0;
+            image.h = 148;
+            image.w = 160;
+            image.x = 0;
+            image.y = 148 * counter_test;
+            SDL_BlitSurface(picture, &image, Screen, &destination);
+            counter_test += 1;
+            if(counter_test == 40)
+                counter_test += -40;
+        }
+        else
+        {
+            SDL_Rect destination;
+            SDL_Rect image;
+            destination.x = base_x + j*offset_x - 80 + 0.55 * counter_test;
+            destination.y = base_y + i*offset_y - 50;
+            destination.h = 0;
+            destination.w = 0;
+            image.h = 148;
+            image.w = 160;
+            image.x = 0;
+            image.y = 148 * counter_test;
+            SDL_BlitSurface(picture, &image, Screen, &destination);
+            counter_test += 1;
+            if(counter_test == 40)
+                counter_test += -40;
+        }
     }
     else
     {
         SDL_Rect destination;
         SDL_Rect image;
-        destination.x = base_x + j*offset_x - 80 + 0.5 * counter_test;
+        destination.x = base_x + j*offset_x + 40;
         destination.y = base_y + i*offset_y - 50;
         destination.h = 0;
         destination.w = 0;
@@ -217,8 +237,8 @@ void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
         image.y = 148 * counter_test;
         SDL_BlitSurface(picture, &image, Screen, &destination);
         counter_test += 1;
-        if(counter_test == 40)
-            counter_test += -40;
+        if(counter_test == 12)
+            counter_test += -12;
     }
 }
 

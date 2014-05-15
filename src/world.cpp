@@ -139,6 +139,11 @@ void World::draw()
         {
             for(it=grid[i][j].begin();it!=grid[i][j].end();it++)
             {
+                if((*it)->getType() == ZOMBIE && (*it)->getAct() == ATTACK)
+                {
+                    (*it)->draw_self(j, i, Images[(*it)->getType() + (*it)->getAct()], ScreenSurface);
+                }
+                else
                 {
                     (*it)->draw_self(j, i, Images[(*it)->getType()], ScreenSurface);
                 }
