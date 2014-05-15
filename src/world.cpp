@@ -106,15 +106,15 @@ void World::createWorld(){
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
     if ( peaImagePH == NULL){ cout<<"Error!/.../"<< endl; }
     Images.push_back(SDL_LoadBMP("../bin/media/Peashooter_attack.bmp"));
-    SDL_SetColorKey(Images[0], SDL_TRUE, SDL_MapRGB(Images[0]->format, 255, 255, 255));
+    SDL_SetColorKey(Images[0], SDL_TRUE, SDL_MapRGB(Images[0]->format, 0, 255, 0));
     Images.push_back(SDL_LoadBMP("../bin/media/Sunflower_animation.bmp"));
-    SDL_SetColorKey(Images[1], SDL_TRUE, SDL_MapRGB(Images[1]->format, 255, 255, 255));
+    SDL_SetColorKey(Images[1], SDL_TRUE, SDL_MapRGB(Images[1]->format, 0, 255, 0));
     Images.push_back(SDL_LoadBMP("../bin/media/Wallnut_animation.bmp"));
-    SDL_SetColorKey(Images[2], SDL_TRUE, SDL_MapRGB(Images[2]->format, 255, 255, 255));
+    SDL_SetColorKey(Images[2], SDL_TRUE, SDL_MapRGB(Images[2]->format, 0, 255, 0));
     Images.push_back(SDL_LoadBMP("../bin/media/Zombie_move_animation.bmp"));
     SDL_SetColorKey(Images[3], SDL_TRUE, SDL_MapRGB(Images[3]->format, 0, 255, 0 ) );
     Images.push_back(SDL_LoadBMP("../bin/media/Zombie_eat_animation.bmp"));
-    SDL_SetColorKey(Images[4], SDL_TRUE, SDL_MapRGB(Images[4]->format, 255, 255, 255));
+    SDL_SetColorKey(Images[4], SDL_TRUE, SDL_MapRGB(Images[4]->format, 0, 255, 0));
 }
 
 void World::destroyWorld(){
