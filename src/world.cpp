@@ -390,9 +390,6 @@ void World::createPeashooter(SDL_Event event){
 bool ItemsInShop::mouseOver(){
     int mouseX,mouseY;
     SDL_GetMouseState(&mouseX,&mouseY);
-    if ( (mouseX > x) && (mouseX < sideX) &&
-         (mouseY > y) && (mouseY < bottomY)){
-        return true;
-    }else
-        return false;
+    return ( (mouseX > x) && (mouseX < sideX) &&
+             (mouseY > y) && (mouseY < bottomY));
 }

@@ -46,7 +46,7 @@ int main( int argc, char* args[] ){
                     break;
                 }
                 for (int i = 0; i < ALL_SHOP_ITEMS ; i++){
-                    // check if clicked on shop item
+                    level.ShopItem[i].clicked = level.ShopItem[i].mouseOver();
                 }
 
             }
