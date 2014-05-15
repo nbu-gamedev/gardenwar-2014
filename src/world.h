@@ -41,9 +41,14 @@ public:
     void gameOver();
     // Shop
     ItemsInShop ShopItem[ALL_SHOP_ITEMS];
+    bool canAfford(ItemsInShop item);
+    bool clickedOnShop;
     // Sun
     void createSun();
-    void createPeashooter(SDL_Event event);
+    void createDefender(SDL_Event &event);
+    void createPeashooter(SDL_Event &event);
+    void createSunflower(SDL_Event &event);
+    void createWallnut(SDL_Event &event);
     vector<Sun*> suns;
     int sunSpawnTime;
     static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);

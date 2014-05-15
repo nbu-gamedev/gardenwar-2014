@@ -26,6 +26,7 @@ World::World(){
     sunCurrency = 50;
     apply_surface_pointer = &World::apply_surface;
     //init the shop struct
+    clickedOnShop = false;
     ShopItem[PEASHOOTER].cost = 100;
     ShopItem[SUNFLOWER].cost = 50;
     ShopItem[WALLNUT].cost = 50;
@@ -155,7 +156,7 @@ void World::draw()
     source.y = 0;
     source.w = 18;
     source.h = 20;
-    destination.y = 20;
+    destination.y = 0;
     int number;
     int digitNumber=0; // used to know witch digit we are getting from right to left.
     int sunCurrencyTMP = sunCurrency;
@@ -165,7 +166,7 @@ void World::draw()
     do{
         number = sunCurrencyTMP % 10;
         source.x = 2+(16*number);
-        destination.x = 1100-(18*digitNumber); // digits printed from right to left.
+        destination.x = 54-(18*digitNumber); // digits printed from right to left.
         digitNumber++;
         sunCurrencyTMP = sunCurrencyTMP / 10;
 
@@ -177,20 +178,24 @@ void World::draw()
     for (int i = 0; i < ALL_SHOP_ITEMS; i++){
         destination.x = ShopItem[i].x;
         source.x = 35+(70*i);
-        destination.y = 15;
+        destination.y = 20;
         source.y = 130;
         source.w = 65;
         source.h = 90;
         int x,y;
         SDL_GetMouseState(&x,&y);
-
+        // if shopitem[i] clicked 95%
+        if (ShopItem[i].clicked){
+            destination.x += 2;
+            source.y = 408;
+            source.x -= 2*i;
+            source.w = 63;
+            source.h = 83;
+        }
         // if Shopitem[i] noMoney draw no money img
-        if ( ShopItem[i].cost > sunCurrency ){
+        else if ( ShopItem[i].cost > sunCurrency ){
             source.y = 316;
         }
-        // if shopitem[i] clicked 95%
-
-
         // if shopiteem[i] mouseOver draw 105%
         else if (ShopItem[i].mouseOver()){
             destination.x -= 2;
@@ -371,15 +376,34 @@ void World::createSun() {
     cout << "Total suns: " << suns.size() <<  endl;
 }
 
-void World::createPeashooter(SDL_Event event){
+void World::createDefender(SDL_Event &event){
+    if (ShopItem[PEASHOOTER].clicked){
+        createPeashooter(event);
+        ShopItem[PEASHOOTER].clicked = false;
+        sunCurrency -= ShopItem[PEASHOOTER].cost;
+        return;
+    }
+    else if (ShopItem[SUNFLOWER].clicked){
+        createSunflower(event);
+        ShopItem[SUNFLOWER].clicked = false;
+        sunCurrency -= ShopItem[SUNFLOWER].cost;
+        return;
+    }
+    else if (ShopItem[WALLNUT].clicked){
+        createWallnut(event);
+        ShopItem[WALLNUT].clicked = false;
+        sunCurrency -= ShopItem[WALLNUT].cost;
+        return;
+    }
+
+}
+
+void World::createPeashooter(SDL_Event &event){
     int row = 0;
     int column = 0;
-
     // Place Peashooter at clicked grid location
     column = (event.button.x - base_x)/offset_x;
     row = (event.button.y - base_y)/offset_y;
- //   cout << "column:" << column << " row:" << row << " address:"
- //   << grid[row][column] << endl; //6te mahna testovete kato sam naprava i Sun.
 
     if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
             grid[row][column].push_front (new Peashooter(column));
@@ -387,9 +411,40 @@ void World::createPeashooter(SDL_Event event){
     }
 }
 
+void World::createSunflower(SDL_Event &event){
+    int row = 0;
+    int column = 0;
+    // Place Peashooter at clicked grid location
+    column = (event.button.x - base_x)/offset_x;
+    row = (event.button.y - base_y)/offset_y;
+
+    if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
+            grid[row][column].push_front (new Sunflower(column));
+        cout << "Placed new Sunflower" << endl; //6te mahna testovete kato sam naprava i Sun.
+    }
+}
+
+void World::createWallnut(SDL_Event &event){
+    int row = 0;
+    int column = 0;
+    // Place Peashooter at clicked grid location
+    column = (event.button.x - base_x)/offset_x;
+    row = (event.button.y - base_y)/offset_y;
+
+    if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
+            grid[row][column].push_front (new Wallnut(column));
+        cout << "Placed new Wallnut" << endl; //6te mahna testovete kato sam naprava i Sun.
+    }
+}
+
+
 bool ItemsInShop::mouseOver(){
     int mouseX,mouseY;
     SDL_GetMouseState(&mouseX,&mouseY);
     return ( (mouseX > x) && (mouseX < sideX) &&
              (mouseY > y) && (mouseY < bottomY));
+}
+
+bool World::canAfford(ItemsInShop item){
+return (sunCurrency >= item.cost);
 }

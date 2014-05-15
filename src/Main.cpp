@@ -39,14 +39,15 @@ int main( int argc, char* args[] ){
                         break;
                     }
                 }
-                if ( ( !clickedOnSun ) &&
+                if ( ( !clickedOnSun ) && (level.clickedOnShop) &&
                      (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
-                    level.createPeashooter(event);
+                    level.createDefender(event);
                     break;
                 }
                 for (int i = 0; i < ALL_SHOP_ITEMS ; i++){
-                    level.ShopItem[i].clicked = level.ShopItem[i].mouseOver();
+                    level.ShopItem[i].clicked = (level.ShopItem[i].mouseOver() && level.canAfford(level.ShopItem[i]) );
+                    level.clickedOnShop = true;
                 }
 
             }
