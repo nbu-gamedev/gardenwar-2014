@@ -15,8 +15,8 @@ int main( int argc, char* args[] ){
     int timeToSun = level.sunSpawnTime;
     unsigned int lastTime = 0, lastTimeDraw = 0, currentTime;
     currentTime = 0;
-    //level.grid[3][2].push_back(new Sunflower(2));
-    //level.grid[0][7].push_front(new Wallnut(7));
+    level.grid[3][2].push_back(new Sunflower(2));
+    level.grid[0][7].push_front(new Wallnut(7));
 
 	while( !World::quit ){
 

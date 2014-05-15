@@ -104,168 +104,16 @@ void World::createWorld(){
     peaImagePH = SDL_LoadBMP("../bin/media/pea.bmp");
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
     if ( peaImagePH == NULL){ cout<<"Error!/.../"<< endl; }
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_00.bmp"));
-    SDL_SetColorKey(Images[0][0], SDL_TRUE, SDL_MapRGB(Images[0][0]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_01.bmp"));
-    SDL_SetColorKey(Images[0][1], SDL_TRUE, SDL_MapRGB(Images[0][1]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_02.bmp"));
-    SDL_SetColorKey(Images[0][2], SDL_TRUE, SDL_MapRGB(Images[0][2]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_03.bmp"));
-    SDL_SetColorKey(Images[0][3], SDL_TRUE, SDL_MapRGB(Images[0][3]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_04.bmp"));
-    SDL_SetColorKey(Images[0][4], SDL_TRUE, SDL_MapRGB(Images[0][4]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_05.bmp"));
-    SDL_SetColorKey(Images[0][5], SDL_TRUE, SDL_MapRGB(Images[0][5]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_06.bmp"));
-    SDL_SetColorKey(Images[0][6], SDL_TRUE, SDL_MapRGB(Images[0][6]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_07.bmp"));
-    SDL_SetColorKey(Images[0][7], SDL_TRUE, SDL_MapRGB(Images[0][7]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_08.bmp"));
-    SDL_SetColorKey(Images[0][8], SDL_TRUE, SDL_MapRGB(Images[0][8]->format, 255, 255, 255));
-    Images[0].push_back(SDL_LoadBMP("../bin/media/Sunflower_animations/Animation_basic/frame_09.bmp"));
-    SDL_SetColorKey(Images[0][9], SDL_TRUE, SDL_MapRGB(Images[0][9]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_00.bmp"));
-    SDL_SetColorKey(Images[1][0], SDL_TRUE, SDL_MapRGB(Images[1][0]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_01.bmp"));
-    SDL_SetColorKey(Images[1][1], SDL_TRUE, SDL_MapRGB(Images[1][1]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_02.bmp"));
-    SDL_SetColorKey(Images[1][2], SDL_TRUE, SDL_MapRGB(Images[1][2]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_03.bmp"));
-    SDL_SetColorKey(Images[1][3], SDL_TRUE, SDL_MapRGB(Images[1][3]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_04.bmp"));
-    SDL_SetColorKey(Images[1][4], SDL_TRUE, SDL_MapRGB(Images[1][4]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_05.bmp"));
-    SDL_SetColorKey(Images[1][5], SDL_TRUE, SDL_MapRGB(Images[1][5]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_06.bmp"));
-    SDL_SetColorKey(Images[1][6], SDL_TRUE, SDL_MapRGB(Images[1][6]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_07.bmp"));
-    SDL_SetColorKey(Images[1][7], SDL_TRUE, SDL_MapRGB(Images[1][7]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_08.bmp"));
-    SDL_SetColorKey(Images[1][8], SDL_TRUE, SDL_MapRGB(Images[1][8]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_09.bmp"));
-    SDL_SetColorKey(Images[1][9], SDL_TRUE, SDL_MapRGB(Images[1][9]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_10.bmp"));
-    SDL_SetColorKey(Images[1][10], SDL_TRUE, SDL_MapRGB(Images[1][10]->format, 255, 255, 255));
-    Images[1].push_back(SDL_LoadBMP("../bin/media/Peashooter_animations/Attack_animation/frame_11.bmp"));
-    SDL_SetColorKey(Images[1][11], SDL_TRUE, SDL_MapRGB(Images[1][11]->format, 255, 255, 255));
-    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_00.bmp"));
-    SDL_SetColorKey(Images[2][0], SDL_TRUE, SDL_MapRGB(Images[2][0]->format, 255, 255, 255));
-    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_01.bmp"));
-    SDL_SetColorKey(Images[2][1], SDL_TRUE, SDL_MapRGB(Images[2][1]->format, 255, 255, 255));
-    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_02.bmp"));
-    SDL_SetColorKey(Images[2][2], SDL_TRUE, SDL_MapRGB(Images[2][2]->format, 255, 255, 255));
-    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_03.bmp"));
-    SDL_SetColorKey(Images[2][3], SDL_TRUE, SDL_MapRGB(Images[2][3]->format, 255, 255, 255));
-    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_04.bmp"));
-    SDL_SetColorKey(Images[2][4], SDL_TRUE, SDL_MapRGB(Images[2][4]->format, 255, 255, 255));
-    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_05.bmp"));
-    SDL_SetColorKey(Images[2][5], SDL_TRUE, SDL_MapRGB(Images[2][5]->format, 255, 255, 255));
-    Images[2].push_back(SDL_LoadBMP("../bin/media/Wallnut_animations/Basic_animation/frame_06.bmp"));
-    SDL_SetColorKey(Images[2][6], SDL_TRUE, SDL_MapRGB(Images[2][6]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_00.bmp"));
-    SDL_SetColorKey(Images[3][0], SDL_TRUE, SDL_MapRGB(Images[3][0]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_01.bmp"));
-    SDL_SetColorKey(Images[3][1], SDL_TRUE, SDL_MapRGB(Images[3][1]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_02.bmp"));
-    SDL_SetColorKey(Images[3][2], SDL_TRUE, SDL_MapRGB(Images[3][2]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_03.bmp"));
-    SDL_SetColorKey(Images[3][3], SDL_TRUE, SDL_MapRGB(Images[3][3]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_04.bmp"));
-    SDL_SetColorKey(Images[3][4], SDL_TRUE, SDL_MapRGB(Images[3][4]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_05.bmp"));
-    SDL_SetColorKey(Images[3][5], SDL_TRUE, SDL_MapRGB(Images[3][5]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_06.bmp"));
-    SDL_SetColorKey(Images[3][6], SDL_TRUE, SDL_MapRGB(Images[3][6]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_07.bmp"));
-    SDL_SetColorKey(Images[3][7], SDL_TRUE, SDL_MapRGB(Images[3][7]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_08.bmp"));
-    SDL_SetColorKey(Images[3][8], SDL_TRUE, SDL_MapRGB(Images[3][8]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_09.bmp"));
-    SDL_SetColorKey(Images[3][9], SDL_TRUE, SDL_MapRGB(Images[3][9]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_10.bmp"));
-    SDL_SetColorKey(Images[3][10], SDL_TRUE, SDL_MapRGB(Images[3][10]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_11.bmp"));
-    SDL_SetColorKey(Images[3][11], SDL_TRUE, SDL_MapRGB(Images[3][11]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_12.bmp"));
-    SDL_SetColorKey(Images[3][12], SDL_TRUE, SDL_MapRGB(Images[3][12]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_13.bmp"));
-    SDL_SetColorKey(Images[3][13], SDL_TRUE, SDL_MapRGB(Images[3][13]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_14.bmp"));
-    SDL_SetColorKey(Images[3][14], SDL_TRUE, SDL_MapRGB(Images[3][14]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_15.bmp"));
-    SDL_SetColorKey(Images[3][15], SDL_TRUE, SDL_MapRGB(Images[3][15]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_16.bmp"));
-    SDL_SetColorKey(Images[3][16], SDL_TRUE, SDL_MapRGB(Images[3][16]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_17.bmp"));
-    SDL_SetColorKey(Images[3][17], SDL_TRUE, SDL_MapRGB(Images[3][17]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_18.bmp"));
-    SDL_SetColorKey(Images[3][18], SDL_TRUE, SDL_MapRGB(Images[3][18]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_19.bmp"));
-    SDL_SetColorKey(Images[3][19], SDL_TRUE, SDL_MapRGB(Images[3][19]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_20.bmp"));
-    SDL_SetColorKey(Images[3][20], SDL_TRUE, SDL_MapRGB(Images[3][20]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_21.bmp"));
-    SDL_SetColorKey(Images[3][21], SDL_TRUE, SDL_MapRGB(Images[3][21]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_22.bmp"));
-    SDL_SetColorKey(Images[3][22], SDL_TRUE, SDL_MapRGB(Images[3][22]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_23.bmp"));
-    SDL_SetColorKey(Images[3][23], SDL_TRUE, SDL_MapRGB(Images[3][23]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_24.bmp"));
-    SDL_SetColorKey(Images[3][24], SDL_TRUE, SDL_MapRGB(Images[3][24]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_25.bmp"));
-    SDL_SetColorKey(Images[3][25], SDL_TRUE, SDL_MapRGB(Images[3][25]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_26.bmp"));
-    SDL_SetColorKey(Images[3][26], SDL_TRUE, SDL_MapRGB(Images[3][26]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_27.bmp"));
-    SDL_SetColorKey(Images[3][27], SDL_TRUE, SDL_MapRGB(Images[3][27]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_28.bmp"));
-    SDL_SetColorKey(Images[3][28], SDL_TRUE, SDL_MapRGB(Images[3][28]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_29.bmp"));
-    SDL_SetColorKey(Images[3][29], SDL_TRUE, SDL_MapRGB(Images[3][29]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_30.bmp"));
-    SDL_SetColorKey(Images[3][30], SDL_TRUE, SDL_MapRGB(Images[3][30]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_31.bmp"));
-    SDL_SetColorKey(Images[3][31], SDL_TRUE, SDL_MapRGB(Images[3][31]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_32.bmp"));
-    SDL_SetColorKey(Images[3][32], SDL_TRUE, SDL_MapRGB(Images[3][32]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_33.bmp"));
-    SDL_SetColorKey(Images[3][33], SDL_TRUE, SDL_MapRGB(Images[3][33]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_34.bmp"));
-    SDL_SetColorKey(Images[3][34], SDL_TRUE, SDL_MapRGB(Images[3][34]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_35.bmp"));
-    SDL_SetColorKey(Images[3][35], SDL_TRUE, SDL_MapRGB(Images[3][35]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_36.bmp"));
-    SDL_SetColorKey(Images[3][36], SDL_TRUE, SDL_MapRGB(Images[3][36]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_37.bmp"));
-    SDL_SetColorKey(Images[3][37], SDL_TRUE, SDL_MapRGB(Images[3][37]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_38.bmp"));
-    SDL_SetColorKey(Images[3][38], SDL_TRUE, SDL_MapRGB(Images[3][38]->format, 255, 255, 255));
-    Images[3].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Walking_animation/frame_39.bmp"));
-    SDL_SetColorKey(Images[3][39], SDL_TRUE, SDL_MapRGB(Images[3][39]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_000.bmp"));
-    SDL_SetColorKey(Images[4][0], SDL_TRUE, SDL_MapRGB(Images[4][0]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_001.bmp"));
-    SDL_SetColorKey(Images[4][1], SDL_TRUE, SDL_MapRGB(Images[4][1]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_002.bmp"));
-    SDL_SetColorKey(Images[4][2], SDL_TRUE, SDL_MapRGB(Images[4][2]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_003.bmp"));
-    SDL_SetColorKey(Images[4][3], SDL_TRUE, SDL_MapRGB(Images[4][3]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_004.bmp"));
-    SDL_SetColorKey(Images[4][4], SDL_TRUE, SDL_MapRGB(Images[4][4]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_005.bmp"));
-    SDL_SetColorKey(Images[4][5], SDL_TRUE, SDL_MapRGB(Images[4][5]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_006.bmp"));
-    SDL_SetColorKey(Images[4][6], SDL_TRUE, SDL_MapRGB(Images[4][6]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_007.bmp"));
-    SDL_SetColorKey(Images[4][7], SDL_TRUE, SDL_MapRGB(Images[4][7]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_008.bmp"));
-    SDL_SetColorKey(Images[4][8], SDL_TRUE, SDL_MapRGB(Images[4][8]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_009.bmp"));
-    SDL_SetColorKey(Images[4][9], SDL_TRUE, SDL_MapRGB(Images[4][9]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_010.bmp"));
-    SDL_SetColorKey(Images[4][10], SDL_TRUE, SDL_MapRGB(Images[4][10]->format, 255, 255, 255));
-    Images[4].push_back(SDL_LoadBMP("../bin/media/Zombie_animations/Eating_animation/frame_011.bmp"));
-    SDL_SetColorKey(Images[4][11], SDL_TRUE, SDL_MapRGB(Images[4][11]->format, 255, 255, 255));
+    Images.push_back(SDL_LoadBMP("../bin/media/Peashooter_attack.bmp"));
+    SDL_SetColorKey(Images[0], SDL_TRUE, SDL_MapRGB(Images[0]->format, 255, 255, 255));
+    Images.push_back(SDL_LoadBMP("../bin/media/Sunflower_animation.bmp"));
+    SDL_SetColorKey(Images[1], SDL_TRUE, SDL_MapRGB(Images[1]->format, 255, 255, 255));
+    Images.push_back(SDL_LoadBMP("../bin/media/Wallnut_animation.bmp"));
+    SDL_SetColorKey(Images[2], SDL_TRUE, SDL_MapRGB(Images[2]->format, 255, 255, 255));
+    Images.push_back(SDL_LoadBMP("../bin/media/Zombie_move_animation.bmp"));
+    SDL_SetColorKey(Images[3], SDL_TRUE, SDL_MapRGB(Images[3]->format, 0, 255, 0 ) );
+    Images.push_back(SDL_LoadBMP("../bin/media/Zombie_eat_animation.bmp"));
+    SDL_SetColorKey(Images[4], SDL_TRUE, SDL_MapRGB(Images[4]->format, 255, 255, 255));
 }
 
 void World::destroyWorld(){
@@ -274,37 +122,24 @@ void World::destroyWorld(){
     SDL_FreeSurface(Background);
     SDL_FreeSurface(peaImagePH);
     SDL_FreeSurface(sunImagePH);
-    for(int i=0; i<4; i++)
+    for(unsigned int i=0; i<Images.size(); i++)
     {
-        for(unsigned int j=0; j<Images[i].size(); j++)
-        {
-            SDL_FreeSurface(Images[i][j]);
-        }
+        SDL_FreeSurface(Images[i]);
     }
 }
 
 void World::draw()
 {
-
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
 
-
-   for(int i=0; i<N; i++)
+    for(int i=0; i<N; i++)
     {
         for(int j=0; j<M; j++)
         {
             for(it=grid[i][j].begin();it!=grid[i][j].end();it++)
             {
-				if((*it)->getAct() != ATTACK)// || (*it)->getType() == PEASHOOTER)
                 {
-                    (*it)->draw_self(j, i, Images[(*it)->getType()][(*it)->return_counter()], ScreenSurface, *apply_surface_pointer);
-                }
-                else
-                {
-                    apply_surface((base_x + j*offset_x), (base_y + i*offset_y- 50), Images[4][(*it)->return_counter()], ScreenSurface);
-                    (*it)->fill_counter(1);
-                    if ((*it)->return_counter() == 12)
-                        (*it)->fill_counter(-12);
+                    (*it)->draw_self(j, i, Images[(*it)->getType()], ScreenSurface);
                 }
             }
         }
