@@ -45,7 +45,7 @@ bool Actor::timeToAct(){
 void Zombie::incCounter(){
     counter++;
     // za promqna na koordinati - primerno:
-    if(act == MOVE) posX-=10; // minava edno kvadrat4e za 8 sec => za 1 sec - kvadrat4e(80px) / 8
+    if(act == MOVE) posX-=offset_x/speed; // minava edno kvadrat4e za 8 sec => za 1 sec - kvadrat4e(80px) / 8
 }
 
 bool Zombie::timeToAct(){
