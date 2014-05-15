@@ -22,14 +22,11 @@ int main( int argc, char* args[] ){
 
         currentTime = SDL_GetTicks();
 		while( SDL_PollEvent( &event ) != 0 ) {
-            if (event.type == SDL_MOUSEMOTION){
-               for (int i = 0; i<ALL_SHOP_ITEMS; i++){
-                    // loop and check if mouseover/canAfford
-                }
+            if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
+                World::quit = true;
             }
-
 		    if (event.type == SDL_MOUSEBUTTONUP){
-             // if player clicks on sun -> collect it
+                // if player clicks on sun -> collect it
                 clickedOnSun = false;
                 for (unsigned int i=0 ; i < level.suns.size(); i++) {
                     if ( (event.button.x > level.suns[i]->getX()) && (event.button.x < level.suns[i]->getRightX() ) &&
@@ -46,11 +43,14 @@ int main( int argc, char* args[] ){
                      (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
                      (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
                     level.createPeashooter(event);
+                    break;
                 }
+                for (int i = 0; i < ALL_SHOP_ITEMS ; i++){
+                    // check if clicked on shop item
+                }
+
             }
-            if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
-                World::quit = true;
-            }
+
         }
         if (currentTime >= lastTimeDraw + 100)
         {

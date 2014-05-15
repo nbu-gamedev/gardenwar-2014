@@ -147,7 +147,7 @@ void Wallnut::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen,
 void Peashooter::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*))
 {
     counter_test += mover;
- //   (*apply_surface_pointer)((base_x + j*offset_x), (base_y + i*offset_y), picture, Screen);
+   // (*apply_surface_pointer)((base_x + j*offset_x), (base_y + i*offset_y), picture, Screen);
     if(counter_test == 11)
         mover = -1;
     if(counter_test == 0)

@@ -32,15 +32,9 @@ World::World(){
     for (int i = 0; i<ALL_SHOP_ITEMS; i++){
         ShopItem[i].x = 15+(70*i);
         ShopItem[i].y = 15;
-        ShopItem[i].width = 65;
-        ShopItem[i].height = 90;
-        ShopItem[i].mouseOver = false;
+        ShopItem[i].sideX = ShopItem[i].x + 65;
+        ShopItem[i].bottomY = ShopItem[i].y + 90;
         ShopItem[i].clicked = false;
-        if (ShopItem[i].cost > sunCurrency){
-            ShopItem[i].canAfford = false;
-        } else {
-            ShopItem[i].canAfford = true;
-        }
     }
 }
 
@@ -343,14 +337,35 @@ void World::draw()
     SDL_BlitSurface(numbersSpite, &source, ScreenSurface, &destination);
     } while (sunCurrencyTMP>0);
 
-    source.y = 130;
-    source.w = 65;
-    source.h = 90;
-    destination.y = 15;
+
 
     for (int i = 0; i < ALL_SHOP_ITEMS; i++){
         destination.x = ShopItem[i].x;
         source.x = 35+(70*i);
+        destination.y = 15;
+        source.y = 130;
+        source.w = 65;
+        source.h = 90;
+        int x,y;
+        SDL_GetMouseState(&x,&y);
+
+        // if Shopitem[i] noMoney draw no money img
+        if ( ShopItem[i].cost > sunCurrency ){
+            source.y = 316;
+        }
+        // if shopitem[i] clicked 95%
+
+
+        // if shopiteem[i] mouseOver draw 105%
+        else if (ShopItem[i].mouseOver()){
+            destination.x -= 2;
+            source.x += i*2;
+            source.y += 92;
+            source.w += 2;
+            source.h += 2;
+        }
+        // else draw normal
+
         SDL_BlitSurface(shopSprite, &source, ScreenSurface, &destination);
     }
 
@@ -492,7 +507,7 @@ void World::update(int clock){
 
     clock = (clock/1000)%300;
     if(!zombieWaves[clock].empty()){
-        for(int i=0; i<zombieWaves[clock].size(); i++){
+        for(unsigned int i=0; i<zombieWaves[clock].size(); i++){
             grid[(zombieWaves[clock][i])][M-1].push_back(new Zombie());
         }
     }
@@ -537,4 +552,12 @@ void World::createPeashooter(SDL_Event event){
     }
 }
 
-
+bool ItemsInShop::mouseOver(){
+    int mouseX,mouseY;
+    SDL_GetMouseState(&mouseX,&mouseY);
+    if ( (mouseX > x) && (mouseX < sideX) &&
+         (mouseY > y) && (mouseY < bottomY)){
+        return true;
+    }else
+        return false;
+}

@@ -14,15 +14,15 @@ const int gridStartY = base_y;
 const int gridEndY = base_y + N*offset_y;
 const int gridSizeX = gridEndX - gridStartX;
 const int gridSizeY = gridEndY - gridStartY;
+
+
 //shopitems
 struct ItemsInShop{
-    int x,y,height,width;
+    int x,y,sideX,bottomY;
     int cost;
-    bool mouseOver,clicked,canAfford;
+    bool clicked;
+    bool mouseOver();
 };
-
-
-
 
 
 using namespace std;
@@ -67,5 +67,6 @@ private:
     vector<int> zombieWaves[301];
     void readData();
 };
+
 
 #endif // WORLD_H
