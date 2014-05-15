@@ -44,7 +44,7 @@ public:
     int return_mover();
     void fill_mover(int change);
     virtual bool timeToAct();
-    virtual void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*)){};
+    virtual void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen){};
     //virtual void upadte(int i,int j);
 
 };
@@ -54,7 +54,7 @@ public:
     Zombie();
     void incCounter();
     bool timeToAct();
-    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*));
+    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
 };
 
 class Flower:public Actor{
@@ -63,19 +63,19 @@ public:
 class Peashooter:public Flower{
 public:
     Peashooter(int x);
-    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*));
+    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
 };
 class Wallnut:public Flower{
 public:
     Wallnut(int x);
-    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*));
+    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
 };
 
 class Sunflower:public Flower
 {
 public:
     Sunflower(int x);
-    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*));
+    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
 };
 
 struct Pea{
