@@ -7,10 +7,7 @@
 #include <cstdlib>
 #define N 5
 #define M 9
-const int base_x = 256;
-const int base_y = 85;
-const int offset_x = 80;
-const int offset_y = 98;
+
 const int gridStartX = base_x;
 const int gridEndX = base_x + M*offset_x;
 const int gridStartY = base_y;
@@ -65,7 +62,9 @@ private:
     void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*);
     int sunCurrency;
     list<Pea*> peas;
-    vector<int> zombieWaves[300];
+    int peaSpeed;
+    int peaDrawSpeed;
+    vector<int> zombieWaves[301];
     void readData();
 };
 

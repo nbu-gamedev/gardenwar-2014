@@ -6,6 +6,12 @@
 #include <SDL.h>
 #endif
 #define ALL_SHOP_ITEMS ZOMBIE
+
+const int base_x = 256;
+const int base_y = 85;
+const int offset_x = 80;
+const int offset_y = 98;
+
 enum actorType {PEASHOOTER,SUNFLOWER,WALLNUT,ZOMBIE,ALL};
 enum actorAct {MOVE,ATTACK,STAY,DIE};
 
@@ -77,9 +83,9 @@ struct Pea{
 	int y; // = i ot grid-a
 	int br; // broq4 za draw (?)
 	Actor* aim;
-	Pea(int psPos, int i, Actor* enemy):x(psPos+80),y(i),br(0),aim(enemy){}; //psPos -> peashooter position
+	Pea(int psPos, int i, Actor* enemy):x(psPos+offset_x),y(i),br(0),aim(enemy){}; //psPos -> peashooter position
 	int getPlace(); //vry6ta teku6toto j ot grida
-	void move();
+	void move(int dist);
 	bool reachedAim();
 	bool enemyIsDead();
 };

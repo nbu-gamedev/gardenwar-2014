@@ -20,6 +20,8 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
+    peaSpeed = 0;
+    peaDrawSpeed = 0;
     sunSpawnTime = 5; // it saves time whale testing, should be 15 change it if its bothering you.
     sunCurrency = 50;
     apply_surface_pointer = &World::apply_surface;
@@ -56,6 +58,7 @@ World::~World(){
     }
 }
 void World::readData(){
+    // zombie waves
     ifstream zombiesFile("../bin/data/zombieWave.txt");
     if (!zombiesFile.fail()){
         string s;
@@ -66,11 +69,26 @@ void World::readData(){
             char buf;
             ss>>buf; // ':' (??)
             while(ss>>pos){
-                zombieWaves[sec].push_back(pos);
+                if (pos<=300) zombieWaves[sec].push_back(pos);
             }
         }
     }
     zombiesFile.close();
+    // pea speed
+     ifstream peaFile("../bin/data/peaSpeed.txt");
+    if (!peaFile.fail()){
+        string s;
+        getline(peaFile,s);
+        istringstream ss(s);
+        char buf;
+        int spd;
+        while (ss>>buf) {
+            if(buf==':') {ss>>spd;break;}
+        }
+        peaSpeed = spd;
+        peaDrawSpeed = peaSpeed/10;
+    }
+    peaFile.close();
 }
 
 void World::createWorld(){
@@ -340,7 +358,7 @@ void World::draw()
 	 //Kari:
 	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
 		apply_surface(((*itPea)->x + (*itPea)->br), offset_y*((*itPea)->y)+gridStartY, peaImagePH, ScreenSurface);
-		(*itPea)->br+=5;
+		(*itPea)->br+=peaDrawSpeed;
     }
 	// ----------
 
@@ -350,7 +368,7 @@ void World::draw()
 void World::update(int clock){
 
 	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
-		(*itPea)->move();
+		(*itPea)->move(peaSpeed);
     }
 	for(int i=0; i<N; i++){
 		for(int j=0; j<M; j++){

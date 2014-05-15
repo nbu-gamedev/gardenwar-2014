@@ -1,10 +1,5 @@
 #include "actor.h"
 
-const int base_x = 256;
-const int base_y = 85;
-const int offset_x = 80;
-const int offset_y = 98;
-
 actorType Actor::getType(){
     return type;
 }
@@ -177,8 +172,8 @@ void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen, 
     }
 }
 
-void Pea::move(){
-	x=x+50;
+void Pea::move(int dist){
+	x=x+dist;
 	br=0; // broq4 za draw (?)
 }
 
@@ -192,6 +187,6 @@ bool Pea::reachedAim(){
 	return false;
 }
 bool Pea::enemyIsDead(){
-  return  (aim!=NULL && aim->getAct()==DIE && aim->getCounter()==2);
+  return  (aim!=NULL && aim->getAct()==DIE && aim->getCounter()==2); // 2 = zombieDieSpeed - 1...
 }
 
