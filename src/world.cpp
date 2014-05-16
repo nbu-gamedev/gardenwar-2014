@@ -24,7 +24,7 @@ World::World(){
     peaSpeed = 0;
     peaDrawSpeed = 0;
     sunSpawnTime = 15; // it saves time whale testing, should be 15 change it if its bothering you.
-    sunCurrency = 6250;
+    sunCurrency = 300;
     apply_surface_pointer = &World::apply_surface;
     //init the shop struct
     clickedOnShop = false;
