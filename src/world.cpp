@@ -415,14 +415,10 @@ void World::createDefender(SDL_Event &event){
     }
     else if (ShopItem[SUNFLOWER].clicked){
         createSunflower(event);
-        ShopItem[SUNFLOWER].clicked = false;
-        sunCurrency -= ShopItem[SUNFLOWER].cost;
         return;
     }
     else if (ShopItem[WALLNUT].clicked){
         createWallnut(event);
-        ShopItem[WALLNUT].clicked = false;
-        sunCurrency -= ShopItem[WALLNUT].cost;
         return;
     }
 
