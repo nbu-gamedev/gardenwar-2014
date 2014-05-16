@@ -79,11 +79,13 @@ public:
 };
 
 struct Pea{
-	int x;
+	int pos;
+	int x; // = j ot grid-a
 	int y; // = i ot grid-a
 	int br; // broq4 za draw (?)
+	Actor* creator;
 	Actor* aim;
-	Pea(int psPos, int i, Actor* enemy):x(psPos+offset_x),y(i),br(0),aim(enemy){}; //psPos -> peashooter position
+	Pea(int psPos, int i, Actor* enemy, Actor* crtr):pos(psPos+offset_x),x(psPos),y(i),br(0),aim(enemy),creator(crtr){}; //psPos -> peashooter position
 	int getPlace(); //vry6ta teku6toto j ot grida
 	void move(int dist);
 	bool reachedAim();

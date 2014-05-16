@@ -56,6 +56,7 @@ public:
     int getSunCurrency() {return sunCurrency;}
 private:
 	SDL_Surface* peaImagePH;
+	SDL_Surface* peaShadowImagePH;
     SDL_Surface* sunImagePH;
     SDL_Surface* numbersSpite;
     SDL_Surface* shopSprite;

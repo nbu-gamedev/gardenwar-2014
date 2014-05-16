@@ -22,7 +22,7 @@ int main( int argc, char* args[] ){
 
         currentTime = SDL_GetTicks();
 		while( SDL_PollEvent( &event ) != 0 ) {
-            if( (event.type == SDL_QUIT) || (event.key.keysym.sym)== SDLK_ESCAPE){
+            if( event.type == SDL_QUIT){//} || (event.key.keysym.sym)== SDLK_ESCAPE){
                 World::quit = true;
             }
 		    if (event.type == SDL_MOUSEBUTTONUP){

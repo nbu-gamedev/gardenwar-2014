@@ -13,6 +13,7 @@ list<Pea*>::iterator itPea;
 
 World::World(){
 	peaImagePH = NULL;
+	peaShadowImagePH = NULL;
 	sunImagePH = NULL;
 	shopSprite = NULL;
 	numbersSpite = NULL;
@@ -22,8 +23,8 @@ World::World(){
     ScreenSurface = NULL;
     peaSpeed = 0;
     peaDrawSpeed = 0;
-    sunSpawnTime = 5; // it saves time whale testing, should be 15 change it if its bothering you.
-    sunCurrency = 50;
+    sunSpawnTime = 15; // it saves time whale testing, should be 15 change it if its bothering you.
+    sunCurrency = 6250;
     apply_surface_pointer = &World::apply_surface;
     //init the shop struct
     clickedOnShop = false;
@@ -105,6 +106,9 @@ void World::createWorld(){
     peaImagePH = SDL_LoadBMP("../bin/media/pea.bmp");
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
     if ( peaImagePH == NULL){ cout<<"Error!/.../"<< endl; }
+    peaShadowImagePH = SDL_LoadBMP("../bin/media/pea_shadow.bmp");
+    SDL_SetColorKey(peaShadowImagePH, SDL_TRUE, SDL_MapRGB(peaShadowImagePH->format, 255, 255, 255));
+    if ( peaShadowImagePH == NULL){ cout<<"Error!/.../"<< endl; }
     Images.push_back(SDL_LoadBMP("../bin/media/Peashooter_attack.bmp"));
     SDL_SetColorKey(Images[0], SDL_TRUE, SDL_MapRGB(Images[0]->format, 0, 255, 0));
     Images.push_back(SDL_LoadBMP("../bin/media/Sunflower_animation.bmp"));
@@ -122,6 +126,7 @@ void World::destroyWorld(){
     SDL_FreeSurface( game_over );
     SDL_FreeSurface(Background);
     SDL_FreeSurface(peaImagePH);
+    SDL_FreeSurface(peaShadowImagePH);
     SDL_FreeSurface(sunImagePH);
     for(unsigned int i=0; i<Images.size(); i++)
     {
@@ -217,7 +222,8 @@ void World::draw()
 
 	 //Kari:
 	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
-		apply_surface(((*itPea)->x + (*itPea)->br), offset_y*((*itPea)->y)+gridStartY, peaImagePH, ScreenSurface);
+		apply_surface(((*itPea)->pos + (*itPea)->br), offset_y*((*itPea)->y)+gridStartY, peaImagePH, ScreenSurface);
+		apply_surface(((*itPea)->pos + (*itPea)->br), offset_y*((*itPea)->y)+offset_y/2+gridStartY, peaShadowImagePH, ScreenSurface);
 		(*itPea)->br+=peaDrawSpeed;
     }
 	// ----------
@@ -255,7 +261,9 @@ void World::update(int clock){
            // 1. atakuva (enemy na sy6toto kvadrat4e)
 					if( ((enemy->getType())!=ZOMBIE) && (enemy->getAct()!=DIE) ) {
 						flowerExists = true;
-						enemy->addHP( -((*it)->getDamage()) );
+						if ((*it)->timeToAct()){
+                            enemy->addHP( -((*it)->getDamage()) );
+						}
 						if( (*it)->getAct()!=ATTACK){
 							(*it)->setAct(ATTACK);
 						}
@@ -308,12 +316,11 @@ void World::update(int clock){
                             for(int k=j+1;(k<M);k++){
                                 for(it2=grid[i][k].begin(); it2!=grid[i][k].end(); it2++){
                                     if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ){
-                                        zombieExists =true;
+                                        zombieExists = true;
                                         if((*it)->getAct()==STAY || (*it)->timeToAct()){
                                     // grah4eta
-                                            peas.push_back(new Pea( (*it)->getPosX(), i, *it2 ));
+                                            peas.push_back(new Pea( (*it)->getPosX(), i, *it2, *it ));
                                     // --------
-                                            (*it2)->addHP(-((*it)->getDamage()) );
                                             if((*it)->getAct()!=ATTACK) {(*it)->setAct(ATTACK);}
                                         }
                                         break; // break na obhojdaneto na teku6toto kvadrat4e
@@ -340,11 +347,31 @@ void World::update(int clock){
 	itPea=peas.begin();
 	while(itPea!=peas.end()) {
 
-		if ((*itPea)->enemyIsDead()) {(*itPea)->aim=NULL;}
+	    if((*itPea)->enemyIsDead()) (*itPea)->aim = NULL;
+	    //looking for enemy
+        if((*itPea)->aim == NULL){
+            int i = (*itPea)->y;
+            int j = (*itPea)->x;
+            for(int k=j+1;(k<M);k++){
+                for(it2=grid[i][k].begin(); it2!=grid[i][k].end(); it2++){
+                    if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ){
+                        (*itPea)->aim = (*it2);
+                        break;
+                    }
+                }
+                if((*itPea)->aim != NULL) break;
+            }
+        }
 
-		// ako: 1) grah4eto e stignalo zombito 2) grah4eto e stignalo do kraq na grida
-		if ( (*itPea)->reachedAim() || ((*itPea)->getPlace() > M) ) {
+		// ako: 1) grah4eto e stignalo zombito
+		if ( (*itPea)->reachedAim() ) {
+		    ((*itPea)->aim)->addHP(-(((*itPea)->creator)->getDamage()) );
 			delete (*itPea);
+			itPea=peas.erase(itPea);
+		}
+		// 2) grah4eto e stignalo do kraq na grida
+		else if ( (*itPea)->getPlace() > M ){
+            delete (*itPea);
 			itPea=peas.erase(itPea);
 		}
 		else itPea++;
