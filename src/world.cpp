@@ -17,7 +17,8 @@ World::World(){
 	sunImagePH = NULL;
 	shopSprite = NULL;
 	numbersSpite = NULL;
-    game_over = NULL;
+    gameOverScreen = NULL;
+    winnerScreen = NULL;
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
@@ -25,6 +26,8 @@ World::World(){
     peaDrawSpeed = 0;
     sunSpawnTime = 15; // it saves time whale testing, should be 15 change it if its bothering you.
     sunCurrency = 300;
+    zombieWavesLength = 300;
+    zombieWaves = NULL;
     apply_surface_pointer = &World::apply_surface;
     //init the shop struct
     clickedOnShop = false;
@@ -52,20 +55,34 @@ World::~World(){
     for(itPea=peas.begin();itPea!=peas.end();itPea++) {
 		delete (*itPea);
     }
+
+    delete [] zombieWaves;
 }
 void World::readData(){
     // zombie waves
     ifstream zombiesFile("../bin/data/zombieWave.txt");
     if (!zombiesFile.fail()){
         string s;
+        char buf;
+        getline(zombiesFile,s);
+        istringstream sec(s);
+        while(sec>>buf) {
+            if (buf==':') {
+                int bufLen;
+                sec>>bufLen;
+                // primerno do 5000 sec max, ako ima gre6ka v dannite 300 po default
+                if (bufLen > 0 && bufLen < 5000){ zombieWavesLength = bufLen;}
+                break;
+            }
+        }
+        zombieWaves = new vector<int> [zombieWavesLength+1];
         while(getline(zombiesFile,s)){
-            istringstream ss(s);
             int sec,pos;
+            istringstream ss(s);
             ss>>sec;
-            char buf;
             ss>>buf; // ':' (??)
             while(ss>>pos){
-                if (pos<=300) zombieWaves[sec].push_back(pos);
+                if (sec<=zombieWavesLength && sec>=0 && pos>=0 && pos<M) zombieWaves[sec].push_back(pos);
             }
         }
     }
@@ -93,7 +110,8 @@ void World::createWorld(){
     Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     ScreenSurface = SDL_GetWindowSurface(Window);
     Background = SDL_LoadBMP("../bin/media/background.bmp");
-    game_over = SDL_LoadBMP("../bin/media/gameOver.bmp");
+    gameOverScreen = SDL_LoadBMP("../bin/media/gameOver.bmp");
+    winnerScreen = SDL_LoadBMP("../bin/media/winnerScreen.bmp");
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
     sunImagePH = SDL_LoadBMP("../bin/media/sun.bmp");
@@ -123,7 +141,8 @@ void World::createWorld(){
 
 void World::destroyWorld(){
     SDL_DestroyWindow(Window);
-    SDL_FreeSurface( game_over );
+    SDL_FreeSurface(gameOverScreen);
+    SDL_FreeSurface(winnerScreen);
     SDL_FreeSurface(Background);
     SDL_FreeSurface(peaImagePH);
     SDL_FreeSurface(peaShadowImagePH);
@@ -283,7 +302,7 @@ void World::update(int clock){
 			//  2. stignalo e do kraq
 						if(j==0){
 							if ((*it)->timeToAct()){
-								gameOver();
+								gameOver(false);
                                 break;
 							}
 						}
@@ -361,14 +380,13 @@ void World::update(int clock){
         if((*itPea)->aim == NULL){
             int i = (*itPea)->y;
             int j = (*itPea)->x;
-            for(int k=j+1;(k<M);k++){
+            for(int k=j+1;(k<M) && (*itPea)->aim == NULL;k++){
                 for(it2=grid[i][k].begin(); it2!=grid[i][k].end(); it2++){
                     if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ){
                         (*itPea)->aim = (*it2);
                         break;
                     }
                 }
-                if((*itPea)->aim != NULL) break;
             }
         }
 
@@ -386,18 +404,38 @@ void World::update(int clock){
 		else itPea++;
     }
 
-    clock = (clock/1000)%300;
-    if(!zombieWaves[clock].empty()){
-        for(unsigned int i=0; i<zombieWaves[clock].size(); i++){
-            grid[(zombieWaves[clock][i])][M-1].push_back(new Zombie());
+    clock = (clock/1000);
+    if (clock <= zombieWavesLength){
+        if(!zombieWaves[clock].empty()){
+            for(unsigned int i=0; i<zombieWaves[clock].size(); i++){
+                grid[(zombieWaves[clock][i])][M-1].push_back(new Zombie());
+            }
         }
     }
-
+    // if won level!
+    else {
+        bool winner = true;
+        for(int i=0; i<N && winner; i++){
+            for(int j=0; j<M; j++){
+               if (!grid[i][j].empty() && grid[i][j].back()->getType() == ZOMBIE){
+                        winner = false;
+                        break;
+                }
+            }
+        }
+        if (winner) gameOver(true);
+    }
 }
 
 
-void World::gameOver(){
-    apply_surface(380, 190, game_over, ScreenSurface);
+void World::gameOver(bool win){
+    if (win){
+        // apply_surface(380, 190, winnerScreen, ScreenSurface);
+        cout<<"WINNER!"<<endl;
+    }
+    else{
+        apply_surface(380, 190, gameOverScreen, ScreenSurface);
+    }
     SDL_UpdateWindowSurface(Window);
     SDL_Delay(1500);
     quit=true;
