@@ -137,6 +137,11 @@ void World::destroyWorld(){
 void World::draw()
 {
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
+    // pea shadow
+    for(itPea=peas.begin();itPea!=peas.end();itPea++) {
+		apply_surface(((*itPea)->pos + (*itPea)->br), offset_y*((*itPea)->y)+offset_y/2+gridStartY, peaShadowImagePH, ScreenSurface);
+    }
+    //-------
 
     for(int i=0; i<N; i++)
     {
@@ -223,7 +228,7 @@ void World::draw()
 	 //Kari:
 	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
 		apply_surface(((*itPea)->pos + (*itPea)->br), offset_y*((*itPea)->y)+gridStartY, peaImagePH, ScreenSurface);
-		apply_surface(((*itPea)->pos + (*itPea)->br), offset_y*((*itPea)->y)+offset_y/2+gridStartY, peaShadowImagePH, ScreenSurface);
+		//apply_surface(((*itPea)->pos + (*itPea)->br), offset_y*((*itPea)->y)+offset_y/2+gridStartY, peaShadowImagePH, ScreenSurface);
 		(*itPea)->br+=peaDrawSpeed;
     }
 	// ----------
@@ -242,7 +247,7 @@ void World::update(int clock){
             while(it!=grid[i][j].end()){
 
 		// --- vreme za umirane:
-				if( (*it)->getHP() <=0){
+				if( (*it)->getHP() <= 0){
 					if((*it)->getAct()!=DIE) {(*it)->setAct(DIE);}
 					else if( (*it)->timeToAct() ){ // ... && (*it)->getAct()==DIE
 						delete (*it);
@@ -269,6 +274,12 @@ void World::update(int clock){
 						}
 					}
 					if(!flowerExists){
+					    // ako ve4e ne atakuva
+					    if((*it)->getAct()==ATTACK) {
+					        (*it)->setAct(MOVE);
+                            it++;
+                            continue;
+                        }
 			//  2. stignalo e do kraq
 						if(j==0){
 							if ((*it)->timeToAct()){
@@ -278,21 +289,12 @@ void World::update(int clock){
 						}
 			//  3. mesti se
 						else {  //  j!=0
-
-						// 3.1. dosega se e dvijelo; prodyljava dvijenie
 							if( (*it)->timeToAct()) {
 								(*it)->setAct(MOVE);
 								grid[i][j-1].push_back((*it));
 								it=grid[i][j].erase(it);
 								continue; //za da prodylji s novata stoinost na it..
 							}
-						//3.2 dosega e atakuvalo
-							else if ((*it)->getAct()!=MOVE){
-								(*it)->setAct(MOVE);
-								it++;
-								continue; //za da ne increase-ne counter na (*it), ot 0 na 1 i da propusne stypka
-							}
-							else{}
 						}
 					}
 				}
@@ -304,24 +306,31 @@ void World::update(int clock){
                         for((it2=it)++; it2!=grid[i][j].end(); it2++){ //it2 =it+1 za da po4ne da gleda sled nego (cveteto vinagi e na pyrvo mqsto i e !)
                             if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ) {
                                 zombieExists = true;
-                                if((*it)->getAct()==STAY || (*it)->timeToAct()){
-                                    (*it2)->addHP(-((*it)->getDamage()) );
-                                    if((*it)->getAct()!=ATTACK) {(*it)->setAct(ATTACK);}
+
+                                if( (*it)->getAct()!=ATTACK ) {(*it)->setAct(ATTACK);}
+
+                                else {
+                                    if ( (*it)->timeToAct() ){
+                                    // v slu4aq kogato sa na edno kvadrat4e -> PS vzima jivot na zombito, ne grah4eto
+                                        (*it2)->addHP(-((*it)->getDamage()) );
+                                    }
                                 }
                                 break; // namerilo e enemy, spira da tyrsi
                             }
                         }
                         if(!zombieExists){
-        // 2. tyrsi v predni kvadrat4eta i strelq
+        // 2. tyrsi v predni kvadrat4eta i strelq (samo ako ima po kogo...)
                             for(int k=j+1;(k<M);k++){
                                 for(it2=grid[i][k].begin(); it2!=grid[i][k].end(); it2++){
                                     if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ){
                                         zombieExists = true;
-                                        if((*it)->getAct()==STAY || (*it)->timeToAct()){
+                                        if((*it)->getAct()!=ATTACK) {(*it)->setAct(ATTACK);}
+                                        else{
+                                            if((*it)->timeToAct()){
                                     // grah4eta
-                                            peas.push_back(new Pea( (*it)->getPosX(), i, *it2, *it ));
+                                                peas.push_back(new Pea( (*it)->getPosX(), i, *it2, *it ));
                                     // --------
-                                            if((*it)->getAct()!=ATTACK) {(*it)->setAct(ATTACK);}
+                                            }
                                         }
                                         break; // break na obhojdaneto na teku6toto kvadrat4e
                                     }
