@@ -24,7 +24,7 @@ World::World(){
     peaSpeed = 0;
     peaDrawSpeed = 0;
     sunSpawnTime = 15; // it saves time whale testing, should be 15 change it if its bothering you.
-    sunCurrency = 6250;
+    sunCurrency = 300;
     apply_surface_pointer = &World::apply_surface;
     //init the shop struct
     clickedOnShop = false;
@@ -420,20 +420,14 @@ void World::createSun() {
 void World::createDefender(SDL_Event &event){
     if (ShopItem[PEASHOOTER].clicked){
         createPeashooter(event);
-        ShopItem[PEASHOOTER].clicked = false;
-        sunCurrency -= ShopItem[PEASHOOTER].cost;
         return;
     }
     else if (ShopItem[SUNFLOWER].clicked){
         createSunflower(event);
-        ShopItem[SUNFLOWER].clicked = false;
-        sunCurrency -= ShopItem[SUNFLOWER].cost;
         return;
     }
     else if (ShopItem[WALLNUT].clicked){
         createWallnut(event);
-        ShopItem[WALLNUT].clicked = false;
-        sunCurrency -= ShopItem[WALLNUT].cost;
         return;
     }
 
@@ -447,8 +441,11 @@ void World::createPeashooter(SDL_Event &event){
     row = (event.button.y - base_y)/offset_y;
 
     if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
-            grid[row][column].push_front (new Peashooter(column));
+        grid[row][column].push_front (new Peashooter(column));
         cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
+        ShopItem[PEASHOOTER].clicked = false;
+        sunCurrency -= ShopItem[PEASHOOTER].cost;
+
     }
 }
 
@@ -462,6 +459,9 @@ void World::createSunflower(SDL_Event &event){
     if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
             grid[row][column].push_front (new Sunflower(column));
         cout << "Placed new Sunflower" << endl; //6te mahna testovete kato sam naprava i Sun.
+        ShopItem[SUNFLOWER].clicked = false;
+        sunCurrency -= ShopItem[SUNFLOWER].cost;
+
     }
 }
 
@@ -475,6 +475,9 @@ void World::createWallnut(SDL_Event &event){
     if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
             grid[row][column].push_front (new Wallnut(column));
         cout << "Placed new Wallnut" << endl; //6te mahna testovete kato sam naprava i Sun.
+        ShopItem[WALLNUT].clicked = false;
+        sunCurrency -= ShopItem[WALLNUT].cost;
+
     }
 }
 
