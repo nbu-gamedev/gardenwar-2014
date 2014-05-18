@@ -38,7 +38,7 @@ public:
     void destroyWorld();
     void draw();
     void update(int);
-    void gameOver();
+    void gameOver(bool);
     // Shop
     ItemsInShop ShopItem[ALL_SHOP_ITEMS];
     bool canAfford(ItemsInShop item);
@@ -64,13 +64,15 @@ private:
     SDL_Surface* ScreenSurface;
     SDL_Window* Window;
     SDL_Surface* Background;
-    SDL_Surface* game_over;
+    SDL_Surface* gameOverScreen;
+    SDL_Surface* winnerScreen;
     void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*);
     int sunCurrency;
     list<Pea*> peas;
     int peaSpeed;
     int peaDrawSpeed;
-    vector<int> zombieWaves[301];
+    vector<int>* zombieWaves;
+    int zombieWavesLength;
     void readData();
 };
 
