@@ -15,9 +15,9 @@ int Actor::getHP(){
 actorAct Actor::getAct(){
     return act;
 }
-void Actor::setAct(actorAct act){
+void Actor::setAct(actorAct act,int x){
     this->act=act;
-    if ((act==DIE) || (act==MOVE)) counter = 0;
+    if (act==DIE) counter = 0;
     else counter = -1;
     counter_test = 0;
 }
@@ -30,7 +30,7 @@ void Actor::incCounter(){
     counter++;
 }
 
-int Actor::getPosX(){
+int Actor::getPosX(int){
     return posX;
 }
 
@@ -42,18 +42,30 @@ bool Actor::timeToAct(){
     return counter%(speed+1)==0;
 }
 
-void Zombie::incCounter(){
-    counter++;
-    // za promqna na koordinati - primerno:
-    if(act == MOVE) posX-=offset_x/speed;
-}
-
 bool Zombie::timeToAct(){
 	if(act==DIE) {return counter>=3;}
     return counter>=speed;
 }
 
-Zombie::Zombie(){
+void Zombie::setAct(actorAct act, int currTime){
+    if (act==DIE) counter = 0;
+    else if (act==MOVE){
+        posX -= offset_x;// getPosX(currTime);
+        counter = 0;
+        timeMoved = currTime;
+    }
+    else counter = -1;
+
+    counter_test = 0;
+    this->act=act;
+}
+
+int Zombie::getPosX(int currTime){
+    if (act==MOVE) return (posX - (currTime - timeMoved)/1000.*speed);
+    return posX;
+}
+
+Zombie::Zombie(int creationTime){
 
     type = ZOMBIE;
     act = MOVE;
@@ -64,6 +76,7 @@ Zombie::Zombie(){
     counter_test = 0;
     mover = 1;
     posX = 915; // (endGrid - zombie) gore dolu.... !trqbva da byde promeneno
+    timeMoved = creationTime;
 }
 
 Peashooter::Peashooter(int x){
@@ -242,22 +255,25 @@ void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
     }
 }
 
-void Pea::move(int dist){
-	pos=pos+dist;
-	br=0; // broq4 za draw (?)
+int Pea::getCurrPeaPos(int speed,int currTime){
+ return (pos+speed*(currTime-prTime)/1000.);
+}
+
+void Pea::move(int speed, int currTime){
+	pos = pos + speed; // ili getCurrPeaPos(speed, currTime)
+	prTime = currTime;
 }
 
 int Pea::getPlace(){ // current position j on grid
 	return (pos-base_x)/offset_x;
 }
-bool Pea::reachedAim(){
+bool Pea::reachedAim(int CurrTime){
 	if(aim!=NULL){
-		return (pos >= aim->getPosX()); //sledva da byde doobraboteno....
+		return (pos >= aim->getPosX(CurrTime)); //sledva da byde doobraboteno....
 	}
 	return false;
 }
 bool Pea::enemyIsDead(){
   return  (aim!=NULL && aim->getAct()==DIE && aim->getCounter()==2); // 2 = zombieDieSpeed - 1...
 }
-
 

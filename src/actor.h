@@ -32,13 +32,13 @@ public:
     int getHP();
     actorType getType();
     actorAct getAct();
-    void setAct(actorAct act);
+    virtual void setAct(actorAct act, int x = 0);
     int getDamage();
-    int getPosX();
+    virtual int getPosX(int x = 0);
     void fill_move_counter(){counter++;}
     int return_move_counter(){return counter;}
     int getCounter();
-    virtual void incCounter();
+    void incCounter();
     int return_counter();
     void fill_counter(int mover);
     int return_mover();
@@ -46,15 +46,17 @@ public:
     virtual bool timeToAct();
     virtual void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen){};
     //virtual void upadte(int i,int j);
-
 };
 
 class Zombie:public Actor{
 public:
-    Zombie();
-    void incCounter();
+    Zombie(int);
     bool timeToAct();
+    int getPosX(int);
+    void setAct(actorAct act, int currTime = 0);
     void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
+private:
+    int timeMoved;
 };
 
 class Flower:public Actor{
@@ -82,14 +84,15 @@ struct Pea{
 	int pos;
 	int x; // = j ot grid-a
 	int y; // = i ot grid-a
-	int br; // broq4 za draw (?)
 	Actor* creator;
 	Actor* aim;
-	Pea(int psPos, int i, Actor* enemy, Actor* crtr):pos(psPos+offset_x),x(psPos),y(i),br(0),aim(enemy),creator(crtr){}; //psPos -> peashooter position
+	int prTime;
+	Pea(int psPos, int i, Actor* enemy, Actor* crtr, int time ):pos(psPos+offset_x),x(psPos),y(i),aim(enemy),creator(crtr),prTime(time){}; //psPos -> peashooter position
 	int getPlace(); //vry6ta teku6toto j ot grida
-	void move(int dist);
-	bool reachedAim();
+	void move(int, int);
+	bool reachedAim(int);
 	bool enemyIsDead();
+	int getCurrPeaPos(int, int);
 };
 
 #endif

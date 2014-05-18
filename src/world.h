@@ -36,7 +36,7 @@ public:
     ~World();
     void createWorld();
     void destroyWorld();
-    void draw();
+    void draw(int);
     void update(int);
     void gameOver(bool);
     // Shop
@@ -70,7 +70,6 @@ private:
     int sunCurrency;
     list<Pea*> peas;
     int peaSpeed;
-    int peaDrawSpeed;
     vector<int>* zombieWaves;
     int zombieWavesLength;
     void readData();

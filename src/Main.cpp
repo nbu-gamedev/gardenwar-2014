@@ -56,7 +56,7 @@ int main( int argc, char* args[] ){
         if (currentTime >= lastTimeDraw + 100)
         {
             lastTimeDraw = currentTime;
-            level.draw();
+            level.draw(currentTime);
             counter++;
         }
         if (currentTime >= lastTime + 1000)
