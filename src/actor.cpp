@@ -39,7 +39,7 @@ int Actor::getDamage(){
 }
 bool Actor::timeToAct(){
     if(act==DIE) {return counter>=3;} //za sega 3, za da umirat po-byrzo...
-    return counter%speed==0;
+    return counter%(speed+1)==0;
 }
 
 void Zombie::incCounter(){
@@ -243,20 +243,21 @@ void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
 }
 
 void Pea::move(int dist){
-	x=x+dist;
+	pos=pos+dist;
 	br=0; // broq4 za draw (?)
 }
 
 int Pea::getPlace(){ // current position j on grid
-	return (x-base_x)/offset_x;
+	return (pos-base_x)/offset_x;
 }
 bool Pea::reachedAim(){
 	if(aim!=NULL){
-		return (x >= aim->getPosX()); //sledva da byde doobraboteno....
+		return (pos >= aim->getPosX()); //sledva da byde doobraboteno....
 	}
 	return false;
 }
 bool Pea::enemyIsDead(){
   return  (aim!=NULL && aim->getAct()==DIE && aim->getCounter()==2); // 2 = zombieDieSpeed - 1...
 }
+
 
