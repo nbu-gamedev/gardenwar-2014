@@ -103,37 +103,44 @@ void World::readData(){
 }
 
 void World::createWorld(){
+    fstream read_file;
+    string work_string;
+    read_file.open("../bin/media/Image_Names.txt");
     SDL_Init(SDL_INIT_EVERYTHING);
     readData();
     Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     ScreenSurface = SDL_GetWindowSurface(Window);
-    Background = SDL_LoadBMP("../bin/media/background.bmp");
+    getline(read_file, work_string);
+    Background = SDL_LoadBMP(work_string.c_str());
+    getline(read_file, work_string);
     gameOverScreen = SDL_LoadBMP("../bin/media/gameOver.bmp");
     winnerScreen = SDL_LoadBMP("../bin/media/winnerScreen.bmp");
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
-    sunImagePH = SDL_LoadBMP("../bin/media/sun.bmp");
+    getline(read_file, work_string);
+    sunImagePH = SDL_LoadBMP(work_string.c_str());
     SDL_SetColorKey(sunImagePH, SDL_TRUE, SDL_MapRGB(sunImagePH->format, 255, 255, 255));
-    if ( sunImagePH == NULL){ cout<<"Loading sun failed!!!"<< endl; }
-    numbersSpite= SDL_LoadBMP("../bin/media/numberSpite.bmp");
-    if ( numbersSpite == NULL){ cout<<"Loading numberSpite failed!!!"<< endl; }
-    shopSprite= SDL_LoadBMP("../bin/media/shopSprite.bmp");
-    if ( shopSprite == NULL){ cout<<"Loading shopSprite failed!!!"<< endl; }
-    peaImagePH = SDL_LoadBMP("../bin/media/pea.bmp");
+    getline(read_file, work_string);
+    numbersSpite= SDL_LoadBMP(work_string.c_str());
+    getline(read_file, work_string);
+    shopSprite= SDL_LoadBMP(work_string.c_str());
+    getline(read_file, work_string);
+    peaImagePH = SDL_LoadBMP(work_string.c_str());
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
-    if ( peaImagePH == NULL){ cout<<"Error!/.../"<< endl; }
-    peaShadowImagePH = SDL_LoadBMP("../bin/media/pea_shadow.bmp");
-    SDL_SetColorKey(peaShadowImagePH, SDL_TRUE, SDL_MapRGB(peaShadowImagePH->format, 255, 255, 255));
-    if ( peaShadowImagePH == NULL){ cout<<"Error!/.../"<< endl; }
-    Images.push_back(SDL_LoadBMP("../bin/media/Peashooter_attack.bmp"));
+    getline(read_file, work_string);
+    Images.push_back(SDL_LoadBMP(work_string.c_str()));
     SDL_SetColorKey(Images[0], SDL_TRUE, SDL_MapRGB(Images[0]->format, 0, 255, 0));
-    Images.push_back(SDL_LoadBMP("../bin/media/Sunflower_animation.bmp"));
+    getline(read_file, work_string);
+    Images.push_back(SDL_LoadBMP(work_string.c_str()));
     SDL_SetColorKey(Images[1], SDL_TRUE, SDL_MapRGB(Images[1]->format, 0, 255, 0));
-    Images.push_back(SDL_LoadBMP("../bin/media/Wallnut_animation.bmp"));
+    getline(read_file, work_string);
+    Images.push_back(SDL_LoadBMP(work_string.c_str()));
     SDL_SetColorKey(Images[2], SDL_TRUE, SDL_MapRGB(Images[2]->format, 0, 255, 0));
-    Images.push_back(SDL_LoadBMP("../bin/media/Zombie_move_animation.bmp"));
+    getline(read_file, work_string);
+    Images.push_back(SDL_LoadBMP(work_string.c_str()));
     SDL_SetColorKey(Images[3], SDL_TRUE, SDL_MapRGB(Images[3]->format, 0, 255, 0 ) );
-    Images.push_back(SDL_LoadBMP("../bin/media/Zombie_eat_animation.bmp"));
+    getline(read_file, work_string);
+    Images.push_back(SDL_LoadBMP(work_string.c_str()));
     SDL_SetColorKey(Images[4], SDL_TRUE, SDL_MapRGB(Images[4]->format, 0, 255, 0));
 }
 
