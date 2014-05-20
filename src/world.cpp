@@ -127,6 +127,7 @@ void World::createWorld(){
     peaImagePH = SDL_LoadBMP(work_string.c_str());
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
     images_factory(Creature_images);
+    sound_factory(Sounds);
 }
 
 
