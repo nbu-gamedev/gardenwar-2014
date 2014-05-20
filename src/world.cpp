@@ -28,7 +28,6 @@ World::World(){
     sunCurrency = 300;
     zombieWavesLength = 300;
     zombieWaves = NULL;
-    apply_surface_pointer = &World::apply_surface;
     //init the shop struct
     clickedOnShop = false;
     ShopItem[PEASHOOTER].cost = 100;
@@ -129,22 +128,9 @@ void World::createWorld(){
     getline(read_file, work_string);
     peaImagePH = SDL_LoadBMP(work_string.c_str());
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
-    getline(read_file, work_string);
-    Images.push_back(SDL_LoadBMP(work_string.c_str()));
-    SDL_SetColorKey(Images[0], SDL_TRUE, SDL_MapRGB(Images[0]->format, 0, 255, 0));
-    getline(read_file, work_string);
-    Images.push_back(SDL_LoadBMP(work_string.c_str()));
-    SDL_SetColorKey(Images[1], SDL_TRUE, SDL_MapRGB(Images[1]->format, 0, 255, 0));
-    getline(read_file, work_string);
-    Images.push_back(SDL_LoadBMP(work_string.c_str()));
-    SDL_SetColorKey(Images[2], SDL_TRUE, SDL_MapRGB(Images[2]->format, 0, 255, 0));
-    getline(read_file, work_string);
-    Images.push_back(SDL_LoadBMP(work_string.c_str()));
-    SDL_SetColorKey(Images[3], SDL_TRUE, SDL_MapRGB(Images[3]->format, 0, 255, 0 ) );
-    getline(read_file, work_string);
-    Images.push_back(SDL_LoadBMP(work_string.c_str()));
-    SDL_SetColorKey(Images[4], SDL_TRUE, SDL_MapRGB(Images[4]->format, 0, 255, 0));
+    images_factory(Creature_images);
 }
+
 
 void World::destroyWorld(){
     SDL_DestroyWindow(Window);
@@ -154,10 +140,6 @@ void World::destroyWorld(){
     SDL_FreeSurface(peaImagePH);
     SDL_FreeSurface(peaShadowImagePH);
     SDL_FreeSurface(sunImagePH);
-    for(unsigned int i=0; i<Images.size(); i++)
-    {
-        SDL_FreeSurface(Images[i]);
-    }
 }
 
 void World::draw()
@@ -175,14 +157,8 @@ void World::draw()
         {
             for(it=grid[i][j].begin();it!=grid[i][j].end();it++)
             {
-                if((*it)->getType() == ZOMBIE && (*it)->getAct() == ATTACK)
-                {
-                    (*it)->draw_self(j, i, Images[(*it)->getType() + (*it)->getAct()], ScreenSurface);
-                }
-                else
-                {
-                    (*it)->draw_self(j, i, Images[(*it)->getType()], ScreenSurface);
-                }
+                if((*it)->getAct() != DIE)
+                    (*it)->draw_self(j, i, Creature_images[(*it)->getType()], ScreenSurface);
             }
         }
     }
@@ -258,7 +234,6 @@ void World::draw()
 		(*itPea)->br+=peaDrawSpeed;
     }
 	// ----------
-
     SDL_UpdateWindowSurface(Window);
 }
 

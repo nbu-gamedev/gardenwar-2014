@@ -6,6 +6,7 @@
 #include <SDL.h>
 #endif
 #define ALL_SHOP_ITEMS ZOMBIE
+#include "images.h"
 
 const int base_x = 256;
 const int base_y = 85;
@@ -44,9 +45,9 @@ public:
     int return_mover();
     void fill_mover(int change);
     virtual bool timeToAct();
-    virtual void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen){};
+    virtual void draw_self(int j, int i, Image Images, SDL_Surface* Screen){};
+    Image Self_Images;
     //virtual void upadte(int i,int j);
-
 };
 
 class Zombie:public Actor{
@@ -54,7 +55,7 @@ public:
     Zombie();
     void incCounter();
     bool timeToAct();
-    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
 };
 
 class Flower:public Actor{
@@ -63,19 +64,20 @@ public:
 class Peashooter:public Flower{
 public:
     Peashooter(int x);
-    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
 };
+
 class Wallnut:public Flower{
 public:
     Wallnut(int x);
-    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
 };
 
 class Sunflower:public Flower
 {
 public:
     Sunflower(int x);
-    void draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen);
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
 };
 
 struct Pea{

@@ -2,6 +2,7 @@
 #define WORLD_H
 #include "actor.h"
 #include "sun.h"
+#include "images.h"
 #include <vector>
 #include <list>
 #include <cstdlib>
@@ -54,26 +55,25 @@ public:
     static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
     void setSunCurrency(int val){sunCurrency+=val;}
     int getSunCurrency() {return sunCurrency;}
+    void readData();
 private:
 	SDL_Surface* peaImagePH;
 	SDL_Surface* peaShadowImagePH;
     SDL_Surface* sunImagePH;
     SDL_Surface* numbersSpite;
     SDL_Surface* shopSprite;
-    vector<SDL_Surface*> Images;
     SDL_Surface* ScreenSurface;
     SDL_Window* Window;
     SDL_Surface* Background;
     SDL_Surface* gameOverScreen;
     SDL_Surface* winnerScreen;
-    void (*apply_surface_pointer)(int, int, SDL_Surface*, SDL_Surface*);
+    Image Creature_images[4];
     int sunCurrency;
     list<Pea*> peas;
     int peaSpeed;
     int peaDrawSpeed;
     vector<int>* zombieWaves;
     int zombieWavesLength;
-    void readData();
 };
 
 

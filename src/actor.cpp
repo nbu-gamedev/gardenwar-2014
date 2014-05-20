@@ -70,7 +70,7 @@ Peashooter::Peashooter(int x){
 
     type = PEASHOOTER;
     act = ATTACK;
-    speed = 4;
+    speed = 1;
     health = 55;
     counter=0;
     damage = 20;
@@ -124,7 +124,7 @@ void Actor::fill_mover(int change)
     mover = change;
 }
 
-void Sunflower::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
+void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
 {
     counter_test += mover;
     SDL_Rect destination;
@@ -133,18 +133,19 @@ void Sunflower::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Scree
     destination.y = base_y + i*offset_y;
     destination.h = 0;
     destination.w = 0;
-    image.h = 97;
-    image.w = 80;
+    image.h = Images.image_h;
+    image.w = Images.image_w;
     image.x = 0;
-    image.y = 97 * counter_test;
-    SDL_BlitSurface(picture, &image, Screen, &destination);
-    if(counter_test == 9)
+    image.y = Images.image_h * counter_test;
+    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+    if(counter_test == Images.number_of_pictures[act])
         mover = -1;
     if(counter_test == 0)
         mover = 1;
 }
 
-void Wallnut::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
+void Wallnut::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
 {
     counter_test += mover;
     SDL_Rect destination;
@@ -153,18 +154,19 @@ void Wallnut::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
     destination.y = base_y + i*offset_y;
     destination.h = 0;
     destination.w = 0;
-    image.h = 98;
-    image.w = 80;
+    image.h = Images.image_h;
+    image.w = Images.image_w;
     image.x = 0;
-    image.y = 98 * counter_test;
-    SDL_BlitSurface(picture, &image, Screen, &destination);
-    if(counter_test == 6)
+    image.y = Images.image_h * counter_test;
+    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+    if(counter_test == Images.number_of_pictures[act])
         mover = -1;
     if(counter_test == 0)
         mover = 1;
 }
 
-void Peashooter::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
+void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
 {
     counter_test += mover;
     SDL_Rect destination;
@@ -173,18 +175,19 @@ void Peashooter::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Scre
     destination.y = base_y + i*offset_y;
     destination.h = 0;
     destination.w = 0;
-    image.h = 98;
-    image.w = 80;
+    image.h = Images.image_h;
+    image.w = Images.image_w;
     image.x = 0;
-    image.y = 98* counter_test;
-    SDL_BlitSurface(picture, &image, Screen, &destination);
-    if(counter_test == 11)
+    image.y = Images.image_h * counter_test;
+    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+    if(counter_test == Images.number_of_pictures[act])
         mover = -1;
     if(counter_test == 0)
         mover = 1;
 }
 
-void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
+void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
 {
     if(act == MOVE)
     {
@@ -196,14 +199,15 @@ void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
             destination.y = base_y + i*offset_y - 50;
             destination.h = 0;
             destination.w = 0;
-            image.h = 148;
-            image.w = 160;
+            image.h = Images.image_h;
+            image.w = Images.image_w;
             image.x = 0;
-            image.y = 148 * counter_test;
-            SDL_BlitSurface(picture, &image, Screen, &destination);
+            image.y = Images.image_h * counter_test;
+            SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+            SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
             counter_test += 1;
-            if(counter_test == 40)
-                counter_test += -40;
+            if(counter_test == Images.number_of_pictures[act])
+                counter_test += -Images.number_of_pictures[act];
         }
         else
         {
@@ -213,14 +217,15 @@ void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
             destination.y = base_y + i*offset_y - 50;
             destination.h = 0;
             destination.w = 0;
-            image.h = 148;
-            image.w = 160;
+            image.h = Images.image_h;
+            image.w = Images.image_w;
             image.x = 0;
-            image.y = 148 * counter_test;
-            SDL_BlitSurface(picture, &image, Screen, &destination);
+            image.y = Images.image_h * counter_test;
+            SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+            SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
             counter_test += 1;
-            if(counter_test == 40)
-                counter_test += -40;
+            if(counter_test == Images.number_of_pictures[act])
+                counter_test += -Images.number_of_pictures[act];
         }
     }
     else
@@ -231,14 +236,15 @@ void Zombie::draw_self(int j, int i, SDL_Surface* picture, SDL_Surface* Screen)
         destination.y = base_y + i*offset_y - 50;
         destination.h = 0;
         destination.w = 0;
-        image.h = 148;
-        image.w = 160;
+        image.h = Images.image_h;
+        image.w = Images.image_w;
         image.x = 0;
-        image.y = 148 * counter_test;
-        SDL_BlitSurface(picture, &image, Screen, &destination);
+        image.y = Images.image_h * counter_test;
+        SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+        SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
         counter_test += 1;
-        if(counter_test == 12)
-            counter_test += -12;
+        if(counter_test == Images.number_of_pictures[act])
+            counter_test += -Images.number_of_pictures[act];
     }
 }
 
