@@ -1,9 +1,10 @@
 #include "sound.h"
 #include <fstream>
 #include <cstdlib>
+#include <iostream>
 using namespace std;
 
-void sound_factory(Sound_master Sounds)
+void sound_factory(Sound_master &Sounds)
 {
     Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
     fstream read_file;

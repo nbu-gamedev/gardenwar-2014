@@ -9,7 +9,7 @@ int main( int argc, char* args[] ){
     World level = World();
 	level.createWorld();
 	SDL_Event event;
-	int counter = 0;
+	//int counter = 0;
     bool clickedOnSun = false;
     srand (time(NULL));
     int timeToSun = level.sunSpawnTime;
@@ -55,7 +55,6 @@ int main( int argc, char* args[] ){
         {
             lastTimeDraw = currentTime;
             level.draw(currentTime);
-            counter++;
         }
         if (currentTime >= lastTime + 1000)
         {

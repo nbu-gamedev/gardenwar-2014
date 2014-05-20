@@ -424,8 +424,10 @@ void World::gameOver(bool win){
     }
     else{
         apply_surface(380, 190, gameOverScreen, ScreenSurface);
+        Sounds.play_lose_sound();
     }
     SDL_UpdateWindowSurface(Window);
+    Sounds.play_lose_sound();
     SDL_Delay(1500);
     quit=true;
 }
