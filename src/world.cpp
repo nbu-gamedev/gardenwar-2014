@@ -335,6 +335,7 @@ void World::update(int currTime){
                                 else {
                                     if ( (*it)->timeToAct() ){
                                     // v slu4aq kogato sa na edno kvadrat4e -> PS vzima jivot na zombito, ne grah4eto
+                                        Sounds.play_peashooter_shoot();
                                         (*it2)->addHP(-((*it)->getDamage()) );
                                     }
                                 }
@@ -352,6 +353,7 @@ void World::update(int currTime){
                                             if((*it)->timeToAct()){
                                     // grah4eta
                                                 peas.push_back(new Pea( (*it)->getPosX(), i, *it2, *it, currTime ));
+                                                Sounds.play_peashooter_shoot();
                                     // --------
                                             }
                                         }
