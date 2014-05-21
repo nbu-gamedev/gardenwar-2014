@@ -104,7 +104,7 @@ void World::readData(){
 void World::createWorld(){
     fstream read_file;
     string work_string;
-    read_file.open("../bin/media/Image_Names.txt");
+    read_file.open("../bin/data/Image_Names.txt");
     SDL_Init(SDL_INIT_EVERYTHING);
     readData();
     Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -288,6 +288,7 @@ void World::update(int currTime){
            // 1. atakuva (enemy na sy6toto kvadrat4e)
 					if( ((enemy->getType())!=ZOMBIE) && (enemy->getAct()!=DIE) ) {
 						flowerExists = true;
+						Sounds.play_zombie_eat();
 						if ((*it)->timeToAct()){
                             enemy->addHP( -((*it)->getDamage()) );
 						}
@@ -510,7 +511,6 @@ void World::createWallnut(SDL_Event &event){
 
     }
 }
-
 
 bool ItemsInShop::mouseOver(){
     int mouseX,mouseY;

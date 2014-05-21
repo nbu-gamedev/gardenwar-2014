@@ -11,7 +11,6 @@ void sound_factory(Sound_master &Sounds)
     string work_string;
     read_file.open("../bin/data/Sounds.txt");
     getline(read_file, work_string);
-    cout << work_string ;
     Sounds.Game_Music = Mix_LoadMUS(work_string.c_str());
     getline(read_file, work_string);
     Sounds.Lose_Sound = Mix_LoadWAV(work_string.c_str());

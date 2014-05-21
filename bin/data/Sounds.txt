@@ -1,2 +1,3 @@
-../bin/media/let_it_go.wav
+../bin/media/game_song.wav
 ../bin/media/lose.wav
+../bin/media/crunching.wav

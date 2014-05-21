@@ -46,6 +46,7 @@
 		<Unit filename="images.cpp" />
 		<Unit filename="images.h" />
 		<Unit filename="sound.cpp" />
+		<Unit filename="sound.h" />
 		<Unit filename="sun.cpp" />
 		<Unit filename="sun.h" />
 		<Unit filename="world.cpp" />
