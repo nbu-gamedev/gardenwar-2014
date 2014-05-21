@@ -1,1 +1,2 @@
+../bin/media/let_it_go.wav
 ../bin/media/lose.wav

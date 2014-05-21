@@ -6,11 +6,12 @@ using namespace std;
 
 void sound_factory(Sound_master &Sounds)
 {
-    Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
     fstream read_file;
     string work_string;
     read_file.open("../bin/data/Sounds.txt");
     getline(read_file, work_string);
+    cout << work_string ;
     Sounds.Game_Music = Mix_LoadMUS(work_string.c_str());
     getline(read_file, work_string);
     Sounds.Lose_Sound = Mix_LoadWAV(work_string.c_str());

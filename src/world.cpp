@@ -244,6 +244,7 @@ void World::draw(int currTime)
 
 void World::update(int currTime){
 
+    Sounds.start_game_music();
     int clock = (currTime/1000);
     // if won level!
     if (clock > zombieWavesLength){

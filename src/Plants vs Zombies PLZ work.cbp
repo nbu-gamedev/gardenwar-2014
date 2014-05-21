@@ -33,16 +33,19 @@
 			<Add option="-Wall" />
 			<Add directory="sdl/include/SDL2" />
 			<Add directory="C:/Users/yavor/Desktop/Mingw_dev_libraries/include/SDL2" />
+			<Add directory="C:/Users/yavor/Desktop/i686-w64-mingw32/include/SDL2" />
 		</Compiler>
 		<Linker>
-			<Add option="-lmingw32 -lSDL2main -lSDL2" />
+			<Add option="-lmingw32 -lSDL2main -lSDL2  -lSDL2_mixer" />
 			<Add directory="sdl/lib" />
+			<Add directory="C:/Users/yavor/Desktop/i686-w64-mingw32/lib" />
 		</Linker>
 		<Unit filename="Main.cpp" />
 		<Unit filename="actor.cpp" />
 		<Unit filename="actor.h" />
 		<Unit filename="images.cpp" />
 		<Unit filename="images.h" />
+		<Unit filename="sound.cpp" />
 		<Unit filename="sun.cpp" />
 		<Unit filename="sun.h" />
 		<Unit filename="world.cpp" />

@@ -13,11 +13,10 @@ public:
     void play_zombie_eat();
     void play_peashooter_shoot();
     void play_sunflower_sun_spawn();
-        Mix_Chunk* Lose_Sound;
-
 private:
     Mix_Music* Game_Music;
     Mix_Chunk* Win_Sound;
+    Mix_Chunk* Lose_Sound;
     Mix_Chunk* Zombie_Groan[3];
     Mix_Chunk* Zombie_Eat;
     Mix_Chunk* Peashooter_Shoot;
