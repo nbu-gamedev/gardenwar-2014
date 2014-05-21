@@ -149,7 +149,7 @@ void World::draw(int currTime)
 
     for(itPea=peas.begin();itPea!=peas.end();itPea++) {
 
-        int peaShadowPosX = (*itPea)->getCurrPeaPos(peaSpeed,currTime);
+        int peaShadowPosX = (*itPea)->getCurrPeaPos(currTime);
         int peaShadowPosY = offset_y*((*itPea)->y)+offset_y/2+gridStartY;
 		apply_surface(peaShadowPosX, peaShadowPosY, peaShadowImagePH, ScreenSurface);
     }
@@ -232,9 +232,10 @@ void World::draw(int currTime)
 
 
 // pea
+
     for(itPea=peas.begin();itPea!=peas.end();itPea++) {
 
-        int peaPosX = (*itPea)->getCurrPeaPos(peaSpeed,currTime);
+        int peaPosX = (*itPea)->getCurrPeaPos(currTime);
         int peaPosY = offset_y*((*itPea)->y)+gridStartY;
 		apply_surface(peaPosX, peaPosY, peaImagePH, ScreenSurface);
     }
@@ -244,6 +245,7 @@ void World::draw(int currTime)
 
 void World::update(int currTime){
 
+	Sounds.start_game_music();
     int clock = (currTime/1000);
     // if won level!
     if (clock > zombieWavesLength){
@@ -260,7 +262,7 @@ void World::update(int currTime){
     }
 
 	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
-		(*itPea)->move(peaSpeed, currTime);
+		(*itPea)->move(currTime);
     }
 	for(int i=0; i<N; i++){
 		for(int j=0; j<M; j++){
@@ -349,7 +351,7 @@ void World::update(int currTime){
                                         else{
                                             if((*it)->timeToAct()){
                                     // grah4eta
-                                                peas.push_back(new Pea( (*it)->getPosX(), i, *it2, *it, currTime ));
+                                                peas.push_back(new Pea( peaSpeed, (*it)->getPosX(), i, *it2, *it, currTime ));
                                     // --------
                                             }
                                         }
@@ -374,37 +376,25 @@ void World::update(int currTime){
 			}
 		}
 	}
-	itPea=peas.begin();
+    itPea=peas.begin();
 	while(itPea!=peas.end()) {
 
-	    if((*itPea)->enemyIsDead()) (*itPea)->aim = NULL;
-	    //looking for enemy
+	    if((*itPea)->enemyIsDead()) { (*itPea)->aim = NULL; }
+	    //looking for new enemy
         if((*itPea)->aim == NULL){
             int i = (*itPea)->y;
-            int j = (*itPea)->x;
-            for(int k=j+1;(k<M) && (*itPea)->aim == NULL;k++){
+            int j = (*itPea)->getPlace();
+            for(int k=j;(k<M) && (*itPea)->aim == NULL;k++){
                 for(it2=grid[i][k].begin(); it2!=grid[i][k].end(); it2++){
-                    if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) ){
+                    if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) && ((*itPea)->getCurrPeaPos(currTime) <= (*it2)->getPosX(currTime)) ){
                         (*itPea)->aim = (*it2);
                         break;
                     }
                 }
             }
         }
-
-		// ako: 1) grah4eto e stignalo zombito
-		if ( (*itPea)->reachedAim(currTime) ) {
-		    ((*itPea)->aim)->addHP(-(((*itPea)->creator)->getDamage()) );
-			delete (*itPea);
-			itPea=peas.erase(itPea);
-		}
-		// 2) grah4eto e stignalo do kraq na grida
-		else if ( (*itPea)->getPlace() > M ){
-            delete (*itPea);
-			itPea=peas.erase(itPea);
-		}
-		else itPea++;
-    }
+        itPea++;
+	}
 
     if (clock <= zombieWavesLength){
         if(!zombieWaves[clock].empty()){
@@ -413,6 +403,28 @@ void World::update(int currTime){
             }
         }
     }
+
+}
+
+void World::peaShooting(int currTime){
+	itPea=peas.begin();
+	while(itPea!=peas.end()) {
+
+		// ako: 1) grah4eto e stignalo zombito
+		if ( (*itPea)->reachedAim(currTime) ) {
+		    ((*itPea)->aim)->addHP(-(((*itPea)->creator)->getDamage()) );
+			delete (*itPea);
+			itPea=peas.erase(itPea);
+		}
+
+		// 2) grah4eto e stignalo do kraq na grida
+		else if ( (*itPea)->getPlace() > M ){
+            delete (*itPea);
+			itPea=peas.erase(itPea);
+		}
+		else itPea++;
+    }
+
 
 }
 

@@ -70,7 +70,7 @@ Zombie::Zombie(int creationTime){
     type = ZOMBIE;
     act = MOVE;
     speed = 7;
-    health = 100;
+    health = 1000;
     counter = 0;
     damage = 25;
     counter_test = 0;
@@ -261,11 +261,11 @@ void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
     }
 }
 
-int Pea::getCurrPeaPos(int speed,int currTime){
+int Pea::getCurrPeaPos(int currTime){
  return (pos+speed*(currTime-prTime)/1000.);
 }
 
-void Pea::move(int speed, int currTime){
+void Pea::move(int currTime){
 	pos = pos + speed; // ili getCurrPeaPos(speed, currTime)
 	prTime = currTime;
 }
@@ -273,13 +273,13 @@ void Pea::move(int speed, int currTime){
 int Pea::getPlace(){ // current position j on grid
 	return (pos-base_x)/offset_x;
 }
-bool Pea::reachedAim(int CurrTime){
+bool Pea::reachedAim(int currTime){
 	if(aim!=NULL){
-		return (pos >= aim->getPosX(CurrTime)); //sledva da byde doobraboteno....
+		return (getCurrPeaPos(currTime) >= aim->getPosX(currTime)); //sledva da byde doobraboteno....
 	}
 	return false;
 }
 bool Pea::enemyIsDead(){
-  return  (aim!=NULL && aim->getAct()==DIE && aim->getCounter()==2); // 2 = zombieDieSpeed - 1...
+  return  (aim!=NULL && aim->getAct()==DIE /*&& aim->getCounter()==2*/); // 2 = zombieDieSpeed - 1...
 }
 

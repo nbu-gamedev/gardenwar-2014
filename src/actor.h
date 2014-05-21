@@ -1,9 +1,11 @@
 #ifndef ACTOR_H
 #define ACTOR_H
+#ifndef SDL_H
 #ifdef __linux__
 #include <SDL2/SDL.h>
 #else
 #include <SDL.h>
+#endif
 #endif
 #define ALL_SHOP_ITEMS ZOMBIE
 #include "images.h"
@@ -84,18 +86,19 @@ public:
 };
 
 struct Pea{
+	int speed;
 	int pos;
 	int x; // = j ot grid-a
 	int y; // = i ot grid-a
 	Actor* creator;
 	Actor* aim;
 	int prTime;
-	Pea(int psPos, int i, Actor* enemy, Actor* crtr, int time ):pos(psPos+offset_x),x(psPos),y(i),aim(enemy),creator(crtr),prTime(time){}; //psPos -> peashooter position
+	Pea(const int &spd, int psPos, int i, Actor* enemy, Actor* crtr, int time ):speed(spd),pos(psPos+offset_x),x(psPos),y(i),aim(enemy),creator(crtr),prTime(time){}; //psPos -> peashooter position
 	int getPlace(); //vry6ta teku6toto j ot grida
-	void move(int, int);
+	void move(int);
 	bool reachedAim(int);
 	bool enemyIsDead();
-	int getCurrPeaPos(int, int);
+	int getCurrPeaPos(int);
 };
 
 #endif

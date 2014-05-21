@@ -26,20 +26,23 @@ struct ItemsInShop{
     bool mouseOver();
 };
 
-
-using namespace std;
-
 class World
 {
 public:
     static bool quit;
+
     list<Actor*> grid[N][M];
+
     World();
     ~World();
+    void readData();
     void createWorld();
     void destroyWorld();
+
     void draw(int);
     void update(int);
+    void peaShooting(int);
+
     void gameOver(bool);
     // Shop
     ItemsInShop ShopItem[ALL_SHOP_ITEMS];
@@ -56,7 +59,6 @@ public:
     static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
     void setSunCurrency(int val){sunCurrency+=val;}
     int getSunCurrency() {return sunCurrency;}
-    void readData();
 private:
 	SDL_Surface* peaImagePH;
 	SDL_Surface* peaShadowImagePH;
@@ -79,3 +81,4 @@ private:
 
 
 #endif // WORLD_H
+
