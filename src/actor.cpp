@@ -70,7 +70,7 @@ Zombie::Zombie(int creationTime){
     type = ZOMBIE;
     act = MOVE;
     speed = 7;
-    health = 1000;
+    health = 100;
     counter = 0;
     damage = 25;
     counter_test = 0;
@@ -266,7 +266,7 @@ int Pea::getCurrPeaPos(int currTime){
 }
 
 void Pea::move(int currTime){
-	pos = pos + speed; // ili getCurrPeaPos(speed, currTime)
+	pos = pos + speed; // ili getCurrPeaPos(currTime)
 	prTime = currTime;
 }
 
@@ -280,6 +280,6 @@ bool Pea::reachedAim(int currTime){
 	return false;
 }
 bool Pea::enemyIsDead(){
-  return  (aim!=NULL && aim->getAct()==DIE /*&& aim->getCounter()==2*/); // 2 = zombieDieSpeed - 1...
+  return  ( aim!=NULL && aim->getAct()==DIE ); // 2 = zombieDieSpeed - 1...
 }
 
