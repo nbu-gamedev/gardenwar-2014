@@ -104,7 +104,7 @@ void World::readData(){
 void World::createWorld(){
     fstream read_file;
     string work_string;
-    read_file.open("../bin/media/Image_Names.txt");
+    read_file.open("../bin/data/Image_Names.txt");
     SDL_Init(SDL_INIT_EVERYTHING);
     readData();
     Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -245,7 +245,8 @@ void World::draw(int currTime)
 
 void World::update(int currTime){
 
-	Sounds.start_game_music();
+
+    Sounds.start_game_music();
     int clock = (currTime/1000);
     // if won level!
     if (clock > zombieWavesLength){
@@ -289,6 +290,7 @@ void World::update(int currTime){
            // 1. atakuva (enemy na sy6toto kvadrat4e)
 					if( ((enemy->getType())!=ZOMBIE) && (enemy->getAct()!=DIE) ) {
 						flowerExists = true;
+						Sounds.play_zombie_eat();
 						if ((*it)->timeToAct()){
                             enemy->addHP( -((*it)->getDamage()) );
 						}
@@ -335,6 +337,7 @@ void World::update(int currTime){
                                 else {
                                     if ( (*it)->timeToAct() ){
                                     // v slu4aq kogato sa na edno kvadrat4e -> PS vzima jivot na zombito, ne grah4eto
+                                        Sounds.play_peashooter_shoot();
                                         (*it2)->addHP(-((*it)->getDamage()) );
                                     }
                                 }
@@ -352,6 +355,7 @@ void World::update(int currTime){
                                             if((*it)->timeToAct()){
                                     // grah4eta
                                                 peas.push_back(new Pea( peaSpeed, (*it)->getPosX(), i, *it2, *it, currTime ));
+                                                Sounds.play_peashooter_shoot();
                                     // --------
                                             }
                                         }
@@ -521,7 +525,6 @@ void World::createWallnut(SDL_Event &event){
 
     }
 }
-
 
 bool ItemsInShop::mouseOver(){
     int mouseX,mouseY;

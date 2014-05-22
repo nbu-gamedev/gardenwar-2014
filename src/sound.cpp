@@ -6,7 +6,7 @@ using namespace std;
 
 void sound_factory(Sound_master &Sounds)
 {
-    Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 2048 );
+    Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
     fstream read_file;
     string work_string;
     read_file.open("../bin/data/Sounds.txt");
