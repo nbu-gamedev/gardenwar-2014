@@ -61,6 +61,7 @@ World::~World(){
 }
 void World::readData(){
     // zombie waves
+    
     ifstream zombiesFile("../bin/data/zombieWave.txt");
     if (!zombiesFile.fail()){
         string s;
@@ -88,6 +89,7 @@ void World::readData(){
         }
     }
     zombiesFile.close();
+    
     // pea speed
      ifstream peaFile("../bin/data/peaSpeed.txt");
     if (!peaFile.fail()){
@@ -130,7 +132,7 @@ void World::createWorld(){
     peaImagePH = SDL_LoadBMP(work_string.c_str());
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
     images_factory(Creature_images);
-    //sound_factory(Sounds);
+    sound_factory(Sounds);
 }
 
 
@@ -249,7 +251,7 @@ void World::draw(int currTime)
 void World::update(int currTime){
 
 
-    //Sounds.start_game_music();
+    Sounds.start_game_music();
     int clock = (currTime/1000);
     // if won level!
     if (clock > zombieWavesLength){
@@ -290,7 +292,7 @@ void World::update(int currTime){
            // 1. atakuva (enemy na sy6toto kvadrat4e)
 					if( ((enemy->getType())!=ZOMBIE) && (enemy->getAct()!=DIE) ) {
 						flowerExists = true;
-						//Sounds.play_zombie_eat();
+						Sounds.play_zombie_eat();
 						if ((*it)->timeToAct()){
                             enemy->addHP( -((*it)->getDamage()) );
 						}
@@ -337,7 +339,7 @@ void World::update(int currTime){
                                 else {
                                     if ( (*it)->timeToAct() ){
                                     // v slu4aq kogato sa na edno kvadrat4e -> PS vzima jivot na zombito, ne grah4eto
-                                       // Sounds.play_peashooter_shoot();
+                                      	Sounds.play_peashooter_shoot();
                                         (*it2)->addHP(-((*it)->getDamage()) );
                                     }
                                 }
@@ -355,7 +357,7 @@ void World::update(int currTime){
                                             if((*it)->timeToAct()){
                                     // grah4eta
                                                 peas.push_back(new Pea( peaSpeed, (*it)->getPosX(), i, *it2, *it, currTime ));
-                                               // Sounds.play_peashooter_shoot();
+                                                Sounds.play_peashooter_shoot();
                                     // --------
                                             }
                                         }
@@ -443,7 +445,7 @@ void World::gameOver(bool win){
         //Sounds.play_lose_sound();
     }
     SDL_UpdateWindowSurface(Window);
-    //Sounds.play_lose_sound();
+    Sounds.play_lose_sound();
     SDL_Delay(1500);
     quit=true;
 }

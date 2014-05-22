@@ -57,7 +57,6 @@ public:
 
     virtual void draw_self(int j, int i, Image Images, SDL_Surface* Screen){};
     Image Self_Images;
-    //virtual void upadte(int i,int j);
 };
 
 class Zombie:public Actor{
