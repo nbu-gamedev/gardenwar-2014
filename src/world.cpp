@@ -22,11 +22,14 @@ World::World(){
     Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
-    peaSpeed = 0;
-    sunSpawnTime = 15; // it saves time whale testing, should be 15 change it if its bothering you.
-    sunCurrency = 300;
+
     zombieWavesLength = 300;
     zombieWaves = NULL;
+
+    peaSpeed = 0;
+
+    sunSpawnTime = 15; // it saves time whale testing, should be 15 change it if its bothering you.
+    sunCurrency = 300;
     //init the shop struct
     clickedOnShop = false;
     ShopItem[PEASHOOTER].cost = 100;
@@ -127,7 +130,7 @@ void World::createWorld(){
     peaImagePH = SDL_LoadBMP(work_string.c_str());
     SDL_SetColorKey(peaImagePH, SDL_TRUE, SDL_MapRGB(peaImagePH->format, 255, 255, 255));
     images_factory(Creature_images);
-    sound_factory(Sounds);
+    //sound_factory(Sounds);
 }
 
 
@@ -246,7 +249,7 @@ void World::draw(int currTime)
 void World::update(int currTime){
 
 
-    Sounds.start_game_music();
+    //Sounds.start_game_music();
     int clock = (currTime/1000);
     // if won level!
     if (clock > zombieWavesLength){
@@ -262,9 +265,6 @@ void World::update(int currTime){
         if (winner) gameOver(true);
     }
 
-	for(itPea=peas.begin();itPea!=peas.end();itPea++) {
-		(*itPea)->move(currTime);
-    }
 	for(int i=0; i<N; i++){
 		for(int j=0; j<M; j++){
 		    it=grid[i][j].begin();
@@ -290,7 +290,7 @@ void World::update(int currTime){
            // 1. atakuva (enemy na sy6toto kvadrat4e)
 					if( ((enemy->getType())!=ZOMBIE) && (enemy->getAct()!=DIE) ) {
 						flowerExists = true;
-						Sounds.play_zombie_eat();
+						//Sounds.play_zombie_eat();
 						if ((*it)->timeToAct()){
                             enemy->addHP( -((*it)->getDamage()) );
 						}
@@ -337,7 +337,7 @@ void World::update(int currTime){
                                 else {
                                     if ( (*it)->timeToAct() ){
                                     // v slu4aq kogato sa na edno kvadrat4e -> PS vzima jivot na zombito, ne grah4eto
-                                        Sounds.play_peashooter_shoot();
+                                       // Sounds.play_peashooter_shoot();
                                         (*it2)->addHP(-((*it)->getDamage()) );
                                     }
                                 }
@@ -355,7 +355,7 @@ void World::update(int currTime){
                                             if((*it)->timeToAct()){
                                     // grah4eta
                                                 peas.push_back(new Pea( peaSpeed, (*it)->getPosX(), i, *it2, *it, currTime ));
-                                                Sounds.play_peashooter_shoot();
+                                               // Sounds.play_peashooter_shoot();
                                     // --------
                                             }
                                         }
@@ -387,7 +387,7 @@ void World::update(int currTime){
 	    //looking for new enemy
         if((*itPea)->aim == NULL){
             int i = (*itPea)->y;
-            int j = (*itPea)->getPlace();
+            int j = (*itPea)->getPlace(currTime);
             for(int k=j;(k<M) && (*itPea)->aim == NULL;k++){
                 for(it2=grid[i][k].begin(); it2!=grid[i][k].end(); it2++){
                     if ( ((*it2)->getType()==ZOMBIE) && ((*it2)->getAct()!=DIE) && ((*itPea)->getCurrPeaPos(currTime) <= (*it2)->getPosX(currTime)) ){
@@ -422,7 +422,7 @@ void World::peaShooting(int currTime){
 		}
 
 		// 2) grah4eto e stignalo do kraq na grida
-		else if ( (*itPea)->getPlace() > M ){
+		else if ( (*itPea)->getPlace(currTime) > M ){
             delete (*itPea);
 			itPea=peas.erase(itPea);
 		}
@@ -440,10 +440,10 @@ void World::gameOver(bool win){
     }
     else{
         apply_surface(380, 190, gameOverScreen, ScreenSurface);
-        Sounds.play_lose_sound();
+        //Sounds.play_lose_sound();
     }
     SDL_UpdateWindowSurface(Window);
-    Sounds.play_lose_sound();
+    //Sounds.play_lose_sound();
     SDL_Delay(1500);
     quit=true;
 }

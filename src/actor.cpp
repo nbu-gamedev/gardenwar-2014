@@ -1,11 +1,8 @@
 #include "actor.h"
 
+
 actorType Actor::getType(){
     return type;
-}
-
-void Actor::addHP(int n){
-    health = health + n;
 }
 
 int Actor::getHP(){
@@ -15,6 +12,7 @@ int Actor::getHP(){
 actorAct Actor::getAct(){
     return act;
 }
+
 void Actor::setAct(actorAct act,int x){
     this->act=act;
     if (act==DIE) counter = 0;
@@ -37,85 +35,6 @@ int Actor::getPosX(int){
 int Actor::getDamage(){
     return damage;
 }
-bool Actor::timeToAct(){
-    if(act==DIE) {return counter>=3;} //za sega 3, za da umirat po-byrzo...
-    return counter%(speed+1)==0;
-}
-
-bool Zombie::timeToAct(){
-	if(act==DIE) {return counter>=3;}
-    return counter>=speed;
-}
-
-void Zombie::setAct(actorAct act, int currTime){
-    if (act==DIE) counter = 0;
-    else if (act==MOVE){
-        posX -= offset_x;// getPosX(currTime);
-        counter = 0;
-        timeMoved = currTime;
-    }
-    else counter = -1;
-
-    counter_test = 0;
-    this->act=act;
-}
-
-int Zombie::getPosX(int currTime){
-    if (act==MOVE) return (posX - (currTime - timeMoved)/1000.*speed);
-    return posX;
-}
-
-Zombie::Zombie(int creationTime){
-
-    type = ZOMBIE;
-    act = MOVE;
-    speed = 7;
-    health = 100;
-    counter = 0;
-    damage = 25;
-    counter_test = 0;
-    mover = 1;
-    posX = 915; // (endGrid - zombie) gore dolu.... !trqbva da byde promeneno
-    timeMoved = creationTime;
-}
-
-Peashooter::Peashooter(int x){
-
-    type = PEASHOOTER;
-    act = ATTACK;
-    speed = 1;
-    health = 55;
-    counter=0;
-    damage = 20;
-    counter_test = 0;
-    mover = 1;
-    posX = base_x + x*offset_x;
-}
-
-Wallnut::Wallnut(int x){
-
-    type = WALLNUT;
-    act = STAY;
-    health = 120;
-    counter = 0;
-    speed = 10;
-    damage = 0;
-    counter_test = 0;
-    mover = 1;
-    posX = base_x + x*offset_x;
-}
-Sunflower::Sunflower(int x){
-
-    type = SUNFLOWER;
-    act = STAY;
-    health = 30;
-    counter = 0;
-    speed = 12;
-    damage = 0;
-    counter_test = 0;
-    mover = 1;
-    posX = base_x + x*offset_x;
-}
 
 int Actor::return_counter()
 {
@@ -137,68 +56,52 @@ void Actor::fill_mover(int change)
     mover = change;
 }
 
-void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
-{
-    counter_test += mover;
-    SDL_Rect destination;
-    SDL_Rect image;
-    destination.x = base_x + j*offset_x;
-    destination.y = base_y + i*offset_y;
-    destination.h = 0;
-    destination.w = 0;
-    image.h = Images.image_h;
-    image.w = Images.image_w;
-    image.x = 0;
-    image.y = Images.image_h * counter_test;
-    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
-    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-    if(counter_test == Images.number_of_pictures[act])
-        mover = -1;
-    if(counter_test == 0)
-        mover = 1;
+bool Actor::timeToAct(){
+    if(act==DIE) {return counter>=3;} //za sega 3, za da umirat po-byrzo...
+    return counter%(speed+1)==0;
 }
 
-void Wallnut::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
-{
-    counter_test += mover;
-    SDL_Rect destination;
-    SDL_Rect image;
-    destination.x = base_x + j*offset_x;
-    destination.y = base_y + i*offset_y;
-    destination.h = 0;
-    destination.w = 0;
-    image.h = Images.image_h;
-    image.w = Images.image_w;
-    image.x = 0;
-    image.y = Images.image_h * counter_test;
-    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
-    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-    if(counter_test == Images.number_of_pictures[act])
-        mover = -1;
-    if(counter_test == 0)
-        mover = 1;
+void Actor::addHP(int n){
+    health = health + n;
 }
 
-void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
-{
-    counter_test += mover;
-    SDL_Rect destination;
-    SDL_Rect image;
-    destination.x = base_x + j*offset_x;
-    destination.y = base_y + i*offset_y;
-    destination.h = 0;
-    destination.w = 0;
-    image.h = Images.image_h;
-    image.w = Images.image_w;
-    image.x = 0;
-    image.y = Images.image_h * counter_test;
-    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
-    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-    if(counter_test == Images.number_of_pictures[act])
-        mover = -1;
-    if(counter_test == 0)
-        mover = 1;
+Zombie::Zombie(int creationTime){
+
+    type = ZOMBIE;
+    act = MOVE;
+    speed = 7;
+    health = 100;
+    counter = 0;
+    damage = 25;
+    counter_test = 0;
+    mover = 1;
+    posX = 915; // (endGrid - zombie) gore dolu.... !trqbva da byde promeneno
+    timeMoved = creationTime;
 }
+
+void Zombie::setAct(actorAct act, int currTime){
+    if (act==DIE) counter = 0;
+    else if (act==MOVE){
+        posX -= offset_x;// getPosX(currTime);
+        counter = 0;
+        timeMoved = currTime;
+    }
+    else counter = -1;
+
+    counter_test = 0;
+    this->act=act;
+}
+
+int Zombie::getPosX(int currTime){
+    if (act==MOVE) return (posX - (currTime - timeMoved)/1000.*speed);
+    return posX;
+}
+
+bool Zombie::timeToAct(){
+	if(act==DIE) {return counter>=3;}
+    return counter>=speed;
+}
+
 
 void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
 {
@@ -261,17 +164,117 @@ void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
     }
 }
 
+Peashooter::Peashooter(int x){
+
+    type = PEASHOOTER;
+    act = ATTACK;
+    speed = 1;
+    health = 55;
+    counter=0;
+    damage = 20;
+    counter_test = 0;
+    mover = 1;
+    posX = base_x + x*offset_x;
+}
+
+Wallnut::Wallnut(int x){
+
+    type = WALLNUT;
+    act = STAY;
+    health = 120;
+    counter = 0;
+    speed = 10;
+    damage = 0;
+    counter_test = 0;
+    mover = 1;
+    posX = base_x + x*offset_x;
+}
+
+void Wallnut::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
+{
+    counter_test += mover;
+    SDL_Rect destination;
+    SDL_Rect image;
+    destination.x = base_x + j*offset_x;
+    destination.y = base_y + i*offset_y;
+    destination.h = 0;
+    destination.w = 0;
+    image.h = Images.image_h;
+    image.w = Images.image_w;
+    image.x = 0;
+    image.y = Images.image_h * counter_test;
+    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+    if(counter_test == Images.number_of_pictures[act])
+        mover = -1;
+    if(counter_test == 0)
+        mover = 1;
+}
+
+Sunflower::Sunflower(int x){
+
+    type = SUNFLOWER;
+    act = STAY;
+    health = 30;
+    counter = 0;
+    speed = 12;
+    damage = 0;
+    counter_test = 0;
+    mover = 1;
+    posX = base_x + x*offset_x;
+}
+
+void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
+{
+    counter_test += mover;
+    SDL_Rect destination;
+    SDL_Rect image;
+    destination.x = base_x + j*offset_x;
+    destination.y = base_y + i*offset_y;
+    destination.h = 0;
+    destination.w = 0;
+    image.h = Images.image_h;
+    image.w = Images.image_w;
+    image.x = 0;
+    image.y = Images.image_h * counter_test;
+    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+    if(counter_test == Images.number_of_pictures[act])
+        mover = -1;
+    if(counter_test == 0)
+        mover = 1;
+}
+
+void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
+{
+    counter_test += mover;
+    SDL_Rect destination;
+    SDL_Rect image;
+    destination.x = base_x + j*offset_x;
+    destination.y = base_y + i*offset_y;
+    destination.h = 0;
+    destination.w = 0;
+    image.h = Images.image_h;
+    image.w = Images.image_w;
+    image.x = 0;
+    image.y = Images.image_h * counter_test;
+    SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+    SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+    if(counter_test == Images.number_of_pictures[act])
+        mover = -1;
+    if(counter_test == 0)
+        mover = 1;
+}
+
+// Pea:
+
+
 int Pea::getCurrPeaPos(int currTime){
- return (pos+speed*(currTime-prTime)/1000.);
+ return (startPos+speed*(currTime-creationTime)/1000.);
 }
 
-void Pea::move(int currTime){
-	pos = pos + speed; // ili getCurrPeaPos(currTime)
-	prTime = currTime;
-}
-
-int Pea::getPlace(){ // current position j on grid
-	return (pos-base_x)/offset_x;
+int Pea::getPlace(int currTime){ // current position j on grid
+	return (getCurrPeaPos(currTime)-base_x)/offset_x;
 }
 bool Pea::reachedAim(int currTime){
 	if(aim!=NULL){

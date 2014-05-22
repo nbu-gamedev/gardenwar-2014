@@ -19,25 +19,30 @@ enum actorType {PEASHOOTER,SUNFLOWER,WALLNUT,ZOMBIE,ALL};
 enum actorAct {MOVE,ATTACK,STAY,DIE};
 
 class Actor{
+
 protected:
-    actorType type;
-    int health;
     int counter;
     int speed;
+    int health;
+    int damage;
+    actorType type;
+    actorAct act;
+
+    int posX;
+
     int counter_test;
     int mover;
-    actorAct act;
-    int damage;
-    int posX;
+
 public:
     virtual ~Actor(){};
-    void addHP(int n);
+
     int getHP();
     actorType getType();
     actorAct getAct();
     virtual void setAct(actorAct act, int x = 0);
     int getDamage();
     virtual int getPosX(int x = 0);
+
     void fill_move_counter(){counter++;}
     int return_move_counter(){return counter;}
     int getCounter();
@@ -46,35 +51,45 @@ public:
     void fill_counter(int mover);
     int return_mover();
     void fill_mover(int change);
+
     virtual bool timeToAct();
+    void addHP(int n);
+
     virtual void draw_self(int j, int i, Image Images, SDL_Surface* Screen){};
     Image Self_Images;
     //virtual void upadte(int i,int j);
 };
 
 class Zombie:public Actor{
+
 public:
     Zombie(int);
-    bool timeToAct();
-    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
-    int getPosX(int);
+
     void setAct(actorAct act, int currTime = 0);
+    int getPosX(int);
+    bool timeToAct();
+
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
+
 private:
     int timeMoved;
 };
 
-class Flower:public Actor{
-public:
-};
+class Flower:public Actor{};
+
 class Peashooter:public Flower{
+
 public:
     Peashooter(int x);
+
     void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
 };
 
 class Wallnut:public Flower{
+
 public:
     Wallnut(int x);
+
     void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
 };
 
@@ -82,23 +97,31 @@ class Sunflower:public Flower
 {
 public:
     Sunflower(int x);
+
     void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
 };
 
+// Pea:
+
 struct Pea{
-	int speed;
-	int pos;
-	int x; // = j ot grid-a
+
+	int speed ;
+	int creationTime;
+
+	int startPos;
 	int y; // = i ot grid-a
+
 	Actor* creator;
 	Actor* aim;
-	int prTime;
-	Pea(const int &spd, int psPos, int i, Actor* enemy, Actor* crtr, int time ):speed(spd),pos(psPos+offset_x),x(psPos),y(i),aim(enemy),creator(crtr),prTime(time){}; //psPos -> peashooter position
-	int getPlace(); //vry6ta teku6toto j ot grida
-	void move(int);
+
+
+	Pea(const int &spd, int psPos, int i, Actor* enemy, Actor* crtr, int time ):speed(spd),startPos(psPos+offset_x),y(i),aim(enemy),creator(crtr),creationTime(time){}; //psPos -> peashooter position
+
+	int getPlace(int); //vry6ta teku6toto j ot grida
+	int getCurrPeaPos(int);
+
 	bool reachedAim(int);
 	bool enemyIsDead();
-	int getCurrPeaPos(int);
 };
 
 #endif

@@ -3,7 +3,7 @@
 #include "actor.h"
 #include "sun.h"
 #include "images.h"
-#include "sound.h"
+//#include "sound.h"
 #include <vector>
 #include <list>
 #include <cstdlib>
@@ -71,7 +71,7 @@ private:
     SDL_Surface* gameOverScreen;
     SDL_Surface* winnerScreen;
     Image Creature_images[4];
-    Sound_master Sounds;
+    //Sound_master Sounds;
     int sunCurrency;
     list<Pea*> peas;
     int peaSpeed;
