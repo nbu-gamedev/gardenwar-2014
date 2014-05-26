@@ -1,6 +1,12 @@
 #ifndef IMAGES_H
 #define IMAGES_H
+#ifndef SDL_H
+#ifdef __linux__
+#include <SDL2/SDL.h>
+#else
 #include <SDL.h>
+#endif
+#endif
 #include <fstream>
 #include <sstream>
 #include <iostream>

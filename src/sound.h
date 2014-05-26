@@ -1,6 +1,10 @@
 #ifndef SOUND_H
 #define SOUND_H
+#ifdef __linux__
+#include <SDL/SDL_mixer.h>
+#else
 #include <SDL_mixer.h>
+#endif
 
 class Sound_master
 {

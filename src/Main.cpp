@@ -1,7 +1,7 @@
 #include "world.h"
 #include <iostream>
 #include <ctime>
-using namespace std;
+
 bool World::quit=false;
 
 int main( int argc, char* args[] ){
@@ -9,7 +9,6 @@ int main( int argc, char* args[] ){
     World level = World();
 	level.createWorld();
 	SDL_Event event;
-	//int counter = 0;
     bool clickedOnSun = false;
     srand (time(NULL));
     int timeToSun = level.sunSpawnTime;
@@ -53,6 +52,7 @@ int main( int argc, char* args[] ){
         }
         if (currentTime >= lastTimeDraw + 100)
         {
+            level.peaShooting(currentTime);
             lastTimeDraw = currentTime;
             level.draw(currentTime);
         }

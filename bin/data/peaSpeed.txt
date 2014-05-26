@@ -1,1 +1,1 @@
-pea speed: 50
+pea speed: 120
