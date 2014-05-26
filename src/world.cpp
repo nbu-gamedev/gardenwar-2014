@@ -164,7 +164,7 @@ void World::draw(int currTime)
     {
         for(int j=0; j<M; j++)
         {
-            for(it=grid[i][j].begin();it!=grid[i][j].end();it++)
+            for(list<Actor*>::iterator it = grid[i][j].begin(); it != grid[i][j].end(); it++)
             {
                 if((*it)->getAct() != DIE)
                     (*it)->draw_self(j, i, Creature_images[(*it)->getType()], ScreenSurface);
@@ -271,7 +271,6 @@ void World::update(int currTime){
 		for(int j=0; j<M; j++){
 		    it=grid[i][j].begin();
             while(it!=grid[i][j].end()){
-
 		// --- vreme za umirane:
 				if( (*it)->getHP() <= 0){
 					if((*it)->getAct()!=DIE) {(*it)->setAct(DIE);it++;}
@@ -439,14 +438,16 @@ void World::gameOver(bool win){
     if (win){
         // apply_surface(380, 190, winnerScreen, ScreenSurface);
         cout<<"WINNER!"<<endl;
+        Mix_PauseMusic();
+        Sounds.play_win_sound();
     }
     else{
         apply_surface(380, 190, gameOverScreen, ScreenSurface);
-        //Sounds.play_lose_sound();
+        Mix_PauseMusic();
+        Sounds.play_lose_sound();
     }
     SDL_UpdateWindowSurface(Window);
-    Sounds.play_lose_sound();
-    SDL_Delay(1500);
+    SDL_Delay(4500);
     quit=true;
 }
 

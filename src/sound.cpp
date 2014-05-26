@@ -27,6 +27,9 @@ void sound_factory(Sound_master &Sounds)
     Sounds.Peashooter_Shoot = Mix_LoadWAV(work_string.c_str());
     getline(read_file, work_string);
     Sounds.Sunflower_Sun_Spawn = Mix_LoadWAV(work_string.c_str());
+    Mix_VolumeMusic(10);
+    Mix_VolumeChunk(Sounds.Peashooter_Shoot, 10);
+    Mix_VolumeChunk(Sounds.Lose_Sound, 10);
 }
 
 
