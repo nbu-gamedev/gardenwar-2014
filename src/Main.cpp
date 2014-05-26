@@ -5,7 +5,6 @@
 bool World::quit=false;
 
 int main( int argc, char* args[] ){
- srand (time(NULL));
     World level = World();
 	level.createWorld();
 	SDL_Event event;
