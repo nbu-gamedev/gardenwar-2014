@@ -1,9 +1,9 @@
-../bin/media/game_song.wav
-../bin/media/lose.wav
+../bin/media/Sounds/game_song.wav
+../bin/media/Sounds/lose.wav
+../bin/media/Sounds/win.wav
 NULL
 NULL
 NULL
-NULL
-../bin/media/crunching.wav
-../bin/media/pop.wav
+../bin/media/Sounds/crunching.wav
+../bin/media/Sounds/pop.wav
 NULL

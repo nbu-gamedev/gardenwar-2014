@@ -194,9 +194,9 @@ void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
     image.y = Images.image_h * counter_test;
     SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
     SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-    if(counter_test == Images.number_of_pictures[act])
+    if(counter_test >= Images.number_of_pictures[act])
         mover = -1;
-    if(counter_test == 0)
+    if(counter_test <= 0)
         mover = 1;
 }
 

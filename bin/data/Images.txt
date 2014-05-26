@@ -1,8 +1,8 @@
 4
 Peashooter (passive animation, attack animation, move animation, FPS, number of passive, attack, move pictures, image_h, image_w)
-../bin/media/Peashooter_attack.bmp
-../bin/media/Peashooter_attack.bmp
-../bin/media/Peashooter_attack.bmp
+../bin/media/Animations/Peashooter_attack.bmp
+../bin/media/Animations/Peashooter_attack.bmp
+../bin/media/Animations/Peashooter_attack.bmp
 10
 11
 11
@@ -10,9 +10,9 @@ Peashooter (passive animation, attack animation, move animation, FPS, number of 
 98
 80
 Sunflower (passive animation, attack animation, move animation, FPS, number of passive, attack, move pictures, image_h, image_w)
-../bin/media/Sunflower_animation.bmp
-../bin/media/Sunflower_animation.bmp
-../bin/media/Sunflower_animation.bmp
+../bin/media/Animations/Sunflower_animation.bmp
+../bin/media/Animations/Sunflower_animation.bmp
+../bin/media/Animations/Sunflower_animation.bmp
 10
 9
 9
@@ -20,9 +20,9 @@ Sunflower (passive animation, attack animation, move animation, FPS, number of p
 97
 80
 Wallnut (passive animation, attack animation, move animation, FPS, number of passive, attack, move pictures, image_h, image_w)
-../bin/media/Wallnut_animation.bmp
-../bin/media/Wallnut_animation.bmp
-../bin/media/Wallnut_animation.bmp
+../bin/media/Animations/Wallnut_animation.bmp
+../bin/media/Animations/Wallnut_animation.bmp
+../bin/media/Animations/Wallnut_animation.bmp
 10
 7
 7
@@ -30,9 +30,9 @@ Wallnut (passive animation, attack animation, move animation, FPS, number of pas
 98
 80
 Zombie (passive animation, attack animation, move animation, FPS, number of passive, attack, move pictures, image_h, image_w)
-../bin/media/Zombie_move_animation.bmp
-../bin/media/Zombie_eat_animation.bmp
-../bin/media/Zombie_move_animation.bmp
+../bin/media/Animations/Zombie_move_animation.bmp
+../bin/media/Animations/Zombie_eat_animation.bmp
+../bin/media/Animations/Zombie_move_animation.bmp
 10
 40
 12
