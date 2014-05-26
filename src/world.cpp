@@ -61,7 +61,7 @@ World::~World(){
 }
 void World::readData(){
     // zombie waves
-    
+
     ifstream zombiesFile("../bin/data/zombieWave.txt");
     if (!zombiesFile.fail()){
         string s;
@@ -89,7 +89,7 @@ void World::readData(){
         }
     }
     zombiesFile.close();
-    
+
     // pea speed
      ifstream peaFile("../bin/data/peaSpeed.txt");
     if (!peaFile.fail()){
