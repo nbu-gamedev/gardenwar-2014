@@ -7,6 +7,7 @@
 #include <vector>
 #include <list>
 #include <cstdlib>
+#include <math.h>
 #define N 5
 #define M 9
 
@@ -49,12 +50,15 @@ public:
     bool canAfford(ItemsInShop item);
     bool clickedOnShop;
     // Sun
-    void createSun();
+    void createNaturalSun();
+    void updateSuns();
     void createDefender(SDL_Event &event);
     void createPeashooter(SDL_Event &event);
     void createSunflower(SDL_Event &event);
     void createWallnut(SDL_Event &event);
     vector<Sun*> suns;
+    vector<Sun*> naturalSuns;
+    vector<Sun*> collectedSuns;
     int sunSpawnTime;
     static void apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destination);
     void setSunCurrency(int val){sunCurrency+=val;}

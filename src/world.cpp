@@ -28,7 +28,7 @@ World::World(){
 
     peaSpeed = 0;
 
-    sunSpawnTime = 15; // it saves time whale testing, should be 15 change it if its bothering you.
+    sunSpawnTime = 5; // it saves time whale testing, should be 15 change it if its bothering you.
     sunCurrency = 300;
     //init the shop struct
     clickedOnShop = false;
@@ -150,15 +150,6 @@ void World::draw(int currTime)
 {
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
 
-// pea shadow
-
-    for(itPea=peas.begin();itPea!=peas.end();itPea++) {
-
-        int peaShadowPosX = (*itPea)->getCurrPeaPos(currTime);
-        int peaShadowPosY = offset_y*((*itPea)->y)+offset_y/2+gridStartY;
-		apply_surface(peaShadowPosX, peaShadowPosY, peaShadowImagePH, ScreenSurface);
-    }
-//-------
 
     for(int i=0; i<N; i++)
     {
@@ -172,10 +163,17 @@ void World::draw(int currTime)
         }
     }
     // Samir's part:
-    for (unsigned int currentSun = 0; currentSun < suns.size(); currentSun++){
 
-        apply_surface(suns[currentSun]->getX(),suns[currentSun]->getY(),sunImagePH,ScreenSurface);
+// pea shadow
+
+    for(itPea=peas.begin();itPea!=peas.end();itPea++) {
+
+        int peaShadowPosX = (*itPea)->getCurrPeaPos(currTime);
+        int peaShadowPosY = offset_y*((*itPea)->y)+offset_y/2+gridStartY;
+		apply_surface(peaShadowPosX, peaShadowPosY, peaShadowImagePH, ScreenSurface);
     }
+//-------
+
     //using sprite sheet for the numbers 0-9
     SDL_Rect source;
     SDL_Rect destination;
@@ -235,6 +233,27 @@ void World::draw(int currTime)
         SDL_BlitSurface(shopSprite, &source, ScreenSurface, &destination);
     }
 
+    for (unsigned int currentSun = 0; currentSun < suns.size(); currentSun++){
+
+        double changeY = 50;
+        int currentTime = SDL_GetTicks();
+        int timePassed = 0;
+        timePassed = currentTime - suns[currentSun]->timeCreated;
+       // cout << timePassed << endl;
+       // if (timePassed<1000){
+        changeY = changeY*(sin((timePassed)*3.14));
+       // cout << changeY << endl;
+      //  }
+        apply_surface(suns[currentSun]->x,suns[currentSun]->y,sunImagePH,ScreenSurface);
+    }
+    for (unsigned int currentSun = 0; currentSun < naturalSuns.size(); currentSun++){
+
+       apply_surface(naturalSuns[currentSun]->x,naturalSuns[currentSun]->y,sunImagePH,ScreenSurface);
+    }
+    for (unsigned int currentSun = 0; currentSun < collectedSuns.size(); currentSun++){
+
+        apply_surface(collectedSuns[currentSun]->x,collectedSuns[currentSun]->y,sunImagePH,ScreenSurface);
+    }
 
 // pea
 
@@ -371,7 +390,8 @@ void World::update(int currTime){
 					}
 					else if ((*it)->getType()==SUNFLOWER){
 						if((*it)->timeToAct()) {
-							suns.push_back(new Sun( (gridStartX+((j+1)*offset_x)-20),(gridStartY+((i+1)*offset_y)-SUN_SIZE) ));
+							suns.push_back(new Sun( (gridStartX+((j+1)*offset_x)-70),(gridStartY+((i+1)*offset_y)-SUN_SIZE),
+                            (gridStartX+(j+1)*offset_x)+5 ,(gridStartY+((i+1)*offset_y)-SUN_SIZE)));
 						}
 					}
 					else{}
@@ -459,10 +479,18 @@ void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
     SDL_BlitSurface( source, NULL, destination, &offset );
 }
 
-void World::createSun() {
+void World::createNaturalSun() {
     //placing new sun in the vector "suns" in world.
-    suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
-    cout << "Total suns: " << suns.size() <<  endl;
+    int x = rand() % gridSizeX + gridStartX;
+    int y = rand() % gridSizeY + gridStartY;
+    naturalSuns.push_back(new Sun( x , y-1000, x ,y ));
+
+    cout << "Total Natural suns: " << naturalSuns.size() <<  endl;
+}
+
+void World::updateSuns() {
+
+
 }
 
 void World::createDefender(SDL_Event &event){

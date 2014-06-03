@@ -1,10 +1,14 @@
 #include "sun.h"
 #include <iostream>
+
 using namespace std;
-Sun::Sun(int inX,int inY)
+Sun::Sun(int inX,int inY,int inDestinationX,int inDestinationY)
 {
+    timeCreated = SDL_GetTicks();
     x = inX;
     y = inY;
+    destinationX = inDestinationX;
+    destinationY = inDestinationY;
     rightX = x+SUN_SIZE;
     bottomY = y+SUN_SIZE;
     timeLeft = 15;
@@ -22,4 +26,8 @@ Sun::Sun()
 Sun::~Sun()
 {
     //dtor
+}
+
+void Sun::falling(){
+
 }
