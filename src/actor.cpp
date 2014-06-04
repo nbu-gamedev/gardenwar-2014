@@ -77,6 +77,7 @@ Zombie::Zombie(int creationTime){
     mover = 1;
     posX = 915; // (endGrid - zombie) gore dolu.... !trqbva da byde promeneno
     timeMoved = creationTime;
+    time_picture_changed = creationTime;
 }
 
 void Zombie::setAct(actorAct act, int currTime){
@@ -103,7 +104,7 @@ bool Zombie::timeToAct(){
 }
 
 
-void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
+void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
     if(act == MOVE)
     {
@@ -175,6 +176,7 @@ Peashooter::Peashooter(int x){
     counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
+    time_picture_changed = 0;
 }
 
 Wallnut::Wallnut(int x){
@@ -188,9 +190,10 @@ Wallnut::Wallnut(int x){
     counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
+    time_picture_changed = 0;
 }
 
-void Wallnut::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
+void Wallnut::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
     counter_test += mover;
     SDL_Rect destination;
@@ -222,9 +225,10 @@ Sunflower::Sunflower(int x){
     counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
+    time_picture_changed = 0;
 }
 
-void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
+void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
     counter_test += mover;
     SDL_Rect destination;
@@ -245,7 +249,7 @@ void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
         mover = 1;
 }
 
-void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen)
+void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
     counter_test += mover;
     SDL_Rect destination;

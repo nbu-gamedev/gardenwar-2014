@@ -19,7 +19,6 @@ World::World(){
 	numbersSpite = NULL;
     gameOverScreen = NULL;
     winnerScreen = NULL;
-    Window = NULL;
     Background = NULL;
     ScreenSurface = NULL;
 
@@ -110,7 +109,6 @@ void World::createWorld(){
     fstream read_file;
     string work_string;
     read_file.open("../bin/data/Image_Names.txt");
-    SDL_Init(SDL_INIT_EVERYTHING);
     readData();
     Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     ScreenSurface = SDL_GetWindowSurface(Window);
@@ -167,7 +165,7 @@ void World::draw(int currTime)
             for(list<Actor*>::iterator it = grid[i][j].begin(); it != grid[i][j].end(); it++)
             {
                 if((*it)->getAct() != DIE)
-                    (*it)->draw_self(j, i, Creature_images[(*it)->getType()], ScreenSurface);
+                    (*it)->draw_self(j, i, Creature_images[(*it)->getType()], ScreenSurface, currTime);
             }
         }
     }
@@ -437,7 +435,6 @@ void World::peaShooting(int currTime){
 void World::gameOver(bool win){
     if (win){
         // apply_surface(380, 190, winnerScreen, ScreenSurface);
-        cout<<"WINNER!"<<endl;
         Mix_PauseMusic();
         Sounds.play_win_sound();
     }
@@ -462,7 +459,6 @@ void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
 void World::createSun() {
     //placing new sun in the vector "suns" in world.
     suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
-    cout << "Total suns: " << suns.size() <<  endl;
 }
 
 void World::createDefender(SDL_Event &event){
@@ -490,7 +486,6 @@ void World::createPeashooter(SDL_Event &event){
 
     if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
         grid[row][column].push_front (new Peashooter(column));
-        cout << "Placed new peashooter" << endl; //6te mahna testovete kato sam naprava i Sun.
         ShopItem[PEASHOOTER].clicked = false;
         sunCurrency -= ShopItem[PEASHOOTER].cost;
 
@@ -506,7 +501,6 @@ void World::createSunflower(SDL_Event &event){
 
     if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
             grid[row][column].push_front (new Sunflower(column));
-        cout << "Placed new Sunflower" << endl; //6te mahna testovete kato sam naprava i Sun.
         ShopItem[SUNFLOWER].clicked = false;
         sunCurrency -= ShopItem[SUNFLOWER].cost;
 
@@ -522,7 +516,6 @@ void World::createWallnut(SDL_Event &event){
 
     if ((grid[row][column].empty()) || ((grid[row][column].front()->getType() == ZOMBIE))) {
             grid[row][column].push_front (new Wallnut(column));
-        cout << "Placed new Wallnut" << endl; //6te mahna testovete kato sam naprava i Sun.
         ShopItem[WALLNUT].clicked = false;
         sunCurrency -= ShopItem[WALLNUT].cost;
 

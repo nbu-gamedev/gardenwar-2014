@@ -1,92 +1,13 @@
 #include "world.h"
-#include <iostream>
-#include <ctime>
 
 bool World::quit=false;
 
-int main( int argc, char* args[] ){
- srand (time(NULL));
-    World level = World();
-	level.createWorld();
-	SDL_Event event;
-    bool clickedOnSun = false;
+int main( int argc, char* args[] )
+{
     srand (time(NULL));
-    int timeToSun = level.sunSpawnTime;
-    unsigned int lastTime = 0, lastTimeDraw = 0, currentTime;
-    currentTime = 0;
-    level.grid[3][2].push_back(new Sunflower(2));
+    Menu Game;
+    menu_factory(Game);
+    Game.handle_menu();
 
-	while( !World::quit ){
-        currentTime = SDL_GetTicks();
-		while( SDL_PollEvent( &event ) != 0 ) {
-            if( event.type == SDL_QUIT){//} || (event.key.keysym.sym)== SDLK_ESCAPE){
-                World::quit = true;
-            }
-		    if (event.type == SDL_MOUSEBUTTONUP){
-                // if player clicks on sun -> collect it
-                clickedOnSun = false;
-                for (unsigned int i=0 ; i < level.suns.size(); i++) {
-                    if ( (event.button.x > level.suns[i]->getX()) && (event.button.x < level.suns[i]->getRightX() ) &&
-                         (event.button.y > level.suns[i]->getY()) && (event.button.y < level.suns[i]->getBottomY()) ) {
-                        level.setSunCurrency(level.suns[i]->getSunValue());
-                        cout << "$$$: " << level.getSunCurrency() << endl;
-                        delete level.suns[i];
-                        level.suns.erase(level.suns.begin() + i);
-                        clickedOnSun = true;
-                        break;
-                    }
-                }
-                if ( ( !clickedOnSun ) && (level.clickedOnShop) &&
-                     (event.button.x > gridStartX) && (event.button.x < gridEndX) &&
-                     (event.button.y > gridStartY) && (event.button.y < gridEndY) ) {
-                    level.createDefender(event);
-                    break;
-                }
-                for (int i = 0; i < ALL_SHOP_ITEMS ; i++){
-                    level.ShopItem[i].clicked = (level.ShopItem[i].mouseOver() && level.canAfford(level.ShopItem[i]) );
-                    level.clickedOnShop = true;
-                }
-
-            }
-
-        }
-        if (currentTime >= lastTimeDraw + 100)
-        {
-            level.peaShooting(currentTime);
-            lastTimeDraw = currentTime;
-            level.draw(currentTime);
-        }
-        if (currentTime >= lastTime + 1000)
-        {
-            lastTime = currentTime;
-			level.update(currentTime);
-			timeToSun--;
-			if (timeToSun<=0){
-                level.createSun();
-                timeToSun = level.sunSpawnTime;
-			}
-		}
-	}
-
-	level.destroyWorld();
-	SDL_Quit();
 	return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

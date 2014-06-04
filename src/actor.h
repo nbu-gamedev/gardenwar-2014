@@ -32,6 +32,7 @@ protected:
 
     int counter_test;
     int mover;
+    int time_picture_changed;
 
 public:
     virtual ~Actor(){};
@@ -55,7 +56,7 @@ public:
     virtual bool timeToAct();
     void addHP(int n);
 
-    virtual void draw_self(int j, int i, Image Images, SDL_Surface* Screen){};
+    virtual void draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time){};
     Image Self_Images;
 };
 
@@ -68,7 +69,7 @@ public:
     int getPosX(int);
     bool timeToAct();
 
-    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time);
 
 private:
     int timeMoved;
@@ -81,7 +82,7 @@ class Peashooter:public Flower{
 public:
     Peashooter(int x);
 
-    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time);
 };
 
 class Wallnut:public Flower{
@@ -89,7 +90,7 @@ class Wallnut:public Flower{
 public:
     Wallnut(int x);
 
-    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time);
 };
 
 class Sunflower:public Flower
@@ -97,7 +98,7 @@ class Sunflower:public Flower
 public:
     Sunflower(int x);
 
-    void draw_self(int j, int i, Image Images, SDL_Surface* Screen);
+    void draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time);
 };
 
 // Pea:

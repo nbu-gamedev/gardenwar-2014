@@ -4,6 +4,7 @@
 #include "sun.h"
 #include "images.h"
 #include "sound.h"
+#include "menu.h"
 #include <vector>
 #include <list>
 #include <cstdlib>
@@ -77,6 +78,7 @@ private:
     int peaSpeed;
     vector<int>* zombieWaves;
     int zombieWavesLength;
+friend class Menu;
 };
 
 
