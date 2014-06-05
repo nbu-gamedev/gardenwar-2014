@@ -77,7 +77,7 @@ Zombie::Zombie(int creationTime){
     mover = 1;
     posX = 915; // (endGrid - zombie) gore dolu.... !trqbva da byde promeneno
     timeMoved = creationTime;
-    time_picture_changed = creationTime;
+    time_picture_changed = SDL_GetTicks();
 }
 
 void Zombie::setAct(actorAct act, int currTime){
@@ -106,62 +106,66 @@ bool Zombie::timeToAct(){
 
 void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
+    int current_time = SDL_GetTicks();
+    SDL_Rect destination;
+    SDL_Rect image;
+    destination.h = 0;
+    destination.w = 0;
+    image.h = Images.image_h;
+    image.w = Images.image_w;
+    image.x = 0;
+    image.y = Images.image_h * counter_test;
+
     if(act == MOVE)
     {
         if(counter % 8 < 4)
         {
-            SDL_Rect destination;
-            SDL_Rect image;
             destination.x = base_x + j*offset_x - 30 + 0.4 * counter_test;
             destination.y = base_y + i*offset_y - 50;
-            destination.h = 0;
-            destination.w = 0;
-            image.h = Images.image_h;
-            image.w = Images.image_w;
-            image.x = 0;
-            image.y = Images.image_h * counter_test;
             SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
             SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-            counter_test += 1;
-            if(counter_test == Images.number_of_pictures[act])
-                counter_test += -Images.number_of_pictures[act];
+            if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
+            {
+                counter_test += 1;
+                time_picture_changed = current_time;
+                if(counter_test == Images.number_of_pictures[act]+1)
+                {
+                    counter_test -= Images.number_of_pictures[act];
+                }
+            }
         }
         else
         {
-            SDL_Rect destination;
-            SDL_Rect image;
             destination.x = base_x + j*offset_x - 80 + 0.55 * counter_test;
             destination.y = base_y + i*offset_y - 50;
-            destination.h = 0;
-            destination.w = 0;
-            image.h = Images.image_h;
-            image.w = Images.image_w;
-            image.x = 0;
-            image.y = Images.image_h * counter_test;
             SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
             SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+        }
+        if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
+        {
             counter_test += 1;
-            if(counter_test == Images.number_of_pictures[act])
-                counter_test += -Images.number_of_pictures[act];
+            time_picture_changed = current_time;
+            if(counter_test == Images.number_of_pictures[act]+1)
+            {
+                counter_test -= Images.number_of_pictures[act];
+            }
         }
     }
     else
     {
-        SDL_Rect destination;
-        SDL_Rect image;
         destination.x = base_x + j*offset_x + 40;
         destination.y = base_y + i*offset_y - 50;
-        destination.h = 0;
-        destination.w = 0;
-        image.h = Images.image_h;
-        image.w = Images.image_w;
-        image.x = 0;
-        image.y = Images.image_h * counter_test;
         SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
         SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-        counter_test += 1;
-        if(counter_test == Images.number_of_pictures[act])
-            counter_test += -Images.number_of_pictures[act];
+        if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
+        {
+            counter_test += 1;
+            if(counter_test == Images.number_of_pictures[act])
+            {
+                counter_test -= Images.number_of_pictures[act];
+            }
+            time_picture_changed = current_time;
+        }
     }
 }
 
@@ -176,7 +180,7 @@ Peashooter::Peashooter(int x){
     counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
-    time_picture_changed = 0;
+    time_picture_changed = SDL_GetTicks();
 }
 
 Wallnut::Wallnut(int x){
@@ -190,12 +194,17 @@ Wallnut::Wallnut(int x){
     counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
-    time_picture_changed = 0;
+    time_picture_changed = SDL_GetTicks();
 }
 
 void Wallnut::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
-    counter_test += mover;
+    int current_time = SDL_GetTicks();
+    if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
+    {
+        counter_test += mover;
+        time_picture_changed = current_time;
+    }
     SDL_Rect destination;
     SDL_Rect image;
     destination.x = base_x + j*offset_x;
@@ -225,12 +234,17 @@ Sunflower::Sunflower(int x){
     counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
-    time_picture_changed = 0;
+    time_picture_changed = SDL_GetTicks();
 }
 
 void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
-    counter_test += mover;
+    int current_time = SDL_GetTicks();
+    if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
+    {
+        counter_test += mover;
+        time_picture_changed = current_time;
+    }
     SDL_Rect destination;
     SDL_Rect image;
     destination.x = base_x + j*offset_x;
@@ -251,7 +265,12 @@ void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int t
 
 void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
-    counter_test += mover;
+    int current_time = SDL_GetTicks();
+    if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
+    {
+        counter_test += mover;
+        time_picture_changed = current_time;
+    }
     SDL_Rect destination;
     SDL_Rect image;
     destination.x = base_x + j*offset_x;

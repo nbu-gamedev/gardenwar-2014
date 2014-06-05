@@ -478,9 +478,6 @@ void World::apply_surface(int x, int y, SDL_Surface* source, SDL_Surface* destin
 
 void World::createNaturalSun() {
     //placing new sun in the vector "suns" in world.
-<<<<<<< HEAD
-    suns.push_back(new Sun(rand() %gridSizeX + gridStartX , rand() %gridSizeY + gridStartY));
-=======
     int x = rand() % gridSizeX + gridStartX;
     int y = rand() % gridSizeY + gridStartY;
     naturalSuns.push_back(new Sun( x , y-1000, x ,y ));
@@ -491,7 +488,6 @@ void World::createNaturalSun() {
 void World::updateSuns() {
 
 
->>>>>>> fd2569653a75cb0de82ebdf87aca8644e51c34ca
 }
 
 void World::createDefender(SDL_Event &event){
