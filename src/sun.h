@@ -1,6 +1,12 @@
 #ifndef SUN_H
 #define SUN_H
-#include "SDL.h"
+#ifndef SDL_H
+#ifdef __linux__
+#include <SDL2/SDL.h>
+#else
+#include <SDL.h>
+#endif
+#endif
 #define SUN_SIZE 62
 
 class Sun

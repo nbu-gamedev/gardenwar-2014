@@ -47,6 +47,8 @@
 		<Unit filename="actor.h" />
 		<Unit filename="images.cpp" />
 		<Unit filename="images.h" />
+		<Unit filename="menu.cpp" />
+		<Unit filename="menu.h" />
 		<Unit filename="sound.cpp" />
 		<Unit filename="sound.h" />
 		<Unit filename="sun.cpp" />
