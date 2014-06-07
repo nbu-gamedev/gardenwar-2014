@@ -9,16 +9,21 @@
 #endif
 #define SUN_SIZE 62
 
+#include <cmath>
 class Sun
 {
 public:
     Sun(int inX,int inY,int inDestinationX,int inDestinationY);
     Sun();
     ~Sun();
+     double timeToTravel;
+     int sunSpeed;
      int timeCreated;
      int x;
+     int startX;
      int rightX;
      int y;
+     int startY;
      int bottomY;
      int destinationX;
      int destinationY;

@@ -144,10 +144,13 @@ void Menu::start_game()
             for (unsigned int i=0 ; i < level.collectedSuns.size(); i++) {
 
                 if (level.collectedSuns[i]->y >= level.collectedSuns[i]->destinationY ) {
-                    level.collectedSuns[i]->y -= 3;
+                   // level.collectedSuns[i]->y -= 3;
+                   level.collectedSuns[i]->y -= (currentTime - level.collectedSuns[i]->timeCreated) / level.collectedSuns[i]->timeToTravel* level.collectedSuns[i]->startY;
                 }
                 if (level.collectedSuns[i]->x >= level.collectedSuns[i]->destinationX ) {
-                    level.collectedSuns[i]->x -= 3;
+                  //  level.collectedSuns[i]->x -= 3;
+
+                   level.collectedSuns[i]->x-= (currentTime - level.collectedSuns[i]->timeCreated) / level.collectedSuns[i]->timeToTravel* level.collectedSuns[i]->startX;
                 }
                 if (level.collectedSuns[i]->x <= level.collectedSuns[i]->destinationX &&
                     level.collectedSuns[i]->y <= level.collectedSuns[i]->destinationY ) {
