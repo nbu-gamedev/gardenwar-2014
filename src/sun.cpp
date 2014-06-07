@@ -3,7 +3,7 @@
 Sun::Sun(int inX,int inY,int inDestinationX,int inDestinationY)
 {
     timeCreated = SDL_GetTicks();
-    sunSpeed = 10;
+    sunSpeed = 600;
     x = inX;
     y = inY;
     startX = x;

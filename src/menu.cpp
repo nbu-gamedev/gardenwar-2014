@@ -142,15 +142,16 @@ void Menu::start_game()
 
             }
             for (unsigned int i=0 ; i < level.collectedSuns.size(); i++) {
-
-                if (level.collectedSuns[i]->y >= level.collectedSuns[i]->destinationY ) {
+                double distancePast = (currentTime - level.collectedSuns[i]->timeCreated) / level.collectedSuns[i]->timeToTravel;
+                if (level.collectedSuns[i]->y >= level.collectedSuns[i]->destinationY-arc+5 ) {
                    // level.collectedSuns[i]->y -= 3;
-                   level.collectedSuns[i]->y -= (currentTime - level.collectedSuns[i]->timeCreated) / level.collectedSuns[i]->timeToTravel* level.collectedSuns[i]->startY;
+                   level.collectedSuns[i]->y = level.collectedSuns[i]->startY-(distancePast* level.collectedSuns[i]->startY)-arc*sin(distancePast*PI);
+                    cout << level.collectedSuns[i]->y << endl;
                 }
                 if (level.collectedSuns[i]->x >= level.collectedSuns[i]->destinationX ) {
                   //  level.collectedSuns[i]->x -= 3;
 
-                   level.collectedSuns[i]->x-= (currentTime - level.collectedSuns[i]->timeCreated) / level.collectedSuns[i]->timeToTravel* level.collectedSuns[i]->startX;
+                   level.collectedSuns[i]->x = level.collectedSuns[i]->startX - (distancePast* level.collectedSuns[i]->startX);
                 }
                 if (level.collectedSuns[i]->x <= level.collectedSuns[i]->destinationX &&
                     level.collectedSuns[i]->y <= level.collectedSuns[i]->destinationY ) {

@@ -8,7 +8,8 @@
 #endif
 #endif
 #define SUN_SIZE 62
-
+#define PI 3.14159265
+#define arc 75
 #include <cmath>
 class Sun
 {
