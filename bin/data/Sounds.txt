@@ -7,3 +7,4 @@ NULL
 ../bin/media/Sounds/crunching.wav
 ../bin/media/Sounds/pop.wav
 NULL
+../bin/media/Sounds/menu.wav

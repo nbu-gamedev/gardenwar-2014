@@ -65,13 +65,13 @@ public:
     void setSunCurrency(int val){sunCurrency+=val;}
     int getSunCurrency() {return sunCurrency;}
 private:
+    SDL_Window* Window;
 	SDL_Surface* peaImagePH;
 	SDL_Surface* peaShadowImagePH;
     SDL_Surface* sunImagePH;
     SDL_Surface* numbersSpite;
     SDL_Surface* shopSprite;
     SDL_Surface* ScreenSurface;
-    SDL_Window* Window;
     SDL_Surface* Background;
     SDL_Surface* gameOverScreen;
     SDL_Surface* winnerScreen;
