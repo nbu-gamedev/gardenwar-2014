@@ -151,6 +151,16 @@ void World::draw(int currTime)
 {
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
 
+// pea shadow
+
+    for(itPea=peas.begin();itPea!=peas.end();itPea++) {
+
+        int peaShadowPosX = (*itPea)->getCurrPeaPos(currTime);
+        int peaShadowPosY = offset_y*((*itPea)->y)+offset_y/2+gridStartY;
+		apply_surface(peaShadowPosX, peaShadowPosY, peaShadowImagePH, ScreenSurface);
+    }
+//-------
+
 
     for(int i=0; i<N; i++)
     {
@@ -165,15 +175,6 @@ void World::draw(int currTime)
     }
     // Samir's part:
 
-// pea shadow
-
-    for(itPea=peas.begin();itPea!=peas.end();itPea++) {
-
-        int peaShadowPosX = (*itPea)->getCurrPeaPos(currTime);
-        int peaShadowPosY = offset_y*((*itPea)->y)+offset_y/2+gridStartY;
-		apply_surface(peaShadowPosX, peaShadowPosY, peaShadowImagePH, ScreenSurface);
-    }
-//-------
 
     //using sprite sheet for the numbers 0-9
     SDL_Rect source;

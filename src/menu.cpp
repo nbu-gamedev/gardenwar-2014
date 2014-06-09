@@ -172,7 +172,7 @@ void Menu::start_game()
        // }
         if (currentTime >= lastTime + 1000)
         {
-            lastTime = currentTime;
+            lastTime += 1000;
 			level.update(currentTime);
 			timeToSun--;
 			if (timeToSun<=0){
