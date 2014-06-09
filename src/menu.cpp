@@ -1,6 +1,7 @@
 #include "menu.h"
 #define SCREEN_WIDTH 1380
 #define SCREEN_HEIGHT 600
+#define PI 3.14159265
 
 Menu::Menu()
 {
@@ -130,7 +131,9 @@ void Menu::start_game()
 
         if (currentTime >= lastTimeMoved +30) {
             for (unsigned int i=0 ; i < level.suns.size(); i++) {
-                if (level.suns[i]->x <= level.suns[i]->destinationX ) {
+                if (level.suns[i]->x <= level.suns[i]->destinationX) {
+                    level.suns[i]->y -= sin(((SDL_GetTicks() - level.suns[i]->timeCreated) * PI) / 180);
+                    cout <<sin(((SDL_GetTicks() - level.suns[i]->timeCreated) * PI) / 180) << endl;
                     level.suns[i]->x += 3;
                     level.suns[i]->rightX += 3;
                 }
