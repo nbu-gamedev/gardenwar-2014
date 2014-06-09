@@ -126,12 +126,12 @@ void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time
             SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
             if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
             {
-                counter_test += 1;
                 time_picture_changed = current_time;
-                if(counter_test == Images.number_of_pictures[act]+1)
+                if(counter_test == Images.number_of_pictures[act])
                 {
                     counter_test -= Images.number_of_pictures[act];
                 }
+                counter_test++;
             }
         }
         else
@@ -143,12 +143,12 @@ void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time
         }
         if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
         {
-            counter_test += 1;
             time_picture_changed = current_time;
-            if(counter_test == Images.number_of_pictures[act]+1)
+            if(counter_test == Images.number_of_pictures[act])
             {
                 counter_test -= Images.number_of_pictures[act];
             }
+            counter_test++;
         }
     }
     else
