@@ -495,6 +495,7 @@ void World::updateSuns() {
 }
 
 void World::createDefender(SDL_Event &event){
+
     if (ShopItem[PEASHOOTER].clicked){
         createPeashooter(event);
         return;

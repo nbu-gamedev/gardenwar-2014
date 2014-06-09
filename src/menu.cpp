@@ -131,9 +131,9 @@ void Menu::start_game()
 
         if (currentTime >= lastTimeMoved +30) {
             for (unsigned int i=0 ; i < level.suns.size(); i++) {
-                if (level.suns[i]->x <= level.suns[i]->destinationX) {
-                    level.suns[i]->y -= sin(((SDL_GetTicks() - level.suns[i]->timeCreated) * PI) / 180);
-                    cout <<sin(((SDL_GetTicks() - level.suns[i]->timeCreated) * PI) / 180) << endl;
+                if (level.suns[i]->x <= level.suns[i]->destinationX || level.suns[i]->y <= level.suns[i]->destinationY ) {
+                    double distancePast = (currentTime - level.suns[i]->timeCreated) / level.suns[i]->timeToTravel;
+                    level.suns[i]->y = level.suns[i]->startY - ((arc)*sin(distancePast * PI));
                     level.suns[i]->x += 3;
                     level.suns[i]->rightX += 3;
                 }
