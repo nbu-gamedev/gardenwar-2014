@@ -27,8 +27,8 @@ World::World(){
 
     peaSpeed = 0;
 
-    sunSpawnTime = 5; // it saves time whale testing, should be 15 change it if its bothering you.
-    sunCurrency = 300;
+    sunSpawnTime = 15; // it saves time whale testing, should be 15 change it if its bothering you.
+    sunCurrency = 150;
     //init the shop struct
     clickedOnShop = false;
     ShopItem[PEASHOOTER].cost = 100;

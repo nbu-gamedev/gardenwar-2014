@@ -175,8 +175,8 @@ Peashooter::Peashooter(int x){
     act = ATTACK;
     speed = 1;
     health = 55;
-    counter=0;
-    damage = 20;
+    counter = 0;
+    damage = 10;
     counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
@@ -228,7 +228,7 @@ Sunflower::Sunflower(int x){
     type = SUNFLOWER;
     act = STAY;
     health = 30;
-    counter = 0;
+    counter = 1;
     speed = 12;
     damage = 0;
     counter_test = 0;
