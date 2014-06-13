@@ -16,6 +16,7 @@ void menu_factory(Menu &Game)
     Game.title_screen = SDL_LoadBMP("../bin/media/Menu_Screen.bmp");
     Game.ScreenSurface = NULL;
     Game.Window = SDL_CreateWindow("Plants Vs Zombies", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    Game.menu_music = Mix_LoadMUS("../bin/media/Sounds/menu.wav");
 }
 
 void Menu::handle_menu()
@@ -65,6 +66,11 @@ void Menu::handle_menu()
             if(show_inst == true)
                 show_instructions();
             SDL_UpdateWindowSurface(Window);
+
+            if(Mix_PlayingMusic() == 0)
+            {
+                Mix_PlayMusic(menu_music, -1);
+            }
 		}
     }
     SDL_Quit();
@@ -131,9 +137,9 @@ void Menu::start_game()
 
         if (currentTime >= lastTimeMoved +30) {
             for (unsigned int i=0 ; i < level.suns.size(); i++) {
-                if (level.suns[i]->x <= level.suns[i]->destinationX || level.suns[i]->y <= level.suns[i]->destinationY ) {
+                if (level.suns[i]->x <= level.suns[i]->destinationX && level.suns[i]->y <= level.suns[i]->destinationY ) {
                     double distancePast = (currentTime - level.suns[i]->timeCreated) / level.suns[i]->timeToTravel;
-                    level.suns[i]->y = level.suns[i]->startY - ((arc)*sin(distancePast * PI));
+                    level.suns[i]->y = level.suns[i]->startY - ((arc)*(sin(distancePast * PI)));
                     level.suns[i]->x += 3;
                     level.suns[i]->rightX += 3;
                 }

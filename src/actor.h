@@ -30,6 +30,9 @@ protected:
 
     int posX;
 
+    int frame;
+    int last_act;
+    int time_created;
     int counter_test;
     int mover;
     int time_picture_changed;
