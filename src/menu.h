@@ -15,6 +15,7 @@ private:
     SDL_Surface* ScreenSurface;
     SDL_Surface* title_screen;
     SDL_Surface* instructions;
+    Mix_Music* menu_music;
 friend void menu_factory(Menu &Game);
 };
 
