@@ -116,9 +116,7 @@ void World::createWorld(){
     Background = SDL_LoadBMP(work_string.c_str());
     getline(read_file, work_string);
     gameOverScreen = SDL_LoadBMP("../bin/media/gameOver.bmp");
-    SDL_SetColorKey(gameOverScreen, SDL_TRUE, SDL_MapRGB(gameOverScreen->format, 255, 255, 255));
-    winnerScreen = SDL_LoadBMP("../bin/media/you_win.bmp");
-    SDL_SetColorKey(winnerScreen, SDL_TRUE, SDL_MapRGB(winnerScreen->format, 255, 255, 255));
+    winnerScreen = SDL_LoadBMP("../bin/media/winnerScreen.bmp");
     SDL_BlitSurface(Background, NULL, ScreenSurface, NULL);
     SDL_UpdateWindowSurface(Window);
     getline(read_file, work_string);
@@ -460,7 +458,7 @@ void World::peaShooting(int currTime){
 
 void World::gameOver(bool win){
     if (win){
-        apply_surface(380, 190, winnerScreen, ScreenSurface);
+        // apply_surface(380, 190, winnerScreen, ScreenSurface);
         Mix_PauseMusic();
         Sounds.play_win_sound();
     }

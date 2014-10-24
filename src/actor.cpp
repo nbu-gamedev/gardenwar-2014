@@ -17,7 +17,7 @@ void Actor::setAct(actorAct act,int x){
     this->act=act;
     if (act==DIE) counter = 0;
     else counter = -1;
-    frame = 0;
+    counter_test = 0;
 }
 
 int Actor::getCounter(){
@@ -38,12 +38,12 @@ int Actor::getDamage(){
 
 int Actor::return_counter()
 {
-    return frame;
+    return counter_test;
 }
 
 void Actor::fill_counter(int mover)
 {
-    frame += mover;
+    counter_test += mover;
 }
 
 int Actor::return_mover()
@@ -73,12 +73,10 @@ Zombie::Zombie(int creationTime){
     health = 100;
     counter = 0;
     damage = 25;
-    frame = 0;
+    counter_test = 0;
     mover = 1;
     posX = 915; // (endGrid - zombie) gore dolu.... !trqbva da byde promeneno
     timeMoved = creationTime;
-    last_act = MOVE;
-    time_created = SDL_GetTicks();
     time_picture_changed = SDL_GetTicks();
 }
 
@@ -91,7 +89,7 @@ void Zombie::setAct(actorAct act, int currTime){
     }
     else counter = -1;
 
-    frame = 0;
+    counter_test = 0;
     this->act=act;
 }
 
@@ -109,12 +107,6 @@ bool Zombie::timeToAct(){
 void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time)
 {
     int current_time = SDL_GetTicks();
-    if(last_act != act)
-    {
-        time_created = SDL_GetTicks();
-        last_act = act;
-    }
-    frame = ((SDL_GetTicks() - time_created) % ((1000 / Images.frames_per_second) * Images.number_of_pictures[act])) / (1000 / Images.frames_per_second);
     SDL_Rect destination;
     SDL_Rect image;
     destination.h = 0;
@@ -122,23 +114,41 @@ void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time
     image.h = Images.image_h;
     image.w = Images.image_w;
     image.x = 0;
-    image.y = Images.image_h * frame;
+    image.y = Images.image_h * counter_test;
 
     if(act == MOVE)
     {
         if(counter % 8 < 4)
         {
-            destination.x = base_x + j*offset_x - 30 + 0.4 * frame;
+            destination.x = base_x + j*offset_x - 30 + 0.4 * counter_test;
+            destination.y = base_y + i*offset_y - 50;
+            SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
+            SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+            if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
+            {
+                time_picture_changed = current_time;
+                if(counter_test == Images.number_of_pictures[act])
+                {
+                    counter_test -= Images.number_of_pictures[act];
+                }
+                counter_test++;
+            }
+        }
+        else
+        {
+            destination.x = base_x + j*offset_x - 80 + 0.55 * counter_test;
             destination.y = base_y + i*offset_y - 50;
             SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
             SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
         }
-        else
+        if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
         {
-            destination.x = base_x + j*offset_x - 80 + 0.55 * frame;
-            destination.y = base_y + i*offset_y - 50;
-            SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
-            SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+            time_picture_changed = current_time;
+            if(counter_test == Images.number_of_pictures[act])
+            {
+                counter_test -= Images.number_of_pictures[act];
+            }
+            counter_test++;
         }
     }
     else
@@ -147,6 +157,15 @@ void Zombie::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int time
         destination.y = base_y + i*offset_y - 50;
         SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
         SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
+        if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
+        {
+            counter_test += 1;
+            if(counter_test == Images.number_of_pictures[act])
+            {
+                counter_test -= Images.number_of_pictures[act];
+            }
+            time_picture_changed = current_time;
+        }
     }
 }
 
@@ -158,7 +177,7 @@ Peashooter::Peashooter(int x){
     health = 55;
     counter = 0;
     damage = 10;
-    frame = 0;
+    counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
     time_picture_changed = SDL_GetTicks();
@@ -172,7 +191,7 @@ Wallnut::Wallnut(int x){
     counter = 0;
     speed = 10;
     damage = 0;
-    frame = 0;
+    counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
     time_picture_changed = SDL_GetTicks();
@@ -183,7 +202,7 @@ void Wallnut::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int tim
     int current_time = SDL_GetTicks();
     if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
     {
-        frame += mover;
+        counter_test += mover;
         time_picture_changed = current_time;
     }
     SDL_Rect destination;
@@ -195,12 +214,12 @@ void Wallnut::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int tim
     image.h = Images.image_h;
     image.w = Images.image_w;
     image.x = 0;
-    image.y = Images.image_h * frame;
+    image.y = Images.image_h * counter_test;
     SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
     SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-    if(frame == Images.number_of_pictures[act])
+    if(counter_test == Images.number_of_pictures[act])
         mover = -1;
-    if(frame == 0)
+    if(counter_test == 0)
         mover = 1;
 }
 
@@ -212,7 +231,7 @@ Sunflower::Sunflower(int x){
     counter = 1;
     speed = 12;
     damage = 0;
-    frame = 0;
+    counter_test = 0;
     mover = 1;
     posX = base_x + x*offset_x;
     time_picture_changed = SDL_GetTicks();
@@ -223,7 +242,7 @@ void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int t
     int current_time = SDL_GetTicks();
     if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
     {
-        frame += mover;
+        counter_test += mover;
         time_picture_changed = current_time;
     }
     SDL_Rect destination;
@@ -235,12 +254,12 @@ void Sunflower::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int t
     image.h = Images.image_h;
     image.w = Images.image_w;
     image.x = 0;
-    image.y = Images.image_h * frame;
+    image.y = Images.image_h * counter_test;
     SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
     SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-    if(frame == Images.number_of_pictures[act])
+    if(counter_test == Images.number_of_pictures[act])
         mover = -1;
-    if(frame == 0)
+    if(counter_test == 0)
         mover = 1;
 }
 
@@ -249,7 +268,7 @@ void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int 
     int current_time = SDL_GetTicks();
     if(current_time >= time_picture_changed + 1000 / Images.frames_per_second)
     {
-        frame += mover;
+        counter_test += mover;
         time_picture_changed = current_time;
     }
     SDL_Rect destination;
@@ -261,12 +280,12 @@ void Peashooter::draw_self(int j, int i, Image Images, SDL_Surface* Screen, int 
     image.h = Images.image_h;
     image.w = Images.image_w;
     image.x = 0;
-    image.y = Images.image_h * frame;
+    image.y = Images.image_h * counter_test;
     SDL_SetColorKey(Images.animation[act], SDL_TRUE, SDL_MapRGB(Images.animation[act]->format, 0, 255, 0));
     SDL_BlitSurface(Images.animation[act], &image, Screen, &destination);
-    if(frame >= Images.number_of_pictures[act])
+    if(counter_test >= Images.number_of_pictures[act])
         mover = -1;
-    if(frame <= 0)
+    if(counter_test <= 0)
         mover = 1;
 }
 
